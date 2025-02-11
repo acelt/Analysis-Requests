@@ -1,0 +1,66 @@
+---
+title: "Virgina Mountain Weighted Analysis"
+output:: html
+---
+
+```{r setup, include=FALSE, echo = FALSE}
+library(flexdashboard)
+library(tidyverse)
+```
+
+### These are the results of the proportional area estimate analysis. Error bars represent 80% confidence intervals.
+
+```{r, echo = FALSE}
+analysis_all <- read.csv("C:\\Users\\alaurencetraynor\\Documents\\2020\\Analysis\\NV\\Virginia Mountain Analysis\\outputs\\vmt_analysis_all2020-11-13.csv", check.names = FALSE)
+
+analysis_all$Rating <- as.factor(analysis_all$Rating)
+analysis_all$Rating <-  factor(analysis_all$Rating, levels = c("Unsuitable", "Marginal","Suitable"))
+analysis_all <- analysis_all[order(analysis_all$Rating),]
+```
+
+
+```{r, echo = FALSE, include = FALSE, warning=FALSE}
+library(plotly)
+my.palette <- c("red","yellow","green")
+  
+p <- ggplot(data = analysis_all, aes(x = `Estimated hectares`, y=Rating, fill = Rating)) +
+  geom_col(position = "dodge", alpha = 0.5) +
+  facet_wrap(.~`Habitat Type`, nrow = 3)+
+  theme_minimal(base_size = 14, base_family = "serif")+
+  scale_fill_manual(values = my.palette)+
+  theme(axis.text.x = element_text(angle = 20),
+        panel.spacing.x = unit(0.5, units = "in"),
+        axis.title.y = element_blank(),
+        strip.text = element_text(face = "bold", size = 14))+
+  geom_errorbarh(aes(xmin = `Lower confidence bound of hectares (80%, Goodman multinomial) `, xmax = `Upper confidence bound of hectares (80%, Goodman multinomial) `),position = "dodge", alpha = 0.5, height = 0.3)
+p
+#ggsave("analysis_all.png", device = "png", dpi = 500)
+```
+
+```{r, echo = FALSE, warning=FALSE}
+p
+```
+
+***
+
+For more informarion on plotly graphics go to: https://plot.ly/ggplot2/
+
+***
+
+### Tabular Results
+
+```{r, echo=FALSE}
+analysis_all <- analysis_all[order(analysis_all$`Habitat Type`),]
+knitr::kable(analysis_all)
+```
+
+***
+The analysis process uses spsurvey and the aim.analysis R packages.
+
+For more details on the spsurvey R package go to: https://cran.r-project.org/web/packages/spsurvey/spsurvey.pdf
+
+For more details on the aim.analysis R package go to:
+https://github.com/nstauffer/aim.analysis
+
+***
+

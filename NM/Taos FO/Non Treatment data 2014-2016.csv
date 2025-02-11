@@ -1,0 +1,829 @@
+Ecol_Site,Treatment,Site,Plot,Indicator,1stHitAvg,AnyHitAvg
+ UNKNOWN,NonTreatment,Non Treatment 2014,Breaks - 112,Annual,0.087,0.093
+ UNKNOWN,NonTreatment,Non Treatment 2014,Breaks - 112,Bare Soil,0,0.1
+ UNKNOWN,NonTreatment,Non Treatment 2014,Breaks - 112,Forb/herb (Invasive),0.087,0.087
+ UNKNOWN,NonTreatment,Non Treatment 2014,Breaks - 112,Graminoid (Perennial),0.72,0.753
+ UNKNOWN,NonTreatment,Non Treatment 2014,Breaks - 112,Shrub (All),0.033,0.033
+ UNKNOWN,NonTreatment,Non Treatment 2014,Breaks - 112,Sub-Shrub (All),0.007,0.007
+R036XB006NM,NonTreatment,Non Treatment 2014,Breaks - 113,Annual,0,0
+R036XB006NM,NonTreatment,Non Treatment 2014,Breaks - 113,Bare Soil,0,0.327
+R036XB006NM,NonTreatment,Non Treatment 2014,Breaks - 113,Forb/herb (Invasive),0,0
+R036XB006NM,NonTreatment,Non Treatment 2014,Breaks - 113,Graminoid (Perennial),0.36,0.487
+R036XB006NM,NonTreatment,Non Treatment 2014,Breaks - 113,Shrub (All),0.24,0.247
+R036XB006NM,NonTreatment,Non Treatment 2014,Breaks - 113,Sub-Shrub (All),0.02,0.02
+R051XA008NM,NonTreatment,Non Treatment 2014,Breaks - 115,Annual,0.087,0.093
+R051XA008NM,NonTreatment,Non Treatment 2014,Breaks - 115,Bare Soil,0,0.38
+R051XA008NM,NonTreatment,Non Treatment 2014,Breaks - 115,Forb/herb (Invasive),0.087,0.093
+R051XA008NM,NonTreatment,Non Treatment 2014,Breaks - 115,Graminoid (Perennial),0.32,0.347
+R051XA008NM,NonTreatment,Non Treatment 2014,Breaks - 115,Shrub (All),0.04,0.04
+R051XA008NM,NonTreatment,Non Treatment 2014,Breaks - 115,Sub-Shrub (All),0.093,0.093
+R036XB001NM,NonTreatment,Non Treatment 2015,Breaks 001,Annual,0,0.007
+R036XB001NM,NonTreatment,Non Treatment 2015,Breaks 001,Bare Soil,0,0.047
+R036XB001NM,NonTreatment,Non Treatment 2015,Breaks 001,Forb/herb (Invasive),0,0
+R036XB001NM,NonTreatment,Non Treatment 2015,Breaks 001,Graminoid (Perennial),0.3,0.34
+R036XB001NM,NonTreatment,Non Treatment 2015,Breaks 001,Shrub (All),0.04,0.04
+R036XB001NM,NonTreatment,Non Treatment 2015,Breaks 001,Sub-Shrub (All),0.007,0.007
+R036XB001NM,NonTreatment,Non Treatment 2015,Breaks 002,Annual,0.013,0.013
+R036XB001NM,NonTreatment,Non Treatment 2015,Breaks 002,Bare Soil,0,0.14
+R036XB001NM,NonTreatment,Non Treatment 2015,Breaks 002,Forb/herb (Invasive),0,0
+R036XB001NM,NonTreatment,Non Treatment 2015,Breaks 002,Graminoid (Perennial),0.367,0.433
+R036XB001NM,NonTreatment,Non Treatment 2015,Breaks 002,Shrub (All),0.167,0.167
+R036XB001NM,NonTreatment,Non Treatment 2015,Breaks 002,Sub-Shrub (All),0.013,0.027
+ UNKNOWN,NonTreatment,Non Treatment 2015,Breaks 004,Annual,0.027,0.027
+ UNKNOWN,NonTreatment,Non Treatment 2015,Breaks 004,Bare Soil,0,0.367
+ UNKNOWN,NonTreatment,Non Treatment 2015,Breaks 004,Forb/herb (Invasive),0.027,0.027
+ UNKNOWN,NonTreatment,Non Treatment 2015,Breaks 004,Graminoid (Perennial),0.253,0.3
+ UNKNOWN,NonTreatment,Non Treatment 2015,Breaks 004,Shrub (All),0.147,0.147
+ UNKNOWN,NonTreatment,Non Treatment 2015,Breaks 004,Sub-Shrub (All),0.087,0.087
+R036XB006NM,NonTreatment,Pre-Treatment 2016,Dagget 15,Annual,0.013,0.02
+R036XB006NM,NonTreatment,Pre-Treatment 2016,Dagget 15,Bare Soil,0,0.287
+R036XB006NM,NonTreatment,Pre-Treatment 2016,Dagget 15,Forb/herb (Invasive),0,0
+R036XB006NM,NonTreatment,Pre-Treatment 2016,Dagget 15,Graminoid (Perennial),0.473,0.56
+R036XB006NM,NonTreatment,Pre-Treatment 2016,Dagget 15,Shrub (All),0.113,0.113
+R036XB006NM,NonTreatment,Pre-Treatment 2016,Dagget 15,Sub-Shrub (All),0,0
+F036XA136NM,NonTreatment,Non Treatment 2016,FO-001,Annual,0,0
+F036XA136NM,NonTreatment,Non Treatment 2016,FO-001,Bare Soil,0,0.107
+F036XA136NM,NonTreatment,Non Treatment 2016,FO-001,Forb/herb (Invasive),0,0
+F036XA136NM,NonTreatment,Non Treatment 2016,FO-001,Graminoid (Perennial),0.307,0.32
+F036XA136NM,NonTreatment,Non Treatment 2016,FO-001,Shrub (All),0,0
+F036XA136NM,NonTreatment,Non Treatment 2016,FO-001,Sub-Shrub (All),0.007,0.013
+F036XB133NM,NonTreatment,Non Treatment 2016,FO-003,Annual,0.013,0.02
+F036XB133NM,NonTreatment,Non Treatment 2016,FO-003,Bare Soil,0,0.033
+F036XB133NM,NonTreatment,Non Treatment 2016,FO-003,Forb/herb (Invasive),0,0
+F036XB133NM,NonTreatment,Non Treatment 2016,FO-003,Graminoid (Perennial),0.093,0.14
+F036XB133NM,NonTreatment,Non Treatment 2016,FO-003,Shrub (All),0.02,0.027
+F036XB133NM,NonTreatment,Non Treatment 2016,FO-003,Sub-Shrub (All),0.007,0.007
+ UNKNOWN,NonTreatment,Non Treatment 2016,FO-015,Annual,0,0
+ UNKNOWN,NonTreatment,Non Treatment 2016,FO-015,Bare Soil,0,0.273
+ UNKNOWN,NonTreatment,Non Treatment 2016,FO-015,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2016,FO-015,Graminoid (Perennial),0.013,0.02
+ UNKNOWN,NonTreatment,Non Treatment 2016,FO-015,Shrub (All),0.047,0.047
+ UNKNOWN,NonTreatment,Non Treatment 2016,FO-015,Sub-Shrub (All),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2016,FO-019,Annual,0,0
+ UNKNOWN,NonTreatment,Non Treatment 2016,FO-019,Bare Soil,0,0.08
+ UNKNOWN,NonTreatment,Non Treatment 2016,FO-019,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2016,FO-019,Graminoid (Perennial),0.04,0.067
+ UNKNOWN,NonTreatment,Non Treatment 2016,FO-019,Shrub (All),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2016,FO-019,Sub-Shrub (All),0,0.007
+R051XA006NM,NonTreatment,Non Treatment 2016,GR_HILL-047,Annual,0.007,0.007
+R051XA006NM,NonTreatment,Non Treatment 2016,GR_HILL-047,Bare Soil,0,0.193
+R051XA006NM,NonTreatment,Non Treatment 2016,GR_HILL-047,Forb/herb (Invasive),0,0
+R051XA006NM,NonTreatment,Non Treatment 2016,GR_HILL-047,Graminoid (Perennial),0.14,0.14
+R051XA006NM,NonTreatment,Non Treatment 2016,GR_HILL-047,Shrub (All),0,0
+R051XA006NM,NonTreatment,Non Treatment 2016,GR_HILL-047,Sub-Shrub (All),0.027,0.027
+R036XB132NM,NonTreatment,Non Treatment 2016,GR_HILL-048,Annual,0.007,0.007
+R036XB132NM,NonTreatment,Non Treatment 2016,GR_HILL-048,Bare Soil,0,0.527
+R036XB132NM,NonTreatment,Non Treatment 2016,GR_HILL-048,Forb/herb (Invasive),0,0
+R036XB132NM,NonTreatment,Non Treatment 2016,GR_HILL-048,Graminoid (Perennial),0.14,0.14
+R036XB132NM,NonTreatment,Non Treatment 2016,GR_HILL-048,Shrub (All),0.007,0.007
+R036XB132NM,NonTreatment,Non Treatment 2016,GR_HILL-048,Sub-Shrub (All),0.033,0.033
+R036XB132NM,NonTreatment,Non Treatment 2016,GR_HILL-049,Annual,0.007,0.007
+R036XB132NM,NonTreatment,Non Treatment 2016,GR_HILL-049,Bare Soil,0,0.127
+R036XB132NM,NonTreatment,Non Treatment 2016,GR_HILL-049,Forb/herb (Invasive),0,0
+R036XB132NM,NonTreatment,Non Treatment 2016,GR_HILL-049,Graminoid (Perennial),0.347,0.36
+R036XB132NM,NonTreatment,Non Treatment 2016,GR_HILL-049,Shrub (All),0,0
+R036XB132NM,NonTreatment,Non Treatment 2016,GR_HILL-049,Sub-Shrub (All),0.027,0.033
+R036XB132NM,NonTreatment,Non Treatment 2016,GR_HILL-050,Annual,0.007,0.007
+R036XB132NM,NonTreatment,Non Treatment 2016,GR_HILL-050,Bare Soil,0,0.3
+R036XB132NM,NonTreatment,Non Treatment 2016,GR_HILL-050,Forb/herb (Invasive),0,0
+R036XB132NM,NonTreatment,Non Treatment 2016,GR_HILL-050,Graminoid (Perennial),0.22,0.22
+R036XB132NM,NonTreatment,Non Treatment 2016,GR_HILL-050,Shrub (All),0,0
+R036XB132NM,NonTreatment,Non Treatment 2016,GR_HILL-050,Sub-Shrub (All),0.013,0.02
+ UNKNOWN,NonTreatment,Non Treatment 2015,Gravelly 017,Annual,0.02,0.04
+ UNKNOWN,NonTreatment,Non Treatment 2015,Gravelly 017,Bare Soil,0,0.327
+ UNKNOWN,NonTreatment,Non Treatment 2015,Gravelly 017,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2015,Gravelly 017,Graminoid (Perennial),0.093,0.12
+ UNKNOWN,NonTreatment,Non Treatment 2015,Gravelly 017,Shrub (All),0.16,0.16
+ UNKNOWN,NonTreatment,Non Treatment 2015,Gravelly 017,Sub-Shrub (All),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2015,Gravelly 020,Annual,0,0
+ UNKNOWN,NonTreatment,Non Treatment 2015,Gravelly 020,Bare Soil,0,0.193
+ UNKNOWN,NonTreatment,Non Treatment 2015,Gravelly 020,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2015,Gravelly 020,Graminoid (Perennial),0.093,0.127
+ UNKNOWN,NonTreatment,Non Treatment 2015,Gravelly 020,Shrub (All),0.433,0.433
+ UNKNOWN,NonTreatment,Non Treatment 2015,Gravelly 020,Sub-Shrub (All),0.093,0.133
+R036XB132NM,NonTreatment,Non Treatment 2015,Gravelly 021,Annual,0,0
+R036XB132NM,NonTreatment,Non Treatment 2015,Gravelly 021,Bare Soil,0,0.2
+R036XB132NM,NonTreatment,Non Treatment 2015,Gravelly 021,Forb/herb (Invasive),0,0
+R036XB132NM,NonTreatment,Non Treatment 2015,Gravelly 021,Graminoid (Perennial),0.173,0.18
+R036XB132NM,NonTreatment,Non Treatment 2015,Gravelly 021,Shrub (All),0,0
+R036XB132NM,NonTreatment,Non Treatment 2015,Gravelly 021,Sub-Shrub (All),0.027,0.033
+R035XG114NM,NonTreatment,Non Treatment 2015,Gravelly 022,Annual,0,0
+R035XG114NM,NonTreatment,Non Treatment 2015,Gravelly 022,Bare Soil,0,0.093
+R035XG114NM,NonTreatment,Non Treatment 2015,Gravelly 022,Forb/herb (Invasive),0,0
+R035XG114NM,NonTreatment,Non Treatment 2015,Gravelly 022,Graminoid (Perennial),0.38,0.447
+R035XG114NM,NonTreatment,Non Treatment 2015,Gravelly 022,Shrub (All),0,0
+R035XG114NM,NonTreatment,Non Treatment 2015,Gravelly 022,Sub-Shrub (All),0,0
+R051XA001NM,NonTreatment,Non Treatment 2015,Gravelly 025,Annual,0,0.007
+R051XA001NM,NonTreatment,Non Treatment 2015,Gravelly 025,Bare Soil,0,0.22
+R051XA001NM,NonTreatment,Non Treatment 2015,Gravelly 025,Forb/herb (Invasive),0,0
+R051XA001NM,NonTreatment,Non Treatment 2015,Gravelly 025,Graminoid (Perennial),0.373,0.38
+R051XA001NM,NonTreatment,Non Treatment 2015,Gravelly 025,Shrub (All),0.033,0.04
+R051XA001NM,NonTreatment,Non Treatment 2015,Gravelly 025,Sub-Shrub (All),0.027,0.04
+R036XB132NM,NonTreatment,Non Treatment 2015,Gravelly 028,Annual,0.02,0.027
+R036XB132NM,NonTreatment,Non Treatment 2015,Gravelly 028,Bare Soil,0,0.38
+R036XB132NM,NonTreatment,Non Treatment 2015,Gravelly 028,Forb/herb (Invasive),0,0
+R036XB132NM,NonTreatment,Non Treatment 2015,Gravelly 028,Graminoid (Perennial),0.38,0.393
+R036XB132NM,NonTreatment,Non Treatment 2015,Gravelly 028,Shrub (All),0,0
+R036XB132NM,NonTreatment,Non Treatment 2015,Gravelly 028,Sub-Shrub (All),0.007,0.027
+R036XB007NM,NonTreatment,Non Treatment 2014,Gravelly Loam - 51,Annual,0.06,0.067
+R036XB007NM,NonTreatment,Non Treatment 2014,Gravelly Loam - 51,Bare Soil,0,0.467
+R036XB007NM,NonTreatment,Non Treatment 2014,Gravelly Loam - 51,Forb/herb (Invasive),0.013,0.013
+R036XB007NM,NonTreatment,Non Treatment 2014,Gravelly Loam - 51,Graminoid (Perennial),0.16,0.207
+R036XB007NM,NonTreatment,Non Treatment 2014,Gravelly Loam - 51,Shrub (All),0.033,0.033
+R036XB007NM,NonTreatment,Non Treatment 2014,Gravelly Loam - 51,Sub-Shrub (All),0.067,0.073
+ UNKNOWN,NonTreatment,Non Treatment 2014,Gravelly Loam - 53,Annual,0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,Gravelly Loam - 53,Bare Soil,0,0.273
+ UNKNOWN,NonTreatment,Non Treatment 2014,Gravelly Loam - 53,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,Gravelly Loam - 53,Graminoid (Perennial),0.193,0.24
+ UNKNOWN,NonTreatment,Non Treatment 2014,Gravelly Loam - 53,Shrub (All),0.04,0.04
+ UNKNOWN,NonTreatment,Non Treatment 2014,Gravelly Loam - 53,Sub-Shrub (All),0.3,0.32
+R036XB006NM,NonTreatment,Non Treatment 2014,Gravelly Loam - 54,Annual,0,0
+R036XB006NM,NonTreatment,Non Treatment 2014,Gravelly Loam - 54,Bare Soil,0,0.213
+R036XB006NM,NonTreatment,Non Treatment 2014,Gravelly Loam - 54,Forb/herb (Invasive),0,0
+R036XB006NM,NonTreatment,Non Treatment 2014,Gravelly Loam - 54,Graminoid (Perennial),0.26,0.273
+R036XB006NM,NonTreatment,Non Treatment 2014,Gravelly Loam - 54,Shrub (All),0.1,0.107
+R036XB006NM,NonTreatment,Non Treatment 2014,Gravelly Loam - 54,Sub-Shrub (All),0.12,0.14
+ UNKNOWN,NonTreatment,Non Treatment 2014,Gravelly Loam - 55,Annual,0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,Gravelly Loam - 55,Bare Soil,0,0.353
+ UNKNOWN,NonTreatment,Non Treatment 2014,Gravelly Loam - 55,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,Gravelly Loam - 55,Graminoid (Perennial),0.2,0.227
+ UNKNOWN,NonTreatment,Non Treatment 2014,Gravelly Loam - 55,Shrub (All),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,Gravelly Loam - 55,Sub-Shrub (All),0.213,0.227
+ UNKNOWN,NonTreatment,Non Treatment 2014,Gravelly Slopes - 31,Annual,0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,Gravelly Slopes - 31,Bare Soil,0,0.453
+ UNKNOWN,NonTreatment,Non Treatment 2014,Gravelly Slopes - 31,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,Gravelly Slopes - 31,Graminoid (Perennial),0.053,0.067
+ UNKNOWN,NonTreatment,Non Treatment 2014,Gravelly Slopes - 31,Shrub (All),0.247,0.247
+ UNKNOWN,NonTreatment,Non Treatment 2014,Gravelly Slopes - 31,Sub-Shrub (All),0.027,0.033
+R036XA004NM,NonTreatment,Non Treatment 2014,Gravelly Slopes - 32,Annual,0,0
+R036XA004NM,NonTreatment,Non Treatment 2014,Gravelly Slopes - 32,Bare Soil,0,0.18
+R036XA004NM,NonTreatment,Non Treatment 2014,Gravelly Slopes - 32,Forb/herb (Invasive),0,0
+R036XA004NM,NonTreatment,Non Treatment 2014,Gravelly Slopes - 32,Graminoid (Perennial),0.113,0.173
+R036XA004NM,NonTreatment,Non Treatment 2014,Gravelly Slopes - 32,Shrub (All),0.5,0.513
+R036XA004NM,NonTreatment,Non Treatment 2014,Gravelly Slopes - 32,Sub-Shrub (All),0,0
+R036XB006NM,NonTreatment,Non Treatment 2014,Gravelly Slopes - 33,Annual,0.007,0.007
+R036XB006NM,NonTreatment,Non Treatment 2014,Gravelly Slopes - 33,Bare Soil,0,0.093
+R036XB006NM,NonTreatment,Non Treatment 2014,Gravelly Slopes - 33,Forb/herb (Invasive),0,0
+R036XB006NM,NonTreatment,Non Treatment 2014,Gravelly Slopes - 33,Graminoid (Perennial),0.333,0.547
+R036XB006NM,NonTreatment,Non Treatment 2014,Gravelly Slopes - 33,Shrub (All),0.373,0.373
+R036XB006NM,NonTreatment,Non Treatment 2014,Gravelly Slopes - 33,Sub-Shrub (All),0.027,0.033
+R036XA004NM,NonTreatment,Non Treatment 2014,Gravelly Slopes - 34,Annual,0.033,0.047
+R036XA004NM,NonTreatment,Non Treatment 2014,Gravelly Slopes - 34,Bare Soil,0,0.287
+R036XA004NM,NonTreatment,Non Treatment 2014,Gravelly Slopes - 34,Forb/herb (Invasive),0,0
+R036XA004NM,NonTreatment,Non Treatment 2014,Gravelly Slopes - 34,Graminoid (Perennial),0.233,0.293
+R036XA004NM,NonTreatment,Non Treatment 2014,Gravelly Slopes - 34,Shrub (All),0.167,0.187
+R036XA004NM,NonTreatment,Non Treatment 2014,Gravelly Slopes - 34,Sub-Shrub (All),0.02,0.02
+ UNKNOWN,NonTreatment,Non Treatment 2014,Gravelly Slopes - 35,Annual,0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,Gravelly Slopes - 35,Bare Soil,0,0.427
+ UNKNOWN,NonTreatment,Non Treatment 2014,Gravelly Slopes - 35,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,Gravelly Slopes - 35,Graminoid (Perennial),0.107,0.113
+ UNKNOWN,NonTreatment,Non Treatment 2014,Gravelly Slopes - 35,Shrub (All),0.22,0.22
+ UNKNOWN,NonTreatment,Non Treatment 2014,Gravelly Slopes - 35,Sub-Shrub (All),0.027,0.027
+R036XB006NM,NonTreatment,Non Treatment 2015,Hospital Petaca 02,Annual,0.02,0.02
+R036XB006NM,NonTreatment,Non Treatment 2015,Hospital Petaca 02,Bare Soil,0,0.293
+R036XB006NM,NonTreatment,Non Treatment 2015,Hospital Petaca 02,Forb/herb (Invasive),0,0
+R036XB006NM,NonTreatment,Non Treatment 2015,Hospital Petaca 02,Graminoid (Perennial),0.327,0.427
+R036XB006NM,NonTreatment,Non Treatment 2015,Hospital Petaca 02,Shrub (All),0.153,0.167
+R036XB006NM,NonTreatment,Non Treatment 2015,Hospital Petaca 02,Sub-Shrub (All),0.047,0.053
+R036XB006NM,NonTreatment,Non Treatment 2016,LIMY-096,Annual,0,0
+R036XB006NM,NonTreatment,Non Treatment 2016,LIMY-096,Bare Soil,0,0.227
+R036XB006NM,NonTreatment,Non Treatment 2016,LIMY-096,Forb/herb (Invasive),0,0
+R036XB006NM,NonTreatment,Non Treatment 2016,LIMY-096,Graminoid (Perennial),0.547,0.573
+R036XB006NM,NonTreatment,Non Treatment 2016,LIMY-096,Shrub (All),0.027,0.027
+R036XB006NM,NonTreatment,Non Treatment 2016,LIMY-096,Sub-Shrub (All),0,0
+R036XB005NM,NonTreatment,Non Treatment 2016,LIMY-098,Annual,0,0
+R036XB005NM,NonTreatment,Non Treatment 2016,LIMY-098,Bare Soil,0,0.267
+R036XB005NM,NonTreatment,Non Treatment 2016,LIMY-098,Forb/herb (Invasive),0,0
+R036XB005NM,NonTreatment,Non Treatment 2016,LIMY-098,Graminoid (Perennial),0.173,0.253
+R036XB005NM,NonTreatment,Non Treatment 2016,LIMY-098,Shrub (All),0.053,0.053
+R036XB005NM,NonTreatment,Non Treatment 2016,LIMY-098,Sub-Shrub (All),0.107,0.153
+ UNKNOWN,NonTreatment,Non Treatment 2016,LIMY-110,Annual,0,0
+ UNKNOWN,NonTreatment,Non Treatment 2016,LIMY-110,Bare Soil,0,0.307
+ UNKNOWN,NonTreatment,Non Treatment 2016,LIMY-110,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2016,LIMY-110,Graminoid (Perennial),0.467,0.48
+ UNKNOWN,NonTreatment,Non Treatment 2016,LIMY-110,Shrub (All),0.02,0.02
+ UNKNOWN,NonTreatment,Non Treatment 2016,LIMY-110,Sub-Shrub (All),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,Loamy - 91,Annual,0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,Loamy - 91,Bare Soil,0,0.387
+ UNKNOWN,NonTreatment,Non Treatment 2014,Loamy - 91,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,Loamy - 91,Graminoid (Perennial),0.08,0.087
+ UNKNOWN,NonTreatment,Non Treatment 2014,Loamy - 91,Shrub (All),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,Loamy - 91,Sub-Shrub (All),0.487,0.513
+R036XB006NM,NonTreatment,Non Treatment 2014,Loamy - 92,Annual,0,0
+R036XB006NM,NonTreatment,Non Treatment 2014,Loamy - 92,Bare Soil,0,0.333
+R036XB006NM,NonTreatment,Non Treatment 2014,Loamy - 92,Forb/herb (Invasive),0,0
+R036XB006NM,NonTreatment,Non Treatment 2014,Loamy - 92,Graminoid (Perennial),0.027,0.027
+R036XB006NM,NonTreatment,Non Treatment 2014,Loamy - 92,Shrub (All),0.367,0.367
+R036XB006NM,NonTreatment,Non Treatment 2014,Loamy - 92,Sub-Shrub (All),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,Loamy - 93,Annual,0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,Loamy - 93,Bare Soil,0,0.513
+ UNKNOWN,NonTreatment,Non Treatment 2014,Loamy - 93,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,Loamy - 93,Graminoid (Perennial),0.3,0.327
+ UNKNOWN,NonTreatment,Non Treatment 2014,Loamy - 93,Shrub (All),0.14,0.14
+ UNKNOWN,NonTreatment,Non Treatment 2014,Loamy - 93,Sub-Shrub (All),0.007,0.007
+ UNKNOWN,NonTreatment,Non Treatment 2015,Loamy 055,Annual,0,0
+ UNKNOWN,NonTreatment,Non Treatment 2015,Loamy 055,Bare Soil,0,0.387
+ UNKNOWN,NonTreatment,Non Treatment 2015,Loamy 055,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2015,Loamy 055,Graminoid (Perennial),0.12,0.173
+ UNKNOWN,NonTreatment,Non Treatment 2015,Loamy 055,Shrub (All),0.153,0.173
+ UNKNOWN,NonTreatment,Non Treatment 2015,Loamy 055,Sub-Shrub (All),0.147,0.147
+R036XB007NM,NonTreatment,Non Treatment 2015,Loamy 057,Annual,0,0
+R036XB007NM,NonTreatment,Non Treatment 2015,Loamy 057,Bare Soil,0,0.313
+R036XB007NM,NonTreatment,Non Treatment 2015,Loamy 057,Forb/herb (Invasive),0,0
+R036XB007NM,NonTreatment,Non Treatment 2015,Loamy 057,Graminoid (Perennial),0.027,0.047
+R036XB007NM,NonTreatment,Non Treatment 2015,Loamy 057,Shrub (All),0.387,0.387
+R036XB007NM,NonTreatment,Non Treatment 2015,Loamy 057,Sub-Shrub (All),0,0
+R036XB006NM,NonTreatment,Non Treatment 2015,Loamy 059,Annual,0.007,0.007
+R036XB006NM,NonTreatment,Non Treatment 2015,Loamy 059,Bare Soil,0,0.427
+R036XB006NM,NonTreatment,Non Treatment 2015,Loamy 059,Forb/herb (Invasive),0,0
+R036XB006NM,NonTreatment,Non Treatment 2015,Loamy 059,Graminoid (Perennial),0.027,0.073
+R036XB006NM,NonTreatment,Non Treatment 2015,Loamy 059,Shrub (All),0.353,0.36
+R036XB006NM,NonTreatment,Non Treatment 2015,Loamy 059,Sub-Shrub (All),0.053,0.093
+R048AY004NM,NonTreatment,Non Treatment 2015,Loamy 060,Annual,0,0.007
+R048AY004NM,NonTreatment,Non Treatment 2015,Loamy 060,Bare Soil,0,0.207
+R048AY004NM,NonTreatment,Non Treatment 2015,Loamy 060,Forb/herb (Invasive),0,0
+R048AY004NM,NonTreatment,Non Treatment 2015,Loamy 060,Graminoid (Perennial),0.067,0.087
+R048AY004NM,NonTreatment,Non Treatment 2015,Loamy 060,Shrub (All),0.007,0.007
+R048AY004NM,NonTreatment,Non Treatment 2015,Loamy 060,Sub-Shrub (All),0,0
+R036XB006NM,NonTreatment,Non Treatment 2015,Loamy 061,Annual,0,0
+R036XB006NM,NonTreatment,Non Treatment 2015,Loamy 061,Bare Soil,0,0.12
+R036XB006NM,NonTreatment,Non Treatment 2015,Loamy 061,Forb/herb (Invasive),0,0
+R036XB006NM,NonTreatment,Non Treatment 2015,Loamy 061,Graminoid (Perennial),0.567,0.613
+R036XB006NM,NonTreatment,Non Treatment 2015,Loamy 061,Shrub (All),0.167,0.193
+R036XB006NM,NonTreatment,Non Treatment 2015,Loamy 061,Sub-Shrub (All),0,0
+R036XB006NM,NonTreatment,Non Treatment 2015,Loamy 062,Annual,0,0
+R036XB006NM,NonTreatment,Non Treatment 2015,Loamy 062,Bare Soil,0,0.1
+R036XB006NM,NonTreatment,Non Treatment 2015,Loamy 062,Forb/herb (Invasive),0,0
+R036XB006NM,NonTreatment,Non Treatment 2015,Loamy 062,Graminoid (Perennial),0.453,0.513
+R036XB006NM,NonTreatment,Non Treatment 2015,Loamy 062,Shrub (All),0.053,0.08
+R036XB006NM,NonTreatment,Non Treatment 2015,Loamy 062,Sub-Shrub (All),0.06,0.067
+R036XB111NM,NonTreatment,Non Treatment 2015,Loamy 063,Annual,0.027,0.027
+R036XB111NM,NonTreatment,Non Treatment 2015,Loamy 063,Bare Soil,0,0.473
+R036XB111NM,NonTreatment,Non Treatment 2015,Loamy 063,Forb/herb (Invasive),0,0
+R036XB111NM,NonTreatment,Non Treatment 2015,Loamy 063,Graminoid (Perennial),0.2,0.22
+R036XB111NM,NonTreatment,Non Treatment 2015,Loamy 063,Shrub (All),0.007,0.013
+R036XB111NM,NonTreatment,Non Treatment 2015,Loamy 063,Sub-Shrub (All),0.04,0.04
+R051XA001NM,NonTreatment,Non Treatment 2015,Loamy 065,Annual,0.007,0.007
+R051XA001NM,NonTreatment,Non Treatment 2015,Loamy 065,Bare Soil,0,0.373
+R051XA001NM,NonTreatment,Non Treatment 2015,Loamy 065,Forb/herb (Invasive),0,0
+R051XA001NM,NonTreatment,Non Treatment 2015,Loamy 065,Graminoid (Perennial),0.14,0.16
+R051XA001NM,NonTreatment,Non Treatment 2015,Loamy 065,Shrub (All),0,0
+R051XA001NM,NonTreatment,Non Treatment 2015,Loamy 065,Sub-Shrub (All),0.26,0.293
+R036XB006NM,NonTreatment,Non Treatment 2015,Loamy Winterfat 088,Annual,0.06,0.073
+R036XB006NM,NonTreatment,Non Treatment 2015,Loamy Winterfat 088,Bare Soil,0,0.307
+R036XB006NM,NonTreatment,Non Treatment 2015,Loamy Winterfat 088,Forb/herb (Invasive),0.06,0.073
+R036XB006NM,NonTreatment,Non Treatment 2015,Loamy Winterfat 088,Graminoid (Perennial),0.24,0.267
+R036XB006NM,NonTreatment,Non Treatment 2015,Loamy Winterfat 088,Shrub (All),0.007,0.007
+R036XB006NM,NonTreatment,Non Treatment 2015,Loamy Winterfat 088,Sub-Shrub (All),0.18,0.193
+ UNKNOWN,NonTreatment,Non Treatment 2015,Loamy Winterfat 089,Annual,0,0
+ UNKNOWN,NonTreatment,Non Treatment 2015,Loamy Winterfat 089,Bare Soil,0,0.213
+ UNKNOWN,NonTreatment,Non Treatment 2015,Loamy Winterfat 089,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2015,Loamy Winterfat 089,Graminoid (Perennial),0.12,0.12
+ UNKNOWN,NonTreatment,Non Treatment 2015,Loamy Winterfat 089,Shrub (All),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2015,Loamy Winterfat 089,Sub-Shrub (All),0.333,0.36
+R036XB007NM,NonTreatment,Non Treatment 2015,Loamy Winterfat 090,Annual,0,0
+R036XB007NM,NonTreatment,Non Treatment 2015,Loamy Winterfat 090,Bare Soil,0,0.28
+R036XB007NM,NonTreatment,Non Treatment 2015,Loamy Winterfat 090,Forb/herb (Invasive),0,0
+R036XB007NM,NonTreatment,Non Treatment 2015,Loamy Winterfat 090,Graminoid (Perennial),0.213,0.233
+R036XB007NM,NonTreatment,Non Treatment 2015,Loamy Winterfat 090,Shrub (All),0,0
+R036XB007NM,NonTreatment,Non Treatment 2015,Loamy Winterfat 090,Sub-Shrub (All),0.207,0.213
+ UNKNOWN,NonTreatment,Non Treatment 2015,Loamy Winterfat 091,Annual,0,0
+ UNKNOWN,NonTreatment,Non Treatment 2015,Loamy Winterfat 091,Bare Soil,0,0.44
+ UNKNOWN,NonTreatment,Non Treatment 2015,Loamy Winterfat 091,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2015,Loamy Winterfat 091,Graminoid (Perennial),0.12,0.133
+ UNKNOWN,NonTreatment,Non Treatment 2015,Loamy Winterfat 091,Shrub (All),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2015,Loamy Winterfat 091,Sub-Shrub (All),0.293,0.327
+R036XB007NM,NonTreatment,Non Treatment 2015,Loamy Winterfat 092,Annual,0.007,0.007
+R036XB007NM,NonTreatment,Non Treatment 2015,Loamy Winterfat 092,Bare Soil,0,0.093
+R036XB007NM,NonTreatment,Non Treatment 2015,Loamy Winterfat 092,Forb/herb (Invasive),0,0
+R036XB007NM,NonTreatment,Non Treatment 2015,Loamy Winterfat 092,Graminoid (Perennial),0.36,0.367
+R036XB007NM,NonTreatment,Non Treatment 2015,Loamy Winterfat 092,Shrub (All),0.007,0.007
+R036XB007NM,NonTreatment,Non Treatment 2015,Loamy Winterfat 092,Sub-Shrub (All),0.013,0.027
+R036XB006NM,NonTreatment,Non Treatment 2015,Loamy Winterfat 093,Annual,0.007,0.007
+R036XB006NM,NonTreatment,Non Treatment 2015,Loamy Winterfat 093,Bare Soil,0,0.373
+R036XB006NM,NonTreatment,Non Treatment 2015,Loamy Winterfat 093,Forb/herb (Invasive),0,0
+R036XB006NM,NonTreatment,Non Treatment 2015,Loamy Winterfat 093,Graminoid (Perennial),0.18,0.2
+R036XB006NM,NonTreatment,Non Treatment 2015,Loamy Winterfat 093,Shrub (All),0,0
+R036XB006NM,NonTreatment,Non Treatment 2015,Loamy Winterfat 093,Sub-Shrub (All),0.147,0.153
+ UNKNOWN,NonTreatment,Non Treatment 2015,Loamy Winterfat 094,Annual,0,0
+ UNKNOWN,NonTreatment,Non Treatment 2015,Loamy Winterfat 094,Bare Soil,0,0.24
+ UNKNOWN,NonTreatment,Non Treatment 2015,Loamy Winterfat 094,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2015,Loamy Winterfat 094,Graminoid (Perennial),0.127,0.14
+ UNKNOWN,NonTreatment,Non Treatment 2015,Loamy Winterfat 094,Shrub (All),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2015,Loamy Winterfat 094,Sub-Shrub (All),0.327,0.34
+R036XB007NM,NonTreatment,Non Treatment 2015,Loamy Winterfat 095,Annual,0,0
+R036XB007NM,NonTreatment,Non Treatment 2015,Loamy Winterfat 095,Bare Soil,0,0.267
+R036XB007NM,NonTreatment,Non Treatment 2015,Loamy Winterfat 095,Forb/herb (Invasive),0,0
+R036XB007NM,NonTreatment,Non Treatment 2015,Loamy Winterfat 095,Graminoid (Perennial),0.153,0.193
+R036XB007NM,NonTreatment,Non Treatment 2015,Loamy Winterfat 095,Shrub (All),0.013,0.013
+R036XB007NM,NonTreatment,Non Treatment 2015,Loamy Winterfat 095,Sub-Shrub (All),0.267,0.287
+R051XA001NM,NonTreatment,Non Treatment 2016,LOAMY-116,Annual,0.073,0.08
+R051XA001NM,NonTreatment,Non Treatment 2016,LOAMY-116,Bare Soil,0,0.247
+R051XA001NM,NonTreatment,Non Treatment 2016,LOAMY-116,Forb/herb (Invasive),0.073,0.08
+R051XA001NM,NonTreatment,Non Treatment 2016,LOAMY-116,Graminoid (Perennial),0.253,0.253
+R051XA001NM,NonTreatment,Non Treatment 2016,LOAMY-116,Shrub (All),0,0
+R051XA001NM,NonTreatment,Non Treatment 2016,LOAMY-116,Sub-Shrub (All),0.007,0.007
+R036XB006NM,NonTreatment,Non Treatment 2016,LOAMY-118,Annual,0,0
+R036XB006NM,NonTreatment,Non Treatment 2016,LOAMY-118,Bare Soil,0,0.273
+R036XB006NM,NonTreatment,Non Treatment 2016,LOAMY-118,Forb/herb (Invasive),0,0
+R036XB006NM,NonTreatment,Non Treatment 2016,LOAMY-118,Graminoid (Perennial),0.267,0.3
+R036XB006NM,NonTreatment,Non Treatment 2016,LOAMY-118,Shrub (All),0.067,0.08
+R036XB006NM,NonTreatment,Non Treatment 2016,LOAMY-118,Sub-Shrub (All),0.2,0.213
+ UNKNOWN,NonTreatment,Non Treatment 2016,LOAMY-119,Annual,0,0
+ UNKNOWN,NonTreatment,Non Treatment 2016,LOAMY-119,Bare Soil,0,0.387
+ UNKNOWN,NonTreatment,Non Treatment 2016,LOAMY-119,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2016,LOAMY-119,Graminoid (Perennial),0.16,0.253
+ UNKNOWN,NonTreatment,Non Treatment 2016,LOAMY-119,Shrub (All),0.307,0.313
+ UNKNOWN,NonTreatment,Non Treatment 2016,LOAMY-119,Sub-Shrub (All),0.007,0.007
+R036XB018NM,NonTreatment,Non Treatment 2016,MAL-171,Annual,0,0
+R036XB018NM,NonTreatment,Non Treatment 2016,MAL-171,Bare Soil,0,0.167
+R036XB018NM,NonTreatment,Non Treatment 2016,MAL-171,Forb/herb (Invasive),0,0
+R036XB018NM,NonTreatment,Non Treatment 2016,MAL-171,Graminoid (Perennial),0.14,0.233
+R036XB018NM,NonTreatment,Non Treatment 2016,MAL-171,Shrub (All),0,0
+R036XB018NM,NonTreatment,Non Treatment 2016,MAL-171,Sub-Shrub (All),0.313,0.353
+R036XA004NM,NonTreatment,Non Treatment 2016,MAL-172,Annual,0,0
+R036XA004NM,NonTreatment,Non Treatment 2016,MAL-172,Bare Soil,0,0.187
+R036XA004NM,NonTreatment,Non Treatment 2016,MAL-172,Forb/herb (Invasive),0,0
+R036XA004NM,NonTreatment,Non Treatment 2016,MAL-172,Graminoid (Perennial),0.473,0.54
+R036XA004NM,NonTreatment,Non Treatment 2016,MAL-172,Shrub (All),0.007,0.007
+R036XA004NM,NonTreatment,Non Treatment 2016,MAL-172,Sub-Shrub (All),0.113,0.153
+ UNKNOWN,NonTreatment,Non Treatment 2016,MAL-174,Annual,0,0
+ UNKNOWN,NonTreatment,Non Treatment 2016,MAL-174,Bare Soil,0,0.287
+ UNKNOWN,NonTreatment,Non Treatment 2016,MAL-174,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2016,MAL-174,Graminoid (Perennial),0.42,0.48
+ UNKNOWN,NonTreatment,Non Treatment 2016,MAL-174,Shrub (All),0.093,0.093
+ UNKNOWN,NonTreatment,Non Treatment 2016,MAL-174,Sub-Shrub (All),0,0
+R036XB006NM,NonTreatment,Non Treatment 2014,Malpais - 61,Annual,0,0
+R036XB006NM,NonTreatment,Non Treatment 2014,Malpais - 61,Bare Soil,0,0.433
+R036XB006NM,NonTreatment,Non Treatment 2014,Malpais - 61,Forb/herb (Invasive),0,0
+R036XB006NM,NonTreatment,Non Treatment 2014,Malpais - 61,Graminoid (Perennial),0.093,0.127
+R036XB006NM,NonTreatment,Non Treatment 2014,Malpais - 61,Shrub (All),0.22,0.22
+R036XB006NM,NonTreatment,Non Treatment 2014,Malpais - 61,Sub-Shrub (All),0.033,0.04
+R036XB018NM,NonTreatment,Non Treatment 2014,Malpais - 63,Annual,0,0
+R036XB018NM,NonTreatment,Non Treatment 2014,Malpais - 63,Bare Soil,0,0.253
+R036XB018NM,NonTreatment,Non Treatment 2014,Malpais - 63,Forb/herb (Invasive),0,0
+R036XB018NM,NonTreatment,Non Treatment 2014,Malpais - 63,Graminoid (Perennial),0.267,0.4
+R036XB018NM,NonTreatment,Non Treatment 2014,Malpais - 63,Shrub (All),0.267,0.267
+R036XB018NM,NonTreatment,Non Treatment 2014,Malpais - 63,Sub-Shrub (All),0.14,0.16
+R036XB007NM,NonTreatment,Non Treatment 2014,Malpais - 65,Annual,0,0
+R036XB007NM,NonTreatment,Non Treatment 2014,Malpais - 65,Bare Soil,0,0.173
+R036XB007NM,NonTreatment,Non Treatment 2014,Malpais - 65,Forb/herb (Invasive),0,0
+R036XB007NM,NonTreatment,Non Treatment 2014,Malpais - 65,Graminoid (Perennial),0.033,0.04
+R036XB007NM,NonTreatment,Non Treatment 2014,Malpais - 65,Shrub (All),0.387,0.407
+R036XB007NM,NonTreatment,Non Treatment 2014,Malpais - 65,Sub-Shrub (All),0.007,0.013
+R036XB007NM,NonTreatment,Non Treatment 2014,Malpais - 70,Annual,0,0
+R036XB007NM,NonTreatment,Non Treatment 2014,Malpais - 70,Bare Soil,0,0.253
+R036XB007NM,NonTreatment,Non Treatment 2014,Malpais - 70,Forb/herb (Invasive),0,0
+R036XB007NM,NonTreatment,Non Treatment 2014,Malpais - 70,Graminoid (Perennial),0.293,0.307
+R036XB007NM,NonTreatment,Non Treatment 2014,Malpais - 70,Shrub (All),0,0
+R036XB007NM,NonTreatment,Non Treatment 2014,Malpais - 70,Sub-Shrub (All),0.087,0.087
+R036XB007NM,NonTreatment,Non Treatment 2015,Malpais 118,Annual,0.013,0.04
+R036XB007NM,NonTreatment,Non Treatment 2015,Malpais 118,Bare Soil,0,0.32
+R036XB007NM,NonTreatment,Non Treatment 2015,Malpais 118,Forb/herb (Invasive),0,0
+R036XB007NM,NonTreatment,Non Treatment 2015,Malpais 118,Graminoid (Perennial),0.4,0.48
+R036XB007NM,NonTreatment,Non Treatment 2015,Malpais 118,Shrub (All),0.12,0.12
+R036XB007NM,NonTreatment,Non Treatment 2015,Malpais 118,Sub-Shrub (All),0.047,0.06
+R051XA009NM,NonTreatment,Non Treatment 2015,Malpais 122,Annual,0,0
+R051XA009NM,NonTreatment,Non Treatment 2015,Malpais 122,Bare Soil,0,0.153
+R051XA009NM,NonTreatment,Non Treatment 2015,Malpais 122,Forb/herb (Invasive),0,0
+R051XA009NM,NonTreatment,Non Treatment 2015,Malpais 122,Graminoid (Perennial),0.287,0.327
+R051XA009NM,NonTreatment,Non Treatment 2015,Malpais 122,Shrub (All),0,0
+R051XA009NM,NonTreatment,Non Treatment 2015,Malpais 122,Sub-Shrub (All),0.027,0.033
+R036XB007NM,NonTreatment,Non Treatment 2015,Malpais 123,Annual,0,0
+R036XB007NM,NonTreatment,Non Treatment 2015,Malpais 123,Bare Soil,0,0.253
+R036XB007NM,NonTreatment,Non Treatment 2015,Malpais 123,Forb/herb (Invasive),0,0
+R036XB007NM,NonTreatment,Non Treatment 2015,Malpais 123,Graminoid (Perennial),0.233,0.32
+R036XB007NM,NonTreatment,Non Treatment 2015,Malpais 123,Shrub (All),0.24,0.26
+R036XB007NM,NonTreatment,Non Treatment 2015,Malpais 123,Sub-Shrub (All),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,Mountain Malpais - 81,Annual,0.007,0.013
+ UNKNOWN,NonTreatment,Non Treatment 2014,Mountain Malpais - 81,Bare Soil,0,0.067
+ UNKNOWN,NonTreatment,Non Treatment 2014,Mountain Malpais - 81,Forb/herb (Invasive),0.113,0.14
+ UNKNOWN,NonTreatment,Non Treatment 2014,Mountain Malpais - 81,Graminoid (Perennial),0.3,0.387
+ UNKNOWN,NonTreatment,Non Treatment 2014,Mountain Malpais - 81,Shrub (All),0.113,0.113
+ UNKNOWN,NonTreatment,Non Treatment 2014,Mountain Malpais - 81,Sub-Shrub (All),0,0
+R036XB018NM,NonTreatment,Non Treatment 2014,Mountain Malpais - 83,Annual,0.007,0.02
+R036XB018NM,NonTreatment,Non Treatment 2014,Mountain Malpais - 83,Bare Soil,0,0.22
+R036XB018NM,NonTreatment,Non Treatment 2014,Mountain Malpais - 83,Forb/herb (Invasive),0.007,0.007
+R036XB018NM,NonTreatment,Non Treatment 2014,Mountain Malpais - 83,Graminoid (Perennial),0.273,0.34
+R036XB018NM,NonTreatment,Non Treatment 2014,Mountain Malpais - 83,Shrub (All),0.267,0.28
+R036XB018NM,NonTreatment,Non Treatment 2014,Mountain Malpais - 83,Sub-Shrub (All),0,0
+R036XB018NM,NonTreatment,Non Treatment 2015,Mountain Malpais 139,Annual,0,0
+R036XB018NM,NonTreatment,Non Treatment 2015,Mountain Malpais 139,Bare Soil,0,0.36
+R036XB018NM,NonTreatment,Non Treatment 2015,Mountain Malpais 139,Forb/herb (Invasive),0,0
+R036XB018NM,NonTreatment,Non Treatment 2015,Mountain Malpais 139,Graminoid (Perennial),0,0
+R036XB018NM,NonTreatment,Non Treatment 2015,Mountain Malpais 139,Shrub (All),0.2,0.2
+R036XB018NM,NonTreatment,Non Treatment 2015,Mountain Malpais 139,Sub-Shrub (All),0.047,0.053
+R048AY005NM,NonTreatment,Non Treatment 2015,Mountain Malpais 140,Annual,0.113,0.133
+R048AY005NM,NonTreatment,Non Treatment 2015,Mountain Malpais 140,Bare Soil,0,0.193
+R048AY005NM,NonTreatment,Non Treatment 2015,Mountain Malpais 140,Forb/herb (Invasive),0.1,0.12
+R048AY005NM,NonTreatment,Non Treatment 2015,Mountain Malpais 140,Graminoid (Perennial),0.267,0.32
+R048AY005NM,NonTreatment,Non Treatment 2015,Mountain Malpais 140,Shrub (All),0.053,0.073
+R048AY005NM,NonTreatment,Non Treatment 2015,Mountain Malpais 140,Sub-Shrub (All),0.073,0.093
+R036XB018NM,NonTreatment,Non Treatment 2015,Mountain Malpais 141,Annual,0,0
+R036XB018NM,NonTreatment,Non Treatment 2015,Mountain Malpais 141,Bare Soil,0,0.113
+R036XB018NM,NonTreatment,Non Treatment 2015,Mountain Malpais 141,Forb/herb (Invasive),0,0
+R036XB018NM,NonTreatment,Non Treatment 2015,Mountain Malpais 141,Graminoid (Perennial),0.02,0.027
+R036XB018NM,NonTreatment,Non Treatment 2015,Mountain Malpais 141,Shrub (All),0.04,0.047
+R036XB018NM,NonTreatment,Non Treatment 2015,Mountain Malpais 141,Sub-Shrub (All),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2016,MTN-197,Annual,0,0
+ UNKNOWN,NonTreatment,Non Treatment 2016,MTN-197,Bare Soil,0,0.02
+ UNKNOWN,NonTreatment,Non Treatment 2016,MTN-197,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2016,MTN-197,Graminoid (Perennial),0.04,0.053
+ UNKNOWN,NonTreatment,Non Treatment 2016,MTN-197,Shrub (All),0.013,0.013
+ UNKNOWN,NonTreatment,Non Treatment 2016,MTN-197,Sub-Shrub (All),0,0
+R048AY005NM,NonTreatment,Non Treatment 2016,MTN-198,Annual,0,0
+R048AY005NM,NonTreatment,Non Treatment 2016,MTN-198,Bare Soil,0,0.087
+R048AY005NM,NonTreatment,Non Treatment 2016,MTN-198,Forb/herb (Invasive),0,0
+R048AY005NM,NonTreatment,Non Treatment 2016,MTN-198,Graminoid (Perennial),0.047,0.053
+R048AY005NM,NonTreatment,Non Treatment 2016,MTN-198,Shrub (All),0.013,0.013
+R048AY005NM,NonTreatment,Non Treatment 2016,MTN-198,Sub-Shrub (All),0,0
+R036XB007NM,NonTreatment,Non Treatment 2016,MTN-199,Annual,0,0
+R036XB007NM,NonTreatment,Non Treatment 2016,MTN-199,Bare Soil,0,0.053
+R036XB007NM,NonTreatment,Non Treatment 2016,MTN-199,Forb/herb (Invasive),0,0
+R036XB007NM,NonTreatment,Non Treatment 2016,MTN-199,Graminoid (Perennial),0.307,0.34
+R036XB007NM,NonTreatment,Non Treatment 2016,MTN-199,Shrub (All),0.12,0.12
+R036XB007NM,NonTreatment,Non Treatment 2016,MTN-199,Sub-Shrub (All),0.107,0.12
+R036XB006NM,NonTreatment,Pre-Treatment 2016,Navajo-22,Annual,0,0
+R036XB006NM,NonTreatment,Pre-Treatment 2016,Navajo-22,Bare Soil,0,0.28
+R036XB006NM,NonTreatment,Pre-Treatment 2016,Navajo-22,Forb/herb (Invasive),0,0
+R036XB006NM,NonTreatment,Pre-Treatment 2016,Navajo-22,Graminoid (Perennial),0.193,0.253
+R036XB006NM,NonTreatment,Pre-Treatment 2016,Navajo-22,Shrub (All),0.153,0.16
+R036XB006NM,NonTreatment,Pre-Treatment 2016,Navajo-22,Sub-Shrub (All),0.02,0.04
+R036XB006NM,NonTreatment,Pre-Treatment 2016,Navajo-23,Annual,0,0
+R036XB006NM,NonTreatment,Pre-Treatment 2016,Navajo-23,Bare Soil,0,0.313
+R036XB006NM,NonTreatment,Pre-Treatment 2016,Navajo-23,Forb/herb (Invasive),0,0
+R036XB006NM,NonTreatment,Pre-Treatment 2016,Navajo-23,Graminoid (Perennial),0.153,0.2
+R036XB006NM,NonTreatment,Pre-Treatment 2016,Navajo-23,Shrub (All),0.147,0.147
+R036XB006NM,NonTreatment,Pre-Treatment 2016,Navajo-23,Sub-Shrub (All),0.12,0.133
+F035XG134NM,NonTreatment,Pre-Treatment 2016,Navajo-62,Annual,0,0
+F035XG134NM,NonTreatment,Pre-Treatment 2016,Navajo-62,Bare Soil,0,0.013
+F035XG134NM,NonTreatment,Pre-Treatment 2016,Navajo-62,Forb/herb (Invasive),0,0
+F035XG134NM,NonTreatment,Pre-Treatment 2016,Navajo-62,Graminoid (Perennial),0.073,0.1
+F035XG134NM,NonTreatment,Pre-Treatment 2016,Navajo-62,Shrub (All),0.053,0.053
+F035XG134NM,NonTreatment,Pre-Treatment 2016,Navajo-62,Sub-Shrub (All),0,0
+R070CY106NM,NonTreatment,Non Treatment 2015,Other 156,Annual,0.007,0.013
+R070CY106NM,NonTreatment,Non Treatment 2015,Other 156,Bare Soil,0,0.027
+R070CY106NM,NonTreatment,Non Treatment 2015,Other 156,Forb/herb (Invasive),0,0
+R070CY106NM,NonTreatment,Non Treatment 2015,Other 156,Graminoid (Perennial),0.553,0.613
+R070CY106NM,NonTreatment,Non Treatment 2015,Other 156,Shrub (All),0,0
+R070CY106NM,NonTreatment,Non Treatment 2015,Other 156,Sub-Shrub (All),0,0.02
+R035XA112NM,NonTreatment,Non Treatment 2015,Other 157,Annual,0.007,0.007
+R035XA112NM,NonTreatment,Non Treatment 2015,Other 157,Bare Soil,0,0.367
+R035XA112NM,NonTreatment,Non Treatment 2015,Other 157,Forb/herb (Invasive),0,0
+R035XA112NM,NonTreatment,Non Treatment 2015,Other 157,Graminoid (Perennial),0.28,0.293
+R035XA112NM,NonTreatment,Non Treatment 2015,Other 157,Shrub (All),0.013,0.013
+R035XA112NM,NonTreatment,Non Treatment 2015,Other 157,Sub-Shrub (All),0,0
+R036XG116NM,NonTreatment,Non Treatment 2015,Other 158,Annual,0.033,0.04
+R036XG116NM,NonTreatment,Non Treatment 2015,Other 158,Bare Soil,0,0.213
+R036XG116NM,NonTreatment,Non Treatment 2015,Other 158,Forb/herb (Invasive),0.013,0.02
+R036XG116NM,NonTreatment,Non Treatment 2015,Other 158,Graminoid (Perennial),0.353,0.38
+R036XG116NM,NonTreatment,Non Treatment 2015,Other 158,Shrub (All),0,0
+R036XG116NM,NonTreatment,Non Treatment 2015,Other 158,Sub-Shrub (All),0.027,0.053
+ UNKNOWN,NonTreatment,Non Treatment 2016,OTHER-222,Annual,0,0
+ UNKNOWN,NonTreatment,Non Treatment 2016,OTHER-222,Bare Soil,0,0.22
+ UNKNOWN,NonTreatment,Non Treatment 2016,OTHER-222,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2016,OTHER-222,Graminoid (Perennial),0.12,0.133
+ UNKNOWN,NonTreatment,Non Treatment 2016,OTHER-222,Shrub (All),0.013,0.013
+ UNKNOWN,NonTreatment,Non Treatment 2016,OTHER-222,Sub-Shrub (All),0.053,0.067
+F036XA001NM,NonTreatment,Non Treatment 2016,OTHER-224,Annual,0,0
+F036XA001NM,NonTreatment,Non Treatment 2016,OTHER-224,Bare Soil,0,0.187
+F036XA001NM,NonTreatment,Non Treatment 2016,OTHER-224,Forb/herb (Invasive),0,0
+F036XA001NM,NonTreatment,Non Treatment 2016,OTHER-224,Graminoid (Perennial),0.087,0.147
+F036XA001NM,NonTreatment,Non Treatment 2016,OTHER-224,Shrub (All),0.3,0.313
+F036XA001NM,NonTreatment,Non Treatment 2016,OTHER-224,Sub-Shrub (All),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2016,OTHER-245,Annual,0.007,0.007
+ UNKNOWN,NonTreatment,Non Treatment 2016,OTHER-245,Bare Soil,0,0.187
+ UNKNOWN,NonTreatment,Non Treatment 2016,OTHER-245,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2016,OTHER-245,Graminoid (Perennial),0.16,0.193
+ UNKNOWN,NonTreatment,Non Treatment 2016,OTHER-245,Shrub (All),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2016,OTHER-245,Sub-Shrub (All),0.273,0.28
+ UNKNOWN,NonTreatment,Non Treatment 2014,PJ Artemisia - 01,Annual,0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,PJ Artemisia - 01,Bare Soil,0,0.033
+ UNKNOWN,NonTreatment,Non Treatment 2014,PJ Artemisia - 01,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,PJ Artemisia - 01,Graminoid (Perennial),0.227,0.247
+ UNKNOWN,NonTreatment,Non Treatment 2014,PJ Artemisia - 01,Shrub (All),0.007,0.007
+ UNKNOWN,NonTreatment,Non Treatment 2014,PJ Artemisia - 01,Sub-Shrub (All),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,PJ Artemisia - 02,Annual,0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,PJ Artemisia - 02,Bare Soil,0,0.373
+ UNKNOWN,NonTreatment,Non Treatment 2014,PJ Artemisia - 02,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,PJ Artemisia - 02,Graminoid (Perennial),0.053,0.1
+ UNKNOWN,NonTreatment,Non Treatment 2014,PJ Artemisia - 02,Shrub (All),0.28,0.3
+ UNKNOWN,NonTreatment,Non Treatment 2014,PJ Artemisia - 02,Sub-Shrub (All),0,0.007
+F036XA001NM,NonTreatment,Non Treatment 2014,PJ Artemisia - 03,Annual,0,0
+F036XA001NM,NonTreatment,Non Treatment 2014,PJ Artemisia - 03,Bare Soil,0,0.14
+F036XA001NM,NonTreatment,Non Treatment 2014,PJ Artemisia - 03,Forb/herb (Invasive),0,0
+F036XA001NM,NonTreatment,Non Treatment 2014,PJ Artemisia - 03,Graminoid (Perennial),0.02,0.073
+F036XA001NM,NonTreatment,Non Treatment 2014,PJ Artemisia - 03,Shrub (All),0.54,0.56
+F036XA001NM,NonTreatment,Non Treatment 2014,PJ Artemisia - 03,Sub-Shrub (All),0,0
+R036XB006NM,NonTreatment,Non Treatment 2014,PJ Artemisia - 04,Annual,0,0
+R036XB006NM,NonTreatment,Non Treatment 2014,PJ Artemisia - 04,Bare Soil,0,0.32
+R036XB006NM,NonTreatment,Non Treatment 2014,PJ Artemisia - 04,Forb/herb (Invasive),0,0
+R036XB006NM,NonTreatment,Non Treatment 2014,PJ Artemisia - 04,Graminoid (Perennial),0.193,0.3
+R036XB006NM,NonTreatment,Non Treatment 2014,PJ Artemisia - 04,Shrub (All),0.193,0.207
+R036XB006NM,NonTreatment,Non Treatment 2014,PJ Artemisia - 04,Sub-Shrub (All),0,0.007
+ UNKNOWN,NonTreatment,Non Treatment 2014,PJ Artemisia - 05,Annual,0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,PJ Artemisia - 05,Bare Soil,0,0.253
+ UNKNOWN,NonTreatment,Non Treatment 2014,PJ Artemisia - 05,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,PJ Artemisia - 05,Graminoid (Perennial),0.06,0.073
+ UNKNOWN,NonTreatment,Non Treatment 2014,PJ Artemisia - 05,Shrub (All),0.18,0.2
+ UNKNOWN,NonTreatment,Non Treatment 2014,PJ Artemisia - 05,Sub-Shrub (All),0.013,0.013
+R036XB132NM,NonTreatment,Non Treatment 2015,PJ Mix 169,Annual,0.033,0.033
+R036XB132NM,NonTreatment,Non Treatment 2015,PJ Mix 169,Bare Soil,0,0.16
+R036XB132NM,NonTreatment,Non Treatment 2015,PJ Mix 169,Forb/herb (Invasive),0,0
+R036XB132NM,NonTreatment,Non Treatment 2015,PJ Mix 169,Graminoid (Perennial),0.307,0.36
+R036XB132NM,NonTreatment,Non Treatment 2015,PJ Mix 169,Shrub (All),0.133,0.14
+R036XB132NM,NonTreatment,Non Treatment 2015,PJ Mix 169,Sub-Shrub (All),0.013,0.013
+F036XB133NM,NonTreatment,Non Treatment 2015,PJ Mix 173,Annual,0.153,0.2
+F036XB133NM,NonTreatment,Non Treatment 2015,PJ Mix 173,Bare Soil,0,0.227
+F036XB133NM,NonTreatment,Non Treatment 2015,PJ Mix 173,Forb/herb (Invasive),0,0
+F036XB133NM,NonTreatment,Non Treatment 2015,PJ Mix 173,Graminoid (Perennial),0.1,0.193
+F036XB133NM,NonTreatment,Non Treatment 2015,PJ Mix 173,Shrub (All),0.14,0.173
+F036XB133NM,NonTreatment,Non Treatment 2015,PJ Mix 173,Sub-Shrub (All),0.013,0.013
+R036XB006NM,NonTreatment,Non Treatment 2014,PJ Quercus - 21,Annual,0,0
+R036XB006NM,NonTreatment,Non Treatment 2014,PJ Quercus - 21,Bare Soil,0,0.307
+R036XB006NM,NonTreatment,Non Treatment 2014,PJ Quercus - 21,Forb/herb (Invasive),0,0
+R036XB006NM,NonTreatment,Non Treatment 2014,PJ Quercus - 21,Graminoid (Perennial),0.16,0.213
+R036XB006NM,NonTreatment,Non Treatment 2014,PJ Quercus - 21,Shrub (All),0.26,0.267
+R036XB006NM,NonTreatment,Non Treatment 2014,PJ Quercus - 21,Sub-Shrub (All),0.007,0.013
+ UNKNOWN,NonTreatment,Non Treatment 2014,PJ Quercus - 22,Annual,0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,PJ Quercus - 22,Bare Soil,0,0.113
+ UNKNOWN,NonTreatment,Non Treatment 2014,PJ Quercus - 22,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,PJ Quercus - 22,Graminoid (Perennial),0.08,0.093
+ UNKNOWN,NonTreatment,Non Treatment 2014,PJ Quercus - 22,Shrub (All),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,PJ Quercus - 22,Sub-Shrub (All),0,0
+R036XB007NM,NonTreatment,Non Treatment 2014,PJ Quercus - 23,Annual,0,0
+R036XB007NM,NonTreatment,Non Treatment 2014,PJ Quercus - 23,Bare Soil,0,0.147
+R036XB007NM,NonTreatment,Non Treatment 2014,PJ Quercus - 23,Forb/herb (Invasive),0,0
+R036XB007NM,NonTreatment,Non Treatment 2014,PJ Quercus - 23,Graminoid (Perennial),0.1,0.107
+R036XB007NM,NonTreatment,Non Treatment 2014,PJ Quercus - 23,Shrub (All),0,0
+R036XB007NM,NonTreatment,Non Treatment 2014,PJ Quercus - 23,Sub-Shrub (All),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,PJ Quercus - 25,Annual,0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,PJ Quercus - 25,Bare Soil,0,0.16
+ UNKNOWN,NonTreatment,Non Treatment 2014,PJ Quercus - 25,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,PJ Quercus - 25,Graminoid (Perennial),0.107,0.127
+ UNKNOWN,NonTreatment,Non Treatment 2014,PJ Quercus - 25,Shrub (All),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,PJ Quercus - 25,Sub-Shrub (All),0,0
+R036XB007NM,NonTreatment,Non Treatment 2014,PJ Quercus - 28,Annual,0,0
+R036XB007NM,NonTreatment,Non Treatment 2014,PJ Quercus - 28,Bare Soil,0,0.16
+R036XB007NM,NonTreatment,Non Treatment 2014,PJ Quercus - 28,Forb/herb (Invasive),0,0
+R036XB007NM,NonTreatment,Non Treatment 2014,PJ Quercus - 28,Graminoid (Perennial),0.127,0.127
+R036XB007NM,NonTreatment,Non Treatment 2014,PJ Quercus - 28,Shrub (All),0.007,0.007
+R036XB007NM,NonTreatment,Non Treatment 2014,PJ Quercus - 28,Sub-Shrub (All),0,0
+R036XB006NM,NonTreatment,Pre-Treatment 2016,PL Canyon 34,Annual,0,0
+R036XB006NM,NonTreatment,Pre-Treatment 2016,PL Canyon 34,Bare Soil,0,0.287
+R036XB006NM,NonTreatment,Pre-Treatment 2016,PL Canyon 34,Forb/herb (Invasive),0,0
+R036XB006NM,NonTreatment,Pre-Treatment 2016,PL Canyon 34,Graminoid (Perennial),0.207,0.313
+R036XB006NM,NonTreatment,Pre-Treatment 2016,PL Canyon 34,Shrub (All),0.24,0.247
+R036XB006NM,NonTreatment,Pre-Treatment 2016,PL Canyon 34,Sub-Shrub (All),0.013,0.013
+ UNKNOWN,NonTreatment,Pre-Treatment 2016,PL Canyon 69,Annual,0.007,0.007
+ UNKNOWN,NonTreatment,Pre-Treatment 2016,PL Canyon 69,Bare Soil,0,0.14
+ UNKNOWN,NonTreatment,Pre-Treatment 2016,PL Canyon 69,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Pre-Treatment 2016,PL Canyon 69,Graminoid (Perennial),0.167,0.28
+ UNKNOWN,NonTreatment,Pre-Treatment 2016,PL Canyon 69,Shrub (All),0.08,0.087
+ UNKNOWN,NonTreatment,Pre-Treatment 2016,PL Canyon 69,Sub-Shrub (All),0.027,0.04
+ UNKNOWN,NonTreatment,Non Treatment 2014,PSME QUGA - 11,Annual,0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,PSME QUGA - 11,Bare Soil,0,0.213
+ UNKNOWN,NonTreatment,Non Treatment 2014,PSME QUGA - 11,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,PSME QUGA - 11,Graminoid (Perennial),0.187,0.233
+ UNKNOWN,NonTreatment,Non Treatment 2014,PSME QUGA - 11,Shrub (All),0.24,0.24
+ UNKNOWN,NonTreatment,Non Treatment 2014,PSME QUGA - 11,Sub-Shrub (All),0.053,0.06
+ UNKNOWN,NonTreatment,Non Treatment 2014,PSME QUGA - 12,Annual,0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,PSME QUGA - 12,Bare Soil,0,0.28
+ UNKNOWN,NonTreatment,Non Treatment 2014,PSME QUGA - 12,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,PSME QUGA - 12,Graminoid (Perennial),0.267,0.333
+ UNKNOWN,NonTreatment,Non Treatment 2014,PSME QUGA - 12,Shrub (All),0.227,0.227
+ UNKNOWN,NonTreatment,Non Treatment 2014,PSME QUGA - 12,Sub-Shrub (All),0.04,0.047
+ UNKNOWN,NonTreatment,Non Treatment 2014,PSME QUGA - 13,Annual,0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,PSME QUGA - 13,Bare Soil,0,0.38
+ UNKNOWN,NonTreatment,Non Treatment 2014,PSME QUGA - 13,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,PSME QUGA - 13,Graminoid (Perennial),0.08,0.12
+ UNKNOWN,NonTreatment,Non Treatment 2014,PSME QUGA - 13,Shrub (All),0.227,0.227
+ UNKNOWN,NonTreatment,Non Treatment 2014,PSME QUGA - 13,Sub-Shrub (All),0.093,0.093
+ UNKNOWN,NonTreatment,Non Treatment 2014,PSME QUGA - 14,Annual,0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,PSME QUGA - 14,Bare Soil,0,0.207
+ UNKNOWN,NonTreatment,Non Treatment 2014,PSME QUGA - 14,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,PSME QUGA - 14,Graminoid (Perennial),0.413,0.467
+ UNKNOWN,NonTreatment,Non Treatment 2014,PSME QUGA - 14,Shrub (All),0.047,0.047
+ UNKNOWN,NonTreatment,Non Treatment 2014,PSME QUGA - 14,Sub-Shrub (All),0.193,0.207
+ UNKNOWN,NonTreatment,Non Treatment 2014,PSME QUGA - 15,Annual,0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,PSME QUGA - 15,Bare Soil,0,0.16
+ UNKNOWN,NonTreatment,Non Treatment 2014,PSME QUGA - 15,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,PSME QUGA - 15,Graminoid (Perennial),0.247,0.413
+ UNKNOWN,NonTreatment,Non Treatment 2014,PSME QUGA - 15,Shrub (All),0.2,0.2
+ UNKNOWN,NonTreatment,Non Treatment 2014,PSME QUGA - 15,Sub-Shrub (All),0.313,0.34
+R036XB006NM,NonTreatment,Non Treatment 2015,Rock Outcrop 190,Annual,0.007,0.007
+R036XB006NM,NonTreatment,Non Treatment 2015,Rock Outcrop 190,Bare Soil,0,0.167
+R036XB006NM,NonTreatment,Non Treatment 2015,Rock Outcrop 190,Forb/herb (Invasive),0,0
+R036XB006NM,NonTreatment,Non Treatment 2015,Rock Outcrop 190,Graminoid (Perennial),0.067,0.093
+R036XB006NM,NonTreatment,Non Treatment 2015,Rock Outcrop 190,Shrub (All),0.047,0.067
+R036XB006NM,NonTreatment,Non Treatment 2015,Rock Outcrop 190,Sub-Shrub (All),0,0
+R048AY005NM,NonTreatment,Non Treatment 2015,Rock Outcrop 191,Annual,0,0
+R048AY005NM,NonTreatment,Non Treatment 2015,Rock Outcrop 191,Bare Soil,0,0.02
+R048AY005NM,NonTreatment,Non Treatment 2015,Rock Outcrop 191,Forb/herb (Invasive),0,0
+R048AY005NM,NonTreatment,Non Treatment 2015,Rock Outcrop 191,Graminoid (Perennial),0.04,0.087
+R048AY005NM,NonTreatment,Non Treatment 2015,Rock Outcrop 191,Shrub (All),0.02,0.027
+R048AY005NM,NonTreatment,Non Treatment 2015,Rock Outcrop 191,Sub-Shrub (All),0,0
+R036XB011NM,NonTreatment,Non Treatment 2016,SAND-246,Annual,0,0
+R036XB011NM,NonTreatment,Non Treatment 2016,SAND-246,Bare Soil,0,0.367
+R036XB011NM,NonTreatment,Non Treatment 2016,SAND-246,Forb/herb (Invasive),0,0
+R036XB011NM,NonTreatment,Non Treatment 2016,SAND-246,Graminoid (Perennial),0.067,0.073
+R036XB011NM,NonTreatment,Non Treatment 2016,SAND-246,Shrub (All),0.04,0.04
+R036XB011NM,NonTreatment,Non Treatment 2016,SAND-246,Sub-Shrub (All),0.073,0.087
+R036XB111NM,NonTreatment,Non Treatment 2016,SAND-248,Annual,0,0
+R036XB111NM,NonTreatment,Non Treatment 2016,SAND-248,Bare Soil,0,0.553
+R036XB111NM,NonTreatment,Non Treatment 2016,SAND-248,Forb/herb (Invasive),0,0
+R036XB111NM,NonTreatment,Non Treatment 2016,SAND-248,Graminoid (Perennial),0.113,0.12
+R036XB111NM,NonTreatment,Non Treatment 2016,SAND-248,Shrub (All),0.013,0.013
+R036XB111NM,NonTreatment,Non Treatment 2016,SAND-248,Sub-Shrub (All),0.013,0.013
+R036XB011NM,NonTreatment,Non Treatment 2016,SAND-249,Annual,0,0
+R036XB011NM,NonTreatment,Non Treatment 2016,SAND-249,Bare Soil,0,0.26
+R036XB011NM,NonTreatment,Non Treatment 2016,SAND-249,Forb/herb (Invasive),0,0
+R036XB011NM,NonTreatment,Non Treatment 2016,SAND-249,Graminoid (Perennial),0.4,0.407
+R036XB011NM,NonTreatment,Non Treatment 2016,SAND-249,Shrub (All),0,0
+R036XB011NM,NonTreatment,Non Treatment 2016,SAND-249,Sub-Shrub (All),0.067,0.08
+ UNKNOWN,NonTreatment,Non Treatment 2016,SAND-267,Annual,0.06,0.067
+ UNKNOWN,NonTreatment,Non Treatment 2016,SAND-267,Bare Soil,0,0.427
+ UNKNOWN,NonTreatment,Non Treatment 2016,SAND-267,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2016,SAND-267,Graminoid (Perennial),0.16,0.167
+ UNKNOWN,NonTreatment,Non Treatment 2016,SAND-267,Shrub (All),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2016,SAND-267,Sub-Shrub (All),0.02,0.02
+R036XB011NM,NonTreatment,Non Treatment 2015,Sandy 208,Annual,0.047,0.053
+R036XB011NM,NonTreatment,Non Treatment 2015,Sandy 208,Bare Soil,0,0.733
+R036XB011NM,NonTreatment,Non Treatment 2015,Sandy 208,Forb/herb (Invasive),0.007,0.007
+R036XB011NM,NonTreatment,Non Treatment 2015,Sandy 208,Graminoid (Perennial),0.053,0.067
+R036XB011NM,NonTreatment,Non Treatment 2015,Sandy 208,Shrub (All),0.06,0.067
+R036XB011NM,NonTreatment,Non Treatment 2015,Sandy 208,Sub-Shrub (All),0,0
+R036XB111NM,NonTreatment,Non Treatment 2015,Sandy 210,Annual,0,0
+R036XB111NM,NonTreatment,Non Treatment 2015,Sandy 210,Bare Soil,0,0.32
+R036XB111NM,NonTreatment,Non Treatment 2015,Sandy 210,Forb/herb (Invasive),0,0
+R036XB111NM,NonTreatment,Non Treatment 2015,Sandy 210,Graminoid (Perennial),0.167,0.213
+R036XB111NM,NonTreatment,Non Treatment 2015,Sandy 210,Shrub (All),0,0
+R036XB111NM,NonTreatment,Non Treatment 2015,Sandy 210,Sub-Shrub (All),0.027,0.04
+R036XB132NM,NonTreatment,Non Treatment 2015,Sandy 211,Annual,0,0
+R036XB132NM,NonTreatment,Non Treatment 2015,Sandy 211,Bare Soil,0,0.427
+R036XB132NM,NonTreatment,Non Treatment 2015,Sandy 211,Forb/herb (Invasive),0,0
+R036XB132NM,NonTreatment,Non Treatment 2015,Sandy 211,Graminoid (Perennial),0.193,0.193
+R036XB132NM,NonTreatment,Non Treatment 2015,Sandy 211,Shrub (All),0.013,0.013
+R036XB132NM,NonTreatment,Non Treatment 2015,Sandy 211,Sub-Shrub (All),0.007,0.013
+R036XB111NM,NonTreatment,Non Treatment 2015,Sandy 212,Annual,0.047,0.06
+R036XB111NM,NonTreatment,Non Treatment 2015,Sandy 212,Bare Soil,0,0.467
+R036XB111NM,NonTreatment,Non Treatment 2015,Sandy 212,Forb/herb (Invasive),0.013,0.013
+R036XB111NM,NonTreatment,Non Treatment 2015,Sandy 212,Graminoid (Perennial),0.227,0.233
+R036XB111NM,NonTreatment,Non Treatment 2015,Sandy 212,Shrub (All),0.013,0.013
+R036XB111NM,NonTreatment,Non Treatment 2015,Sandy 212,Sub-Shrub (All),0.033,0.053
+ UNKNOWN,NonTreatment,Non Treatment 2016,SHAL-271,Annual,0,0
+ UNKNOWN,NonTreatment,Non Treatment 2016,SHAL-271,Bare Soil,0,0.333
+ UNKNOWN,NonTreatment,Non Treatment 2016,SHAL-271,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2016,SHAL-271,Graminoid (Perennial),0.173,0.18
+ UNKNOWN,NonTreatment,Non Treatment 2016,SHAL-271,Shrub (All),0.02,0.02
+ UNKNOWN,NonTreatment,Non Treatment 2016,SHAL-271,Sub-Shrub (All),0.06,0.06
+ UNKNOWN,NonTreatment,Non Treatment 2016,SHAL-272,Annual,0,0
+ UNKNOWN,NonTreatment,Non Treatment 2016,SHAL-272,Bare Soil,0,0.007
+ UNKNOWN,NonTreatment,Non Treatment 2016,SHAL-272,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2016,SHAL-272,Graminoid (Perennial),0.02,0.027
+ UNKNOWN,NonTreatment,Non Treatment 2016,SHAL-272,Shrub (All),0,0.02
+ UNKNOWN,NonTreatment,Non Treatment 2016,SHAL-272,Sub-Shrub (All),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2016,SHAL-273,Annual,0,0.013
+ UNKNOWN,NonTreatment,Non Treatment 2016,SHAL-273,Bare Soil,0,0.06
+ UNKNOWN,NonTreatment,Non Treatment 2016,SHAL-273,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2016,SHAL-273,Graminoid (Perennial),0.193,0.34
+ UNKNOWN,NonTreatment,Non Treatment 2016,SHAL-273,Shrub (All),0.04,0.053
+ UNKNOWN,NonTreatment,Non Treatment 2016,SHAL-273,Sub-Shrub (All),0,0.007
+ UNKNOWN,NonTreatment,Non Treatment 2016,STONE-292,Annual,0,0
+ UNKNOWN,NonTreatment,Non Treatment 2016,STONE-292,Bare Soil,0,0.213
+ UNKNOWN,NonTreatment,Non Treatment 2016,STONE-292,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2016,STONE-292,Graminoid (Perennial),0.193,0.213
+ UNKNOWN,NonTreatment,Non Treatment 2016,STONE-292,Shrub (All),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2016,STONE-292,Sub-Shrub (All),0.2,0.22
+R036XB018NM,NonTreatment,Non Treatment 2016,STONE-293,Annual,0,0
+R036XB018NM,NonTreatment,Non Treatment 2016,STONE-293,Bare Soil,0,0.247
+R036XB018NM,NonTreatment,Non Treatment 2016,STONE-293,Forb/herb (Invasive),0,0
+R036XB018NM,NonTreatment,Non Treatment 2016,STONE-293,Graminoid (Perennial),0.053,0.067
+R036XB018NM,NonTreatment,Non Treatment 2016,STONE-293,Shrub (All),0,0
+R036XB018NM,NonTreatment,Non Treatment 2016,STONE-293,Sub-Shrub (All),0.293,0.293
+R036XB018NM,NonTreatment,Non Treatment 2016,STONE-294,Annual,0,0
+R036XB018NM,NonTreatment,Non Treatment 2016,STONE-294,Bare Soil,0,0.307
+R036XB018NM,NonTreatment,Non Treatment 2016,STONE-294,Forb/herb (Invasive),0,0
+R036XB018NM,NonTreatment,Non Treatment 2016,STONE-294,Graminoid (Perennial),0.06,0.067
+R036XB018NM,NonTreatment,Non Treatment 2016,STONE-294,Shrub (All),0,0
+R036XB018NM,NonTreatment,Non Treatment 2016,STONE-294,Sub-Shrub (All),0.347,0.367
+R036XB007NM,NonTreatment,Non Treatment 2014,Stony Loam - 72,Annual,0.007,0.007
+R036XB007NM,NonTreatment,Non Treatment 2014,Stony Loam - 72,Bare Soil,0,0.34
+R036XB007NM,NonTreatment,Non Treatment 2014,Stony Loam - 72,Forb/herb (Invasive),0,0
+R036XB007NM,NonTreatment,Non Treatment 2014,Stony Loam - 72,Graminoid (Perennial),0.147,0.207
+R036XB007NM,NonTreatment,Non Treatment 2014,Stony Loam - 72,Shrub (All),0.107,0.107
+R036XB007NM,NonTreatment,Non Treatment 2014,Stony Loam - 72,Sub-Shrub (All),0.233,0.233
+R036XB006NM,NonTreatment,Non Treatment 2014,Stony Loam - 73,Annual,0,0
+R036XB006NM,NonTreatment,Non Treatment 2014,Stony Loam - 73,Bare Soil,0,0.327
+R036XB006NM,NonTreatment,Non Treatment 2014,Stony Loam - 73,Forb/herb (Invasive),0,0
+R036XB006NM,NonTreatment,Non Treatment 2014,Stony Loam - 73,Graminoid (Perennial),0.333,0.407
+R036XB006NM,NonTreatment,Non Treatment 2014,Stony Loam - 73,Shrub (All),0,0
+R036XB006NM,NonTreatment,Non Treatment 2014,Stony Loam - 73,Sub-Shrub (All),0.3,0.313
+R036XB006NM,NonTreatment,Non Treatment 2014,Stony Loam - 74,Annual,0,0
+R036XB006NM,NonTreatment,Non Treatment 2014,Stony Loam - 74,Bare Soil,0,0.447
+R036XB006NM,NonTreatment,Non Treatment 2014,Stony Loam - 74,Forb/herb (Invasive),0,0
+R036XB006NM,NonTreatment,Non Treatment 2014,Stony Loam - 74,Graminoid (Perennial),0.12,0.127
+R036XB006NM,NonTreatment,Non Treatment 2014,Stony Loam - 74,Shrub (All),0,0
+R036XB006NM,NonTreatment,Non Treatment 2014,Stony Loam - 74,Sub-Shrub (All),0.147,0.147
+R036XB018NM,NonTreatment,Non Treatment 2014,Stony Loam - 75,Annual,0,0
+R036XB018NM,NonTreatment,Non Treatment 2014,Stony Loam - 75,Bare Soil,0,0.167
+R036XB018NM,NonTreatment,Non Treatment 2014,Stony Loam - 75,Forb/herb (Invasive),0,0
+R036XB018NM,NonTreatment,Non Treatment 2014,Stony Loam - 75,Graminoid (Perennial),0.213,0.247
+R036XB018NM,NonTreatment,Non Treatment 2014,Stony Loam - 75,Shrub (All),0.007,0.007
+R036XB018NM,NonTreatment,Non Treatment 2014,Stony Loam - 75,Sub-Shrub (All),0.22,0.22
+R036XB018NM,NonTreatment,Non Treatment 2015,Stony Loam 226,Annual,0,0
+R036XB018NM,NonTreatment,Non Treatment 2015,Stony Loam 226,Bare Soil,0,0.087
+R036XB018NM,NonTreatment,Non Treatment 2015,Stony Loam 226,Forb/herb (Invasive),0,0
+R036XB018NM,NonTreatment,Non Treatment 2015,Stony Loam 226,Graminoid (Perennial),0.307,0.42
+R036XB018NM,NonTreatment,Non Treatment 2015,Stony Loam 226,Shrub (All),0,0
+R036XB018NM,NonTreatment,Non Treatment 2015,Stony Loam 226,Sub-Shrub (All),0.273,0.287
+R036XB018NM,NonTreatment,Non Treatment 2015,Stony Loam 227,Annual,0.02,0.027
+R036XB018NM,NonTreatment,Non Treatment 2015,Stony Loam 227,Bare Soil,0,0.32
+R036XB018NM,NonTreatment,Non Treatment 2015,Stony Loam 227,Forb/herb (Invasive),0,0
+R036XB018NM,NonTreatment,Non Treatment 2015,Stony Loam 227,Graminoid (Perennial),0.173,0.18
+R036XB018NM,NonTreatment,Non Treatment 2015,Stony Loam 227,Shrub (All),0,0
+R036XB018NM,NonTreatment,Non Treatment 2015,Stony Loam 227,Sub-Shrub (All),0.193,0.2
+R036XB018NM,NonTreatment,Non Treatment 2015,Stony Loam 228,Annual,0,0
+R036XB018NM,NonTreatment,Non Treatment 2015,Stony Loam 228,Bare Soil,0,0.22
+R036XB018NM,NonTreatment,Non Treatment 2015,Stony Loam 228,Forb/herb (Invasive),0,0
+R036XB018NM,NonTreatment,Non Treatment 2015,Stony Loam 228,Graminoid (Perennial),0.453,0.487
+R036XB018NM,NonTreatment,Non Treatment 2015,Stony Loam 228,Shrub (All),0,0
+R036XB018NM,NonTreatment,Non Treatment 2015,Stony Loam 228,Sub-Shrub (All),0.1,0.113
+R036XB007NM,NonTreatment,Non Treatment 2015,Stony Loam 229,Annual,0.007,0.007
+R036XB007NM,NonTreatment,Non Treatment 2015,Stony Loam 229,Bare Soil,0,0.373
+R036XB007NM,NonTreatment,Non Treatment 2015,Stony Loam 229,Forb/herb (Invasive),0,0
+R036XB007NM,NonTreatment,Non Treatment 2015,Stony Loam 229,Graminoid (Perennial),0.04,0.053
+R036XB007NM,NonTreatment,Non Treatment 2015,Stony Loam 229,Shrub (All),0.007,0.007
+R036XB007NM,NonTreatment,Non Treatment 2015,Stony Loam 229,Sub-Shrub (All),0.34,0.347
+R036XB018NM,NonTreatment,Non Treatment 2015,Stony Loam 230,Annual,0,0
+R036XB018NM,NonTreatment,Non Treatment 2015,Stony Loam 230,Bare Soil,0,0.14
+R036XB018NM,NonTreatment,Non Treatment 2015,Stony Loam 230,Forb/herb (Invasive),0,0
+R036XB018NM,NonTreatment,Non Treatment 2015,Stony Loam 230,Graminoid (Perennial),0.147,0.173
+R036XB018NM,NonTreatment,Non Treatment 2015,Stony Loam 230,Shrub (All),0.313,0.32
+R036XB018NM,NonTreatment,Non Treatment 2015,Stony Loam 230,Sub-Shrub (All),0,0
+R036XB007NM,NonTreatment,Non Treatment 2015,Stony Loam 231,Annual,0,0
+R036XB007NM,NonTreatment,Non Treatment 2015,Stony Loam 231,Bare Soil,0,0.107
+R036XB007NM,NonTreatment,Non Treatment 2015,Stony Loam 231,Forb/herb (Invasive),0,0
+R036XB007NM,NonTreatment,Non Treatment 2015,Stony Loam 231,Graminoid (Perennial),0.48,0.513
+R036XB007NM,NonTreatment,Non Treatment 2015,Stony Loam 231,Shrub (All),0,0
+R036XB007NM,NonTreatment,Non Treatment 2015,Stony Loam 231,Sub-Shrub (All),0.113,0.127
+R036XB018NM,NonTreatment,Non Treatment 2015,Stony Loam 232,Annual,0.033,0.033
+R036XB018NM,NonTreatment,Non Treatment 2015,Stony Loam 232,Bare Soil,0,0.387
+R036XB018NM,NonTreatment,Non Treatment 2015,Stony Loam 232,Forb/herb (Invasive),0.007,0.007
+R036XB018NM,NonTreatment,Non Treatment 2015,Stony Loam 232,Graminoid (Perennial),0.287,0.313
+R036XB018NM,NonTreatment,Non Treatment 2015,Stony Loam 232,Shrub (All),0,0
+R036XB018NM,NonTreatment,Non Treatment 2015,Stony Loam 232,Sub-Shrub (All),0.087,0.093
+R051XA005NM,NonTreatment,Non Treatment 2014,Swale - 101,Annual,0,0
+R051XA005NM,NonTreatment,Non Treatment 2014,Swale - 101,Bare Soil,0,0.333
+R051XA005NM,NonTreatment,Non Treatment 2014,Swale - 101,Forb/herb (Invasive),0,0
+R051XA005NM,NonTreatment,Non Treatment 2014,Swale - 101,Graminoid (Perennial),0.067,0.12
+R051XA005NM,NonTreatment,Non Treatment 2014,Swale - 101,Shrub (All),0.007,0.007
+R051XA005NM,NonTreatment,Non Treatment 2014,Swale - 101,Sub-Shrub (All),0.367,0.367
+R036XB006NM,NonTreatment,Non Treatment 2014,Swale - 102,Annual,0,0
+R036XB006NM,NonTreatment,Non Treatment 2014,Swale - 102,Bare Soil,0,0.233
+R036XB006NM,NonTreatment,Non Treatment 2014,Swale - 102,Forb/herb (Invasive),0,0
+R036XB006NM,NonTreatment,Non Treatment 2014,Swale - 102,Graminoid (Perennial),0.233,0.307
+R036XB006NM,NonTreatment,Non Treatment 2014,Swale - 102,Shrub (All),0.307,0.307
+R036XB006NM,NonTreatment,Non Treatment 2014,Swale - 102,Sub-Shrub (All),0.027,0.033
+R051XA005NM,NonTreatment,Non Treatment 2014,Swale - 103,Annual,0,0
+R051XA005NM,NonTreatment,Non Treatment 2014,Swale - 103,Bare Soil,0,0.507
+R051XA005NM,NonTreatment,Non Treatment 2014,Swale - 103,Forb/herb (Invasive),0,0
+R051XA005NM,NonTreatment,Non Treatment 2014,Swale - 103,Graminoid (Perennial),0.173,0.213
+R051XA005NM,NonTreatment,Non Treatment 2014,Swale - 103,Shrub (All),0.153,0.153
+R051XA005NM,NonTreatment,Non Treatment 2014,Swale - 103,Sub-Shrub (All),0.033,0.04
+ UNKNOWN,NonTreatment,Non Treatment 2014,Swale - 104,Annual,0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,Swale - 104,Bare Soil,0,0.647
+ UNKNOWN,NonTreatment,Non Treatment 2014,Swale - 104,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2014,Swale - 104,Graminoid (Perennial),0.087,0.1
+ UNKNOWN,NonTreatment,Non Treatment 2014,Swale - 104,Shrub (All),0.073,0.08
+ UNKNOWN,NonTreatment,Non Treatment 2014,Swale - 104,Sub-Shrub (All),0.093,0.093
+R036XB018NM,NonTreatment,Non Treatment 2014,Swale - 105,Annual,0,0
+R036XB018NM,NonTreatment,Non Treatment 2014,Swale - 105,Bare Soil,0,0.373
+R036XB018NM,NonTreatment,Non Treatment 2014,Swale - 105,Forb/herb (Invasive),0,0
+R036XB018NM,NonTreatment,Non Treatment 2014,Swale - 105,Graminoid (Perennial),0.007,0.013
+R036XB018NM,NonTreatment,Non Treatment 2014,Swale - 105,Shrub (All),0.533,0.533
+R036XB018NM,NonTreatment,Non Treatment 2014,Swale - 105,Sub-Shrub (All),0,0
+R036XB005NM,NonTreatment,Pre-Treatment 2016,Tanques-48,Annual,0.007,0.007
+R036XB005NM,NonTreatment,Pre-Treatment 2016,Tanques-48,Bare Soil,0,0.347
+R036XB005NM,NonTreatment,Pre-Treatment 2016,Tanques-48,Forb/herb (Invasive),0,0
+R036XB005NM,NonTreatment,Pre-Treatment 2016,Tanques-48,Graminoid (Perennial),0.347,0.4
+R036XB005NM,NonTreatment,Pre-Treatment 2016,Tanques-48,Shrub (All),0.12,0.133
+R036XB005NM,NonTreatment,Pre-Treatment 2016,Tanques-48,Sub-Shrub (All),0,0
+R036XB007NM,NonTreatment,Non Treatment 2016,WINTER-147,Annual,0,0
+R036XB007NM,NonTreatment,Non Treatment 2016,WINTER-147,Bare Soil,0,0.127
+R036XB007NM,NonTreatment,Non Treatment 2016,WINTER-147,Forb/herb (Invasive),0,0
+R036XB007NM,NonTreatment,Non Treatment 2016,WINTER-147,Graminoid (Perennial),0.393,0.433
+R036XB007NM,NonTreatment,Non Treatment 2016,WINTER-147,Shrub (All),0,0
+R036XB007NM,NonTreatment,Non Treatment 2016,WINTER-147,Sub-Shrub (All),0.14,0.153
+ UNKNOWN,NonTreatment,Non Treatment 2016,WINTER-148,Annual,0,0
+ UNKNOWN,NonTreatment,Non Treatment 2016,WINTER-148,Bare Soil,0,0.167
+ UNKNOWN,NonTreatment,Non Treatment 2016,WINTER-148,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2016,WINTER-148,Graminoid (Perennial),0.473,0.507
+ UNKNOWN,NonTreatment,Non Treatment 2016,WINTER-148,Shrub (All),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2016,WINTER-148,Sub-Shrub (All),0.1,0.113
+ UNKNOWN,NonTreatment,Non Treatment 2016,WINTER-149,Annual,0,0
+ UNKNOWN,NonTreatment,Non Treatment 2016,WINTER-149,Bare Soil,0,0.253
+ UNKNOWN,NonTreatment,Non Treatment 2016,WINTER-149,Forb/herb (Invasive),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2016,WINTER-149,Graminoid (Perennial),0.133,0.18
+ UNKNOWN,NonTreatment,Non Treatment 2016,WINTER-149,Shrub (All),0,0
+ UNKNOWN,NonTreatment,Non Treatment 2016,WINTER-149,Sub-Shrub (All),0.213,0.233

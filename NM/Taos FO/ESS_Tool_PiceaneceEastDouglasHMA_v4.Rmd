@@ -1,0 +1,880 @@
+---
+title: "Ecological Site Summary Report for Piceance-East Douglas Herd Management Area, White River Field Office, Colorado"
+subtitle: "Reporting Using Assessment, Inventory, and Monitoring (AIM) and Landscape Monitoring Framework (LMF)"
+author: "A Reporting Tool by USDA-ARS Jornada adapted by BLM National Operations Center" 
+date: April 2021
+output:
+  html_document:
+    theme: cosmo
+---
+```{r echo = FALSE}
+htmltools::img(src = knitr::image_uri("jornadalogo.png"), 
+               alt = 'logo', 
+               style = 'position:absolute; top:0; right:0; padding:10px;')
+
+knitr::opts_chunk$set(echo = FALSE , message = FALSE , warning = FALSE)
+```
+
+
+![Photo by Patrick Alexander](BannerPhoto.jpg)
+
+# 1. Introduction {.tabset .tabset-fade .tabset-pills}
+##
+## About Ecological Sites
+
+The U.S. Department of Agriculture Natural Resources Conservation Service (NRCS) defines ecological sites as "a distinctive kind of land with specific physical characteristics that differs from other kinds of land in its ability to produce a distinctive kind and amount of vegetation" ([USDA–NRCS, 2006](https://www.nrcs.usda.gov/wps/portal/nrcs/detail/national/landuse/rangepasture/?cid=stelprdb1068392)). Ecological sites determine not only the ecological potential of a site, but also how a site can respond to natural disturbance and management actions. Ecological sites have been delineated for many areas using physical and biotic features and are linked to soil map units. Soils, climate, hydrology, geology, physiographic features, plants species occurrences, plant community composition, annual biomass production, and plant-wildlife interactions all contribute to the proerties of ecological sites.  Ecological Site Descriptions (ESDs) describe the underlying factors associated with a specific ecological site, as well as different ecological states within a given site based on factors such as grazing, fire, drought, and other management actions. For an example of an ESD, see [EDIT Jornada](https://edit.jornada.nmsu.edu/page?content=class-description&catalog=3&spatial=84&class=5802#top-bookmark).
+
+## Ecological Site Summary
+
+Using ecological monitoring data, the overall status of an Ecological Site can be summarized into an Ecological Site Summary (ESS). At the site level, ecological site summaries generated from monitoring data can tell us about the condition and health of ecological sites based on indicators such as cover by structure and functional group, species dominance, species occurrences, canopy gap measurements, and soil stability measurements. These indicators can help inform the user of the ecological state of a given plot or overall site (i.e. shrubland state vs. grassland state). Identifying the ecological state allows us to not only determine the degree of departure from the corresponding reference ecological states, but also to inform management and restoration actions accordingly by determining the best pathway to a less degraded state. For more on state and transition models (STMs), see see [Bestelmeyer et al., 2017](https://link.springer.com/content/pdf/10.1007%2F978-3-319-46709-2_9.pdf).
+A major data source for developing these summaries is the Assessment, Inventory, and Monitoring (AIM) Program along with the Landscape Monitoring Framework (LMF). AIM and LMF include almost 25,000 plots throughout the western United States (*see* [AIM Data Portal](https://aim.landscapetoolbox.org/data-management-project-evaluation/databases/)) stored in the Terrestrial AIM Database (TerrADat). Data garnered from AIM and LMF plots is both generalizable and scalable and thus applicable to management decisions across multiple disciplines at both local and national levels.
+
+## ESS Tool
+
+An Ecological Site Summary (ESS) tool has been developed to help users visualize the overall status of their region of interest within a specific ecological site, or across an ecological site group. This information can be summarized within a given administrative state or across political boundaries for landscape scale analysis. Ecological site summaries are generated using an R Markdown script with an interactive HTML output in which users can query summary tables, download full or filtered summary tables to view in Excel, explore interactive figures, and download static figures for their own use.
+
+This report is an automated process and can be continually updated as new data becomes available each year or as lines of inquiry shift. This ESS information can be included in decision making processes for BLM managers, as it can help inform land use plans, grazing permit renewals, shrub or invasive species treatments, and/or seed menu development for ecological restoration and reclamation.
+
+```{r install, echo = FALSE, include =FALSE}
+#Set the path to your R library (make sure it's on local folder not network drive)
+LibraryPath <- LibraryPath
+.libPaths(LibraryPath)
+
+BLM <- BLM
+State <- State
+```
+
+```{r set EcologicalSiteId, echo = FALSE, include=FALSE}
+
+#EcologicalSiteId <- EcologicalSiteId
+
+#Set the path to TerrADat (this will be NULL if working within BLM network)
+#If working within BLM network, TerrADat_Path = NULL (this tool will direct to AIMPub)
+#BLM <- TRUE if internal (on VPN). BLM <- FALSE if external
+#EDIT_List_Path <- path to this repository
+EDIT_List_Path <- paste0(WorkingFolder, "/", "defaults/", sep = "")
+
+if(!BLM){
+TerrADat_Path <- TerrADat_Path
+}
+
+if(BLM){
+TerrADat_Path <- NULL
+conn <- RODBC::odbcConnect("ilmocAIMPub")
+TerrADat <- RODBC::sqlQuery(conn, 'SELECT * FROM ilmocAIMPub.ilmocAIMPubDBO.TerrADat;')
+LMF <- RODBC::sqlQuery(conn, 'SELECT * FROM ilmocAIMPub.ilmocAIMPubDBO.LMF;')
+TerrADatSpecies <- RODBC::sqlQuery(conn, 'SELECT * FROM ilmocAIMPub.ilmocAIMPubDBO.TerrADatSpeciesIndicators;')
+LMFSpecies <- RODBC::sqlQuery(conn, 'SELECT * FROM ilmocAIMPub.ilmocAIMPubDBO.LMFSpeciesIndicators;')
+SpeciesList <- RODBC::sqlQuery(conn, 'SELECT * FROM ilmocAIMPub.ilmocAIMPubDBO.tblStateSpecies;')
+}
+
+# wHEN DOING AN ANALYSIS WITH HMAS - WE WANT TO SELECT THE HMA SHAPEFILE FROM THE NETWORK AND SELECT THE POLYGON OF INTEREST
+if(HMA){
+  #Adding WHB polygon from EGIS
+  shapefile_path <-  "C:\\Users\\alaurencetraynor\\Documents\\2021\\Analysis\\CO\\WHFO\\HMA\\ArcPro\\Piceance East Douglas HMA.gdb"
+  shapefile_name <- "whb_hma_poly"
+  attribute_title <- "HMA_NAME"
+  attribute_name <- paste0(hma_name) # Will need to select the layer based on this
+}
+```
+
+
+```{r load data, echo = FALSE, include= FALSE}
+##The state species list table should also live in this geodatabase
+# We'll only read in the full terradat if it is not already 
+# (i.e. if you're running this multiple times)
+
+if(Groups){
+ TDat_LMF <- Combine_AIM_LMF_alt(TerrADat_Path = TerrADat_Path, 
+                            EDIT_List_Path = EDIT_List_Path, Internal = BLM, groups = groups, group_name = group_name, use_EDIT = FALSE)
+}else{
+   TDat_LMF <- Combine_AIM_LMF(TerrADat_Path = TerrADat_Path, 
+                            EDIT_List_Path = EDIT_List_Path, Internal = BLM)
+}
+
+# Attribute with time periods
+TDat_LMF_Time <- attribute_time(TDAT_LMF = TDAT_LMF, time_period1 = time_period1, time_period2 = time_period2)
+
+#Attribute tda and lmf with attributes from shapefile
+TDat_LMF_Attributed <- AttributePlots_alt(TDat_LMF = TDat_LMF_Time,
+                                      shapefile_name = shapefile_name,
+                                      shapefile_path = shapefile_path, 
+                                      attribute_title = attribute_title,
+                                      attribute_name = attribute_name)
+
+# Need to add Rs and Fs to LMF eCOSITES
+# We'll do this manually for now using the analysis spreadsheet as a reference
+# the only F site is 909 all others are R so just need to add an R to the front 
+TDat_LMF_Attributed$EcologicalSiteId <- gsub(pattern = "^03", replacement = "R03", TDat_LMF_Attributed$EcologicalSiteId)
+
+# there are two plots here without ecosites - these were exlcuded by Anna for the analysis so let remove for now as well
+TDat_LMF_Attributed <- TDat_LMF_Attributed[!is.na(TDat_LMF_Attributed$EcologicalSiteId),]
+
+EcoSitePlots <- TDat_LMF_Attributed
+
+# Reduce down to just PKS and attributes
+Attributed_Pks <- TDat_LMF_Attributed %>% dplyr::select(PrimaryKey, all_of(attribute_title), Time_Period, EcologicalSiteId)
+
+#The XEs from LMF are also unknown - but we will leave them for now
+
+Species_Indicator <- Combine_AIM_LMF_Species(TerrADat_Path = TerrADat_Path,                                              Internal = BLM)
+
+Species_plots_ecosite <- SubsetEcologicalSite_Species(EcoSitePlots, Species_Indicator)
+
+SpeciesList <- ReadSpeciesList(TerrADat_Path = TerrADat_Path, Internal = BLM)
+
+```
+
+# 2. Interpreting report figures {.tabset .tabset-fade .tabset-pills}
+
+This report uses both boxplots and mean values with confidence intervals to summarize cover value. Boxplots can be a helpful to look at the distribution of the underlying data including the presence of outliers. Confidence intervals are a measure of variability and indicate how certain we can be of our estimates.
+
+
+##
+## Boxplot
+
+![ Intepretting a Box Plot. Modified from: https://www.wellbeingatschool.org.nz/information-sheet/understanding-and-interpreting-box-plots (accessed 22 Aug 2019)](boxplot_text.png)
+
+## Confidence Intervals
+
+![Intertpreting Confidence Intervals](CI_figure.png)
+
+For more information on interpreting confidence intervals see the presentation from Project Leads Training 2020 [PowerPoint here](https://doimspp.sharepoint.com/:p:/r/sites/ext-blm-oc-naim/Shared%20Documents/AIM%20Projects/General%20AIM%20Resources/Training%20Resources/AIM%20Project%20Leads%20Training/November%202020%20Session/Day%202%20Presentations/5.Having%20Confidence%20in%20Your%20Estimates_v2_2020.pptx?d=wc58434b1502f4d019eed04efb612b093&csf=1&web=1&e=9bb5jJ) and [presentation here](https://youtu.be/Gl9ippHC16A).
+
+# 3. Where are the data coming from? {.tabset .tabset-fade .tabset-pills}
+##
+## Plot Map \
+
+Below is a map of all AIM and LMF plots within the Piceance-East Douglas HMA used for this report.
+Plots are colored by ecological site as well as year sampled. \
+
+```{r map , echo = FALSE, include=TRUE, message=FALSE, warning = FALSE}
+
+MakeMap_alt(EcologicalSiteId = unique(TDat_LMF_Attributed$EcologicalSiteId), TDat_LMF_Attributed)
+
+```
+
+## Some metadata {.tabset .tabset-fade .tabset-pills}
+
+### Plots Per Time Period and Ecological Site in your Study Area(s) {.tabset .tabset-fade .tabset-pills}
+
+```{r metadata plot list, echo = FALSE,}
+md_plotlist <- list()
+
+EcologicalSiteIds <- unique(TDat_LMF_Attributed$EcologicalSiteId)
+
+for(i in EcologicalSiteIds){
+  md_plotlist[[i]] <- PlotMetadata_alt(dataframe = EcoSitePlots, EcologicalSite = i)
+}
+```
+
+
+```{r plots figure 2 , message=FALSE, results="asis", echo = FALSE, fig.height = 3 , fig.width = 8, fig.cap = "AIM & LMF Plots Per Time Period in Piceance-East Douglas HMA"}
+
+for(i in EcologicalSiteIds){
+  cat("  \n####", i, "Ecological Site  \n")
+  #print(md_plotlist[[i]])
+  plot(md_plotlist[[i]])
+  cat("  \n")
+}
+
+```
+
+## Plots Per Year in your Study Area(s)
+
+```{r plots figure 3 , echo = FALSE, fig.height = 3 , fig.width = 8, fig.cap = "AIM & LMF Plots Per Year in Piceance-East Douglas HMA"}
+
+PlotMetadata(dataframe = EcoSitePlots)
+
+```
+
+##
+
+# 4. Species Cover Summaries {.tabset .tabset-fade .tabset-pills}
+
+Percent cover summaries use data from Line-point intercept (LPI) method to determine average cover of individual species, as well as summaries by structure and functional group cover and noxious versus non-noxious cover. More information on the LPI protocol can be found in the [Monitoring Manual for Grassland, Shrubland, and Savanna Ecosystems](https://www.landscapetoolbox.org/wp-content/uploads/2016/02/MMGSSE_20170614.pdf). From the AIM data, we can make some simple figures showing cover values. These figures, along with the summary tables, can quickly be incorporated into any documents where this data is used (i.e. NEPA documents for grazing permit renewals, shrub treatments, etc). For more information on AIM data, including how indicators are calculated, BLM users can access the TerrADat metadata [here.](https://doimspp.sharepoint.com/sites/blm-oc/drs/SitePages/BLM%20Terrestrial%20AIM%20Data%20(TerrADat%20and%20LMF).aspx)
+
+The boxplot cover summaries are generated from species indicator data and therefore may be an overestimation of cover for functional group as it does not take into account 
+
+##
+## Boxplot Figures {.tabset .tabset-fade .tabset-pills}
+
+### Cover by Functional Group {.tabset .tabset-fade .tabset-pills}
+
+```{r summaryfigures, echo=FALSE, message=FALSE, include=FALSE}
+# Functional Group
+
+
+SummaryVars <-  c("GrowthHabitSub","Noxious","Species","GroundCover","Gap","SoilStability")
+
+#Removing interactive graphs for now
+
+FigureList_stat <- list()
+
+for(i in EcologicalSiteIds){
+  for(j in SummaryVars){
+      FigureList_stat[[i]][[j]] <- SummaryFigures_WithAttributes_alt(SpeciesList = SpeciesList, 
+                                                       Species_plots_ecosite = Species_plots_ecosite,
+                                                       EcologicalSite = i,  
+                                                       SummaryVar = j, 
+                                                       Interactive = FALSE,
+                                                       Attributed_Pks = Attributed_Pks,
+                                                       EcoSitePlots = TDat_LMF_Attributed)
+  }
+}
+```
+
+####
+#### Graminoid {.tabset .tabset-fade .tabset-pills}
+
+```{r SFG plots grass static, fig.height = 5 , fig.width = 10 , echo = FALSE, include = TRUE, message=FALSE, results="asis"}
+
+for(i in EcologicalSiteIds){
+  cat("  \n#####", i, "Ecological Site  \n")
+  #print(FigureList_stat[[i]][["GrowthHabitSub"]][["Graminoid"]])
+  plot(FigureList_stat[[i]][["GrowthHabitSub"]][["Graminoid"]])
+  cat("  \n")
+}
+```
+
+#### Forb {.tabset .tabset-fade .tabset-pills}
+
+```{r SFG plots forb static, fig.height = 5 , fig.width = 10 , echo = FALSE, include = TRUE, message=FALSE, results="asis"}
+
+for(i in EcologicalSiteIds){
+  cat("  \n#####", i, "Ecological Site  \n")
+  #print(FigureList_stat[[i]][["GrowthHabitSub"]][["Forb"]])
+  plot(FigureList_stat[[i]][["GrowthHabitSub"]][["Forb"]])
+  cat("  \n")
+}
+
+```
+
+### Cover by Noxious, Non-Noxious Species {.tabset .tabset-fade .tabset-pills}
+
+```{r nox plots static , fig.height = 4 , fig.width = 10 , echo = FALSE, include = TRUE, message=FALSE, results="asis"}
+
+for(i in EcologicalSiteIds){
+  cat("  \n####", i, "Ecological Site  \n")
+  #print(FigureList_stat[[i]][["Noxious"]])
+  plot(FigureList_stat[[i]][["Noxious"]])
+  cat("  \n")
+}
+
+```
+
+### Cover by Species {.tabset .tabset-fade .tabset-pills}
+
+####
+#### Graminoid, Annual {.tabset .tabset-fade .tabset-pills}
+#####
+```{r species plots grass annual static , fig.height = 10 , fig.width = 10 , echo = FALSE, include = TRUE , results = 'asis', message=FALSE}
+
+EcologicalSiteIds_AG <- c("F048AY909CO", "R048AY238CO", "R034AY289CO", "R034AY298CO", "XE",          "R034AY287CO", "R034AY303CO", "R034AY285CO", "R034AY246CO", "R034AY295CO")
+
+for(i in EcologicalSiteIds_AG){
+  cat("  \n#####", i, "Ecological Site  \n")
+  #print(FigureList_stat[[i]][["Species"]][["Graminoid.Annual"]])
+  plot(FigureList_stat[[i]][["Species"]][["Graminoid.Annual"]])
+  cat("  \n")
+}
+
+# R036XY447CO Ecological Site has no annual forbs - need if statement check or new ES list
+```
+
+#### Graminoid, Perennial {.tabset .tabset-fade .tabset-pills}
+#####
+```{r species plots grass perennial static, fig.height = 14 , fig.width = 10 , echo = FALSE, include = TRUE , results = 'asis', message=FALSE}
+
+for(i in EcologicalSiteIds){
+  cat("  \n#####", i, "Ecological Site  \n")
+  #print(FigureList_stat[[i]][["Species"]][["Graminoid.Perennial"]])
+  plot(FigureList_stat[[i]][["Species"]][["Graminoid.Perennial"]])
+  cat("  \n")
+}
+
+```
+
+#### Forb, Annual {.tabset .tabset-fade .tabset-pills}
+#####
+```{r species plots forb annual static , fig.height = 14 , fig.width = 10 , echo = FALSE, include = TRUE , results = 'asis', message=FALSE}
+
+EcologicalSiteIds_AF <- c("F048AY909CO", "R034AY289CO", "R034AY298CO", "XE","R034AY287CO", "R034AY285CO", "R034AY246CO", "R034AY295CO", "R048AY235CO")
+
+for(i in EcologicalSiteIds_AF){
+  cat("  \n#####", i, "Ecological Site  \n")
+  #print(FigureList_stat[[i]][["Species"]][["Forb.Annual"]])
+  plot(FigureList_stat[[i]][["Species"]][["Forb.Annual"]])
+  cat("  \n")
+}
+
+```
+
+#### Forb, Perennial {.tabset .tabset-fade .tabset-pills}
+#####
+```{r species plots forb perennial static, fig.height = 14 , fig.width = 10 , echo = FALSE, include = TRUE , results = 'asis', message=FALSE}
+
+EcologicalSiteIds_PF <- EcologicalSiteIds[EcologicalSiteIds!="R034BY297CO"]
+
+for(i in EcologicalSiteIds_PF){
+  cat("  \n#####", i, "Ecological Site  \n")
+  #print(FigureList_stat[[i]][["Species"]][["Forb.Perennial"]])
+  plot(FigureList_stat[[i]][["Species"]][["Forb.Perennial"]])
+  cat("  \n")
+}
+
+```
+
+## Confidence Interval Figures {.tabset .tabset-fade .tabset-pills}
+
+### Cover by Functional Group {.tabset .tabset-fade .tabset-pills}
+
+```{r CI summaryfigures, echo=FALSE, message=FALSE, include=FALSE}
+
+CI_FigureList_int <- list()
+
+for(i in EcologicalSiteIds){
+  for(j in SummaryVars){
+      CI_FigureList_int[[i]][[j]] <- Time_Period_Figures(SpeciesList = SpeciesList, 
+                                                       Species_plots_ecosite = Species_plots_ecosite,
+                                                       EcologicalSite = i,  
+                                                       SummaryVar = j, 
+                                                       Interactive = TRUE,
+                                                       TDat_LMF_Attributed = TDat_LMF_Attributed,
+                                                       alpha = alpha)
+  }
+}
+
+CI_FigureList_stat <- list()
+
+for(i in EcologicalSiteIds){
+  for(j in SummaryVars){
+      CI_FigureList_stat[[i]][[j]] <- Time_Period_Figures(SpeciesList = SpeciesList, 
+                                                       Species_plots_ecosite = Species_plots_ecosite,
+                                                       EcologicalSite = i,  
+                                                       SummaryVar = j, 
+                                                       Interactive = FALSE,
+                                                       TDat_LMF_Attributed = TDat_LMF_Attributed,
+                                                       alpha = alpha)
+  }
+}
+```
+
+####
+#### Perennial Forb {.tabset .tabset-fade .tabset-pills}
+
+```{r CI SFG plots grass static, fig.height = 5 , fig.width = 10 , echo = FALSE, include = TRUE, message=FALSE, results="asis"}
+
+for(i in EcologicalSiteIds){
+  cat("  \n#####", i, "Ecological Site  \n")
+  message(i)
+  #print(CI_FigureList_stat[[i]][["GrowthHabitSub"]][["AH_PerenForbCover"]])
+  print(CI_FigureList_stat[[i]][["GrowthHabitSub"]][["AH_PerenForbCover"]])
+  cat("  \n")
+}
+
+```
+
+#### Perennial Grass {.tabset .tabset-fade .tabset-pills}
+
+```{r CI SFG plots forb static, fig.height = 5 , fig.width = 10 , echo = FALSE, include = TRUE, message=FALSE, results="asis"}
+
+for(i in EcologicalSiteIds){
+  cat("  \n#####", i, "Ecological Site  \n")
+  #print(CI_FigureList_stat[[i]][["GrowthHabitSub"]][["AH_PerenGrassCover"]])
+  plot(CI_FigureList_stat[[i]][["GrowthHabitSub"]][["AH_PerenGrassCover"]])
+  cat("  \n")
+}
+
+```
+
+#### Non-Noxious Annual Forbs {.tabset .tabset-fade .tabset-pills}
+
+```{r CI nn af plots  static, fig.height = 5 , fig.width = 10 , echo = FALSE, include = TRUE, message=FALSE, results="asis"}
+
+for(i in EcologicalSiteIds){
+  cat("  \n#####", i, "Ecological Site  \n")
+  #print(CI_FigureList_stat[[i]][["GrowthHabitSub"]][["AH_NonNoxAnnForbCover"]])
+  plot(CI_FigureList_stat[[i]][["GrowthHabitSub"]][["AH_NonNoxAnnForbCover"]])
+  cat("  \n")
+}
+
+```
+
+#### Short Perennial Grass Cover {.tabset .tabset-fade .tabset-pills}
+
+Short Stature Perennial Grasses status was determined by Sage
+Grouse biologists and modified slightly in each state. The full list can be found in tblStateSpecies in the
+SG_Group field where SG_Group field is ‘TallStaturePerennialGrass’ and the StateSpecies field has
+the two letter state code for the desired state (e.g. ‘CO’).
+
+These include: POSE, BOGR2, ARPU9, MUTO2, ACPI2, ACWE3, AGHU, AGVA, BLTR, FEBR, FEEA3, FESA, MUFI,PIEX4, POCU3, POJU, PONEI2, POSA12, POSC and VUOC.
+
+```{r CI short pg plots  static, fig.height = 5 , fig.width = 10 , echo = FALSE, include = TRUE, message=FALSE, results="asis"}
+
+for(i in EcologicalSiteIds){
+  cat("  \n#####", i, "Ecological Site  \n")
+  #print(CI_FigureList_stat[[i]][["GrowthHabitSub"]][["AH_ShortPerenGrassCover"]])
+  plot(CI_FigureList_stat[[i]][["GrowthHabitSub"]][["AH_ShortPerenGrassCover"]])
+  cat("  \n")
+}
+
+```
+
+#### Tall Perennial Grass Cover {.tabset .tabset-fade .tabset-pills}
+
+Tall Stature Perennial Grasses status was determined by Sage Grouse
+biologist and modified slightly in each state. The full list can be found in tblStateSpecies in the
+SG_Group field where SG_Group field is ‘TallStaturePerennialGrass’ and the StateSpecies field has
+the two letter state code for the desired state (e.g. ‘CO’).
+
+These inlcude: ACHY, AGCR, BRIN2, ELEL5, FEID, HECO26, KOMA, PASM, PLJA, PSSP6, SPAI, SPCR, THIN6 etc.
+
+```{r CI tall pg plots  static, fig.height = 5 , fig.width = 10 , echo = FALSE, include = TRUE, message=FALSE, results="asis"}
+
+for(i in EcologicalSiteIds){
+  cat("  \n#####", i, "Ecological Site  \n")
+  #print(CI_FigureList_stat[[i]][["GrowthHabitSub"]][["AH_TallPerenGrassCover"]])
+  plot(CI_FigureList_stat[[i]][["GrowthHabitSub"]][["AH_TallPerenGrassCover"]])
+  cat("  \n")
+}
+
+```
+
+### Cover by Noxious, Non-Noxious Species {.tabset .tabset-fade .tabset-pills}
+
+```{r CI nox plots static , fig.height = 4 , fig.width = 10 , echo = FALSE, include = TRUE, message=FALSE, results="asis"}
+
+for(i in EcologicalSiteIds){
+  cat("  \n####", i, "Ecological Site  \n")
+  #print(CI_FigureList_stat[[i]][["Noxious"]])
+  plot(CI_FigureList_stat[[i]][["Noxious"]])
+  cat("  \n")
+}
+
+```
+
+### Cover by Species {.tabset .tabset-fade .tabset-pills}
+
+####
+#### Graminoid, Annual {.tabset .tabset-fade .tabset-pills}
+#####
+```{r CI species plots grass annual static , fig.height = 10 , fig.width = 10 , echo = FALSE, include = TRUE , results = 'asis', message=FALSE}
+
+EcologicalSiteIds_AG <- c("F048AY909CO", "R048AY238CO", "R034AY289CO", "R034AY298CO", "XE",          "R034AY287CO", "R034AY303CO", "R034AY285CO", "R034AY246CO", "R034AY295CO")
+
+for(i in EcologicalSiteIds_AG){
+  cat("  \n#####", i, "Ecological Site  \n")
+  #print(CI_FigureList_stat[[i]][["Species"]][["Graminoid.Annual"]])
+  plot(CI_FigureList_stat[[i]][["Species"]][["Graminoid.Annual"]])
+  cat("  \n")
+}
+
+# R036XY447CO Ecological Site has no annual forbs - need if statement check or new ES list
+```
+
+#### Graminoid, Perennial {.tabset .tabset-fade .tabset-pills}
+#####
+```{r CI species plots grass perennial static, fig.height = 14 , fig.width = 10 , echo = FALSE, include = TRUE , results = 'asis', message=FALSE}
+
+for(i in EcologicalSiteIds){
+  cat("  \n#####", i, "Ecological Site  \n")
+  #print(CI_FigureList_stat[[i]][["Species"]][["Graminoid.Perennial"]])
+  plot(CI_FigureList_stat[[i]][["Species"]][["Graminoid.Perennial"]])
+  cat("  \n")
+}
+
+```
+
+#### Forb, Annual {.tabset .tabset-fade .tabset-pills}
+#####
+```{r CI species plots forb annual static , fig.height = 14 , fig.width = 10 , echo = FALSE, include = TRUE , results = 'asis', message=FALSE}
+
+EcologicalSiteIds_AF <- c("F048AY909CO", "R034AY289CO", "R034AY298CO", "XE","R034AY287CO", "R034AY285CO", "R034AY246CO", "R034AY295CO", "R048AY235CO")
+
+for(i in EcologicalSiteIds_AF){
+  cat("  \n#####", i, "Ecological Site  \n")
+  #print(CI_FigureList_stat[[i]][["Species"]][["Forb.Annual"]])
+  plot(CI_FigureList_stat[[i]][["Species"]][["Forb.Annual"]])
+  cat("  \n")
+}
+
+```
+
+#### Forb, Perennial {.tabset .tabset-fade .tabset-pills}
+#####
+```{r CI species plots forb perennial static, fig.height = 14 , fig.width = 10 , echo = FALSE, include = TRUE , results = 'asis', message=FALSE}
+
+EcologicalSiteIds_PF <- EcologicalSiteIds[EcologicalSiteIds!="R034BY297CO"]
+
+for(i in EcologicalSiteIds_PF){
+  cat("  \n#####", i, "Ecological Site  \n")
+  #print(CI_FigureList_stat[[i]][["Species"]][["Forb.Perennial"]])
+  plot(CI_FigureList_stat[[i]][["Species"]][["Forb.Perennial"]])
+  cat("  \n")
+}
+
+```
+
+
+## Summary Tables {.tabset .tabset-fade .tabset-pills}
+
+Foliar cover values are summarized in tables below. Tables summarize data across the ecological site as well as by plot within the ecological site. *Note that percent cover on a per-plot basis is not cumulative because we are calculating cover from any hit on line point intercept. Percent cover values per plot could therefore potentially add up to over 100. See Ground Cover Summary Table for total foliar cover estimates.* Per plot measurements are intended to allow you to compare plot level data to the status of the ecological site as a whole. 
+
+###
+
+### Percent Cover by Species {.tabset .tabset-fade .tabset-pills}
+####
+#### By Plot
+
+Percent cover by species by plot within your study area. 
+
+```{r plots, echo = FALSE , results = 'asis' , fig.height = 8}
+SummaryTables_WithAttributes_alt(EcoSitePlots = TDat_LMF_Attributed,
+                             Species_plots_ecosite = Species_plots_ecosite,
+                             SummaryVar = "Species",
+                             SummarizeBy = "Plot",
+                             Attributed_Pks = Attributed_Pks)
+```
+
+#### Ecological Site 
+
+Percent cover by species averaged across the study area by ecological site.
+
+```{r species, echo = FALSE , resutls = 'asis' , fig.height = 8}
+
+SummaryTables_WithAttributes_alt(EcoSitePlots = TDat_LMF_Attributed, Species_plots_ecosite, SummaryVar = "Species", 
+              SummarizeBy = "EcologicalSite", Attributed_Pks = Attributed_Pks)
+```
+
+### Percent Cover by Structure and Functional Group {.tabset .tabset-fade .tabset-pills}
+
+####
+
+#### By Plot
+
+Average percent cover by structure and functional group across your study area. 
+
+```{r SFG by plot , echo = FALSE , results = 'asis'}
+
+SummaryTables_WithAttributes_alt(EcoSitePlots = TDat_LMF_Attributed, Species_plots_ecosite, SummaryVar = "GrowthHabitSub", 
+              SummarizeBy = "Plot", Attributed_Pks = Attributed_Pks) 
+
+```
+
+#### Ecological Site 
+
+Average percent cover by structure and functional group across your study area. 
+
+```{r SFG , echo = FALSE , results = 'asis'}
+
+SummaryTables_WithAttributes_alt(EcoSitePlots = TDat_LMF_Attributed, Species_plots_ecosite, SummaryVar = "GrowthHabitSub", 
+              SummarizeBy = "EcologicalSite", Attributed_Pks = Attributed_Pks)
+                       
+```
+
+### Percent Cover, Noxious vs. Non-Noxious Species{.tabset .tabset-fade .tabset-pills}
+
+####
+#### By Plot
+
+Percent cover by noxious versus non-noxious plants by plot within your atudy area. 
+
+```{r noxious by plot , echo = FALSE , results = 'asis'}
+
+SummaryTables_WithAttributes_alt(EcoSitePlots = TDat_LMF_Attributed, Species_plots_ecosite, SummaryVar = "Noxious", 
+              SummarizeBy = "Plot", Attributed_Pks = Attributed_Pks)
+
+```
+
+#### Ecological Site
+
+Percent cover by noxious versus non-noxious plants averaged across your study area. 
+
+```{r noxious , echo = FALSE , results = 'asis'}
+
+SummaryTables_WithAttributes_alt(EcoSitePlots = TDat_LMF_Attributed, Species_plots_ecosite, SummaryVar = "Noxious", 
+              SummarizeBy = "EcologicalSite", Attributed_Pks = Attributed_Pks)
+
+```
+
+### Percent Cover, Woody vs. Non-Woody {.tabset .tabset-fade .tabset-pills}
+
+####
+#### By Plot
+
+```{r woody by plot , echo = FALSE , results = 'asis'}
+
+SummaryTables_WithAttributes_alt(EcoSitePlots = TDat_LMF_Attributed, Species_plots_ecosite, SummaryVar = "Woody", 
+              SummarizeBy = "Plot", Attributed_Pks = Attributed_Pks)
+
+```
+
+#### Ecological Site
+
+Percent cover by woody versus herbaceous plants averaged across your study area.  
+
+```{r woody , echo = FALSE , results = 'asis'}
+
+SummaryTables_WithAttributes_alt(EcoSitePlots = TDat_LMF_Attributed, Species_plots_ecosite, SummaryVar = "Woody", 
+              SummarizeBy = "EcologicalSite", Attributed_Pks = Attributed_Pks)
+
+```
+
+## Trace Species {.tabset .tabset-fade .tabset-pills}
+
+It is unlikely that all species on a plot will be detected in line point intercept. It can be inferred that these species that were never detected in LPI have "low abundance" across this ecological site. To determine all species detected on plots throughout an ecological site (or other grouping feature), we can pull in all species detected from all other methods using the accumulated species indicator. This can give us an idea of overall diversity across the ecological site, indicate seed bank and restoration potential, and inform us more about community composition and species trends as plots are repeatedly surveyed.
+
+###
+
+### By Plot
+
+This table contains species that were only ever detected in species richness inventory on a per plot basis within the study area. 
+
+```{r trace species table by plot  , echo = FALSE , results = 'asis'}
+
+SummaryTables_WithAttributes_alt(EcoSitePlots = TDat_LMF_Attributed, Species_plots_ecosite, SummaryVar = "TraceSpecies", 
+              SummarizeBy = "Plot", Attributed_Pks = Attributed_Pks) 
+
+```
+
+### Ecological Site
+
+This table contains species that were only ever detected in species richness inventory across the entire ecological site. 
+
+```{r trace species table , echo = FALSE , results = 'asis'}
+
+SummaryTables_WithAttributes_alt(EcoSitePlots = TDat_LMF_Attributed, Species_plots_ecosite, SummaryVar = "TraceSpecies", 
+              SummarizeBy = "EcologicalSite", Attributed_Pks = Attributed_Pks) 
+
+```
+
+
+# 5. Ground Cover Summaries {.tabset .tabset-fade .tabset-pills}
+
+In addition to species-specific indicators, we can summarize ground cover indicators to get percent cover values for bare ground, total rock, total litter, and total foliar. Additional indicators that can be included here are Lichen ("LC") , Moss ("M") , Duff ("D"), and/or Cyanobacteria ("CY"). These calculations are informative for assessing the status of the ecological site as a whole, susceptibility to erosion, and/or cross-walking AIM data to [Rangeland Health Assessments](https://www.landscapetoolbox.org/manuals/iirhv5/) when used in conjunction with species specific calculations.
+
+##
+## Boxplot Figures {.tabset .tabset-fade .tabset-pills}
+###
+```{r LPI ground plot static , echo = FALSE ,  fig.height = 6 , fig.width = 10 ,  results = 'asis', message=FALSE, include=TRUE}
+
+for(i in EcologicalSiteIds){
+  cat("  \n###", i, "Ecological Site  \n")
+  #print(FigureList_stat[[i]][["GroundCover"]])
+  plot(FigureList_stat[[i]][["GroundCover"]])
+  cat("  \n")
+}
+```
+
+## Confidence Interval Figures {.tabset .tabset-fade .tabset-pills}
+
+###
+```{r CI LPI ground plot static , echo = FALSE ,  fig.height = 6 , fig.width = 10 ,  results = 'asis', message=FALSE, include=TRUE}
+
+for(i in EcologicalSiteIds){
+  cat("  \n###", i, "Ecological Site  \n")
+  #print(CI_FigureList_stat[[i]][["GroundCover"]])
+  plot(CI_FigureList_stat[[i]][["GroundCover"]])
+  cat("  \n")
+}
+```
+##
+
+## Summary Tables {.tabset .tabset-fade .tabset-pills}
+
+###
+### By Plot
+
+Ground cover indicator values by plot within the specified ecological site.
+
+```{r LPI ground cover table plot, echo = FALSE , results = 'asis'}
+
+SummaryTables_WithAttributes_alt(EcoSitePlots = TDat_LMF_Attributed, Species_plots_ecosite, SummaryVar = "GroundCover", 
+              SummarizeBy = "Plot", Attributed_Pks = Attributed_Pks)
+
+```
+
+### Ecological Site
+
+Ground cover values averaged across the specified ecological site.
+ 
+```{r LPI ground cover table , echo = FALSE , results = 'asis'}
+
+SummaryTables_WithAttributes_alt(EcoSitePlots = TDat_LMF_Attributed, Species_plots_ecosite, SummaryVar = "GroundCover", 
+              SummarizeBy = "EcologicalSite", Attributed_Pks = Attributed_Pks)
+
+```
+
+# 6. Canopy Gap  {.tabset .tabset-fade .tabset-pills}
+
+Canopy gap intercept can inform us about potential wind erosion, weed invasion, and wildlife habitat. When combined with vegetation height measurements, gap measurements can inform us about vegetation structure (see p. 41 in the [Monitoring Manual](https://www.landscapetoolbox.org/wp-content/uploads/2016/02/MMGSSE_20170614.pdf) for methods). Canopy gap, bare soil, and vegetation heights c
+an also be used to determine thresholds at which vegetation structure may lead to a shift in ecological states.
+
+##
+## Canopy Gap Size Class Figure  {.tabset .tabset-fade .tabset-pills}
+###
+
+```{r Gap plot static , echo = FALSE , include = TRUE , fig.height = 7 , fig.width= 8, results="asis"}
+
+for(i in EcologicalSiteIds){
+  cat("  \n###", i, "Ecological Site  \n")
+  #print(FigureList_stat[[i]][["Gap"]])
+  plot(FigureList_stat[[i]][["Gap"]])
+  cat("  \n")
+}
+```
+
+## Confidence Interval Figure  {.tabset .tabset-fade .tabset-pills}
+###
+```{r CI Gap plot static , echo = FALSE , include = TRUE , fig.height = 7 , fig.width= 8, results="asis"}
+
+for(i in EcologicalSiteIds){
+  cat("  \n###", i, "Ecological Site  \n")
+  #print(CI_FigureList_stat[[i]][["Gap"]])
+  plot(CI_FigureList_stat[[i]][["Gap"]])
+  cat("  \n")
+}
+
+```
+##
+
+## Canopy Gap Size Class Summary Table {.tabset .tabset-fade .tabset-pills}
+###
+### By Plot
+
+The table below shows gap size classes represented within each plot within the specified ecological site. 
+
+```{r Gap plot summary , echo = FALSE , include = TRUE}
+
+SummaryTables_WithAttributes_alt(EcoSitePlots = TDat_LMF_Attributed, Species_plots_ecosite, SummaryVar = "Gap", 
+              SummarizeBy = "Plot", Attributed_Pks = Attributed_Pks)
+
+```
+
+### Ecological Site
+
+Below is a summary of average percent cover within each gap size class across the specified ecological site.
+
+```{r Gap summary , echo = FALSE , include = TRUE}
+
+SummaryTables_WithAttributes_alt(EcoSitePlots = TDat_LMF_Attributed, Species_plots_ecosite, SummaryVar = "Gap", 
+              SummarizeBy = "EcologicalSite", Attributed_Pks = Attributed_Pks)
+  
+```
+
+# 7. Soil Stability  {.tabset .tabset-fade .tabset-pills}
+
+Soil stability provides information on soil structure development and resistance to erosion. The soil stability test measures the soil's stability when exposed to rapid wetting, and reflects soil biotic integrity (see page 47 in the [Monitoring Manual](https://www.landscapetoolbox.org/wp-content/uploads/2016/02/MMGSSE_20170614.pdf).)
+
+##  Boxplot Figure {.tabset .tabset-fade .tabset-pills}
+###
+```{r soil stab plot static , echo = FALSE , include = TRUE , fig.height = 8 , fig.width = 10, results="asis", message=FALSE}
+
+for(i in EcologicalSiteIds){
+  cat("  \n###", i, "Ecological Site  \n")
+  #print(FigureList_stat[[i]][["SoilStability"]])
+  plot(FigureList_stat[[i]][["SoilStability"]])
+  cat("  \n")
+}
+
+```
+
+## Confidence Interval Figure {.tabset .tabset-fade .tabset-pills}
+###
+```{r CI soil stab plot static , echo = FALSE , include = TRUE , fig.height = 8 , fig.width = 10, results="asis", message=FALSE}
+
+for(i in EcologicalSiteIds){
+  cat("  \n###", i, "Ecological Site  \n")
+  #print(CI_FigureList_stat[[i]][["SoilStability"]])
+  plot(CI_FigureList_stat[[i]][["SoilStability"]])
+  cat("  \n")
+}
+
+```
+
+## Soil Stability Summary Table {.tabset .tabset-fade .tabset-pills}
+###
+### By Plot
+
+Below are the soil stability ratings for each individual plot within the specified ecological site. 
+
+```{r soil stab table by plot , echo = FALSE , include = TRUE}
+
+SummaryTables_WithAttributes_alt(EcoSitePlots = TDat_LMF_Attributed, Species_plots_ecosite, SummaryVar = "SoilStability", 
+              SummarizeBy = "Plot", Attributed_Pks = Attributed_Pks)
+
+```
+
+### Ecological Site
+
+Below are the average soil stability ratings within the specified ecological site. 
+
+```{r soil stab table , echo = FALSE , include = TRUE}
+
+SummaryTables_WithAttributes_alt(EcoSitePlots = TDat_LMF_Attributed, Species_plots_ecosite, SummaryVar = "SoilStability", 
+              SummarizeBy = "EcologicalSite", Attributed_Pks = Attributed_Pks)
+
+```
+##
+
+# 8. Remote Sensing Data
+
+## 
+
+## Rangeland Analysis Platform (RAP) estimates {.tabset .tabset-fade .tabset-pills}
+
+Remotely sensed estimates from the [RAP tool](https://rangelands.app)
+
+```{r, echo=FALSE}
+p <- Plot_RAP(filepath = "C:\\Users\\alaurencetraynor\\Documents\\2021\\Analysis\\CO\\WHFO\\HMA\\PED_HMA_RAP.csv")
+
+```
+
+###
+### Figure
+```{r, echo=FALSE, include=TRUE, fig.height = 10 , fig.width = 16}
+plotly::ggplotly(p)
+```
+
+### Summary Table
+```{r rap table , echo = FALSE , include = TRUE}
+Table_RAP(filepath = "C:\\Users\\alaurencetraynor\\Documents\\2021\\Analysis\\CO\\WHFO\\HMA\\PED_HMA_RAP.csv")
+
+# library(gdalUtils)
+# gdalUtils::gdal_translate(of="GTiff", co="TILED=YES", src_dataset="/vsicurl/http://rangeland.ntsg.umt.edu/data/rap/rap-vegetation-cover/v2/vegetation-cover-v2-2019.tif", projwin=(c(-118.01, 43.42, -116.7, 42.8)), output_Raster=TRUE, dst_dataset="seOR2019-rap.tif")
+
+# senslope test? here
+```
+
+# 9. Summary Stats
+
+Mean indicator values from 2011-2015 and 2016-2020 were compared using t-tests and Mann Whitney-U tests. 
+
+Rows with lower p-values can help you focus on the differences which are strongest. Comparisons with a p-value of 0.2 or lower are significant at the 80% Confidence level displayed in the error bars shown in the figures above. Blank p-values indicate rows where statistical comparisons were unable to be made due to sample size limitations.
+
+```{r,echo = FALSE , include = TRUE}
+tests <- list()
+
+for(i in EcologicalSiteIds){
+  tests[[i]] <- t.tests(TDat_LMF_Attributed = TDat_LMF_Attributed,
+                        EcologicalSite = i,
+                        alpha = 0.2)
+}
+
+```
+
+## Summary Table {.tabset .tabset-fade .tabset-pills}
+
+###
+```{r t test tables, echo = FALSE , include = TRUE, results="asis", message=FALSE}
+
+for(i in EcologicalSiteIds){
+  cat("  \n###", i, "Ecological Site  \n")
+  #print(tests[[i]])
+  print( htmltools::tagList(tests[[i]]))
+  cat("  \n")
+}
+
+```
+

@@ -1,0 +1,253 @@
+---
+title: "Taos trend"
+output: html_notebook
+---
+
+```{r setup}
+library(aim.analysis)
+library(tidyverse)
+library(rgdal)
+library(sp)
+library(spsurvey)
+library(sf)
+```
+
+# Functions
+```{r}
+`%notin%` <- Negate(`%in%`)
+```
+
+# Set Variables
+```{r}
+gdb <- "C:/Users/alaurencetraynor/Documents/2020/Analysis/NM/TAFO/TAFO.gdb"
+output_dir <- "C:/Users/alaurencetraynor/Documents/2020/Analysis/NM/TAFO/"
+ogrListLayers(dsn = gdb)
+
+tafo_aim_layer <- "terradat_rgdnnbm_final" # will need to filter this by date sampled
+
+#tafo_lmf_layer <- "TAFO_LMF" leave out LMF for now
+strata_layer <- "TerrestrialStratification_rgdnnm"
+design_layer_2014 <- "design_points_2014"
+design_layer_2017 <- "design_points_2017"
+
+# The fates in sample designs which correspond to sampled/observed
+observed_fates = c("TS", "Target Sampled", "Sampled")
+
+# The fates in sample designs which correspond to unneeded
+# (e.g. unused oversample or points designated for future sampling)
+invalid_fates = c("NN", NA, "Non Needed", "NT", "Not Sampled", "<Null>")
+
+# The variable that contains the areas in HECTARES in wgtcats
+# This is calculated in ArcMap
+wgtcat_area_var = "area_hectares"
+
+# The unique ID for poststratification polygons
+wgtcats_var <- "wgtcat"
+
+# The variable in AIM sample designs that contains the unique identifier for each point
+aim_idvar <- "PrimaryKey"
+# The variable in AIM sample designs that contains the fate for each point
+aim_fatevar = "FINAL_DESIG"
+# The variable in TerrADat that contains the unique identifier for each point matching AIM designs'
+tdat_idvar <- "PlotID"
+
+# should we include LMF or not?
+use_lmf <- "no"
+```
+
+# Import data
+```{r}
+terradat_spdf <- rgdal::readOGR(dsn = gdb, layer = tafo_aim_layer)
+
+#lmf_data_spdf <- rgdal::readOGR(dsn = gdb, layer = tafo_lmf_layer) we will exclude lmf for now
+strata_spdf <- rgdal::readOGR(dsn = gdb, layer = strata_layer)
+design2014_spdf <- rgdal::readOGR(dsn = gdb, layer = design_layer_2014)
+design2017_spdf <- rgdal::readOGR(dsn = gdb, layer = design_layer_2017)
+```
+# Simplify and Organise Data
+```{r}
+design2014_spdf@data[["unique_id"]] <- design2014_spdf@data[[aim_idvar]]
+design2014_spdf@data[["fate"]] <- design2014_spdf@data[[aim_fatevar]]
+design2014_spdf@data[["wgtcat"]] <- design2014_spdf@data[[wgtcats_var]]
+design2014_spdf@data <- design2014_spdf@data[,c("unique_id", "fate","wgtcat")]
+
+# repeat for 2017 points
+design2017_spdf@data[["unique_id"]] <- design2017_spdf@data[[aim_idvar]]
+design2017_spdf@data[["fate"]] <- design2017_spdf@data[[aim_fatevar]]
+design2017_spdf@data[["wgtcat"]] <- design2017_spdf@data[[wgtcats_var]]
+design2017_spdf@data <- design2017_spdf@data[,c("unique_id", "fate","wgtcat")]
+
+terradat_spdf@data[["unique_id"]] <- terradat_spdf@data[[aim_idvar]]
+terradat_spdf@data[["fate"]] <- "TS"
+terradat_spdf@data[["wgtcat"]] <- terradat_spdf@data[[wgtcats_var]]
+
+# add coordiantes
+terradat_spdf <- aim.analysis::add_coords(terradat_spdf)
+# lets break up date into year and month
+terradat_spdf@data[["Year"]] <- format(as.Date(terradat_spdf@data$DateEstablished, format = "%Y/%m/%d %H:%M:%OS"),"%Y")
+
+# split by year
+terradat_spdf_2014 <- terradat_spdf[terradat_spdf@data$Year < 2017,]
+terradat_spdf_2017 <- terradat_spdf[terradat_spdf@data$Year >= 2017,]
+
+# examine design and tdat points to prepare for harmonization 
+(length(terradat_spdf_2014@data[["unique_id"]]) - sum(terradat_spdf_2014@data[["unique_id"]] %in% design2014_spdf@data[["unique_id"]]))
+
+missing_tdat2014 <- terradat_spdf_2014@data[terradat_spdf_2014@data[["unique_id"]] %notin% design2014_spdf@data[["unique_id"]],] # these are now all just additonal design points (treatment, esd, cones) 
+
+# examine design and tdat points to prepare for harmonization 
+(length(terradat_spdf_2017@data[["unique_id"]]) - sum(terradat_spdf_2017@data[["unique_id"]] %in% design2017_spdf@data[["unique_id"]]))
+
+missing_tdat2017 <- terradat_spdf_2017@data[terradat_spdf_2017@data[["unique_id"]] %notin% design2017_spdf@data[["unique_id"]],] # these are now all just additonal design points (treatment, esd, cones) 
+
+# lets remove these treatment and intensification points
+#terradat_spdf <- terradat_spdf[terradat_spdf@data$unique_id %in% design_spdf@data$unique_id & !is.na(terradat_spdf@data$unique_id),]
+
+# filter design points to remove non target
+design2014_spdf@data <- design2014_spdf@data[design2014_spdf@data$fate %notin% invalid_fates,]
+
+design2014_spdf@data$Year <-NA
+
+# filter design points to remove non target
+design2017_spdf@data <- design2017_spdf@data[design2017_spdf@data$fate %notin% invalid_fates,]
+
+design2017_spdf@data$Year <-NA
+
+# combine rejected inaccesible, unkown nd sampled points for weight creation
+weight_data2014 <- rbind(design2014_spdf@data[design2014_spdf@data$fate %notin% observed_fates,], terradat_spdf_2014@data[,c("unique_id","fate","wgtcat","Year")]) # SDD may need to be updates - there are several plots in terradat which are not labeled as TS in the SDD/design points
+# a number of these plots - the Hills (in the sabinoso wilderness are not within the strata - intensification?)
+#how to incorporate rejections into year? include them in the year they were visited?
+
+# we may want to further limit these data to the RGDNNM since that has the most consistent inference area across the entire study period
+weight_data2017 <- rbind(design2017_spdf@data[design2017_spdf@data$fate %notin% observed_fates,], terradat_spdf_2017@data[,c("unique_id","fate","wgtcat","Year")])
+
+#lets remove this for now as well
+#weight_data <- weight_data[!is.na(weight_data$wgtcat),]
+
+# lets double check all looks good
+if (any(!complete.cases(weight_data2014))) {
+  print("NAs exist in weight data")
+} else if (any(duplicated(weight_data2014$unique_id))){
+  print("There are duplicate plots in the weight data") # FO-015 and FO-019 are duplicated - they were visited in both 2016 ad 2019
+  print(weight_data2014[duplicated(weight_data2014$unique_id),])
+} else {
+  print("Looks good")
+}
+
+## NAs here relate to inaccessible plots - may need to add date of rejection to get correct weights
+```
+
+# Calculate Weights
+```{r}
+# will need to split this into chunks of 3 years and recalc weights - don't have the date evaluated for rejected plots but we can use panel instead.
+
+group_field <- "wgtcat"
+
+analysis <- aim.analysis::weight.gen(pts = weight_data,
+                         pts.fatefield = "fate",
+                         pts.groupfield = group_field, # could also group by year here
+                         frame.spdf = strata_spdf,
+                         frame.groupfield = "wgtcat",
+                         target.values = observed_fates,
+                         unknown.values = c("UNK","Unknown"),
+                         nontarget.values = invalid_fates,
+                         inaccessible.values = c("IA","Inaccesible")) 
+```
+
+# More Data wrangling/ summary
+```{r}
+# filter terradata down to plots used in analysis and filter down to indicators and variabls of interest
+indicators <- c("BareSoilCover","TotalFoliarCover", "AH_SagebrushCover","Hgt_Herbaceous_Avg","SoilStability_All", "AH_NoxPerenForbCover","AH_NoxAnnForbCover","AH_NoxAnnGrassCover", "NumSpp_NoxPlant","AH_PerenForbCover","AH_PerenGrassCover", "FH_TotalLitterCover", "AH_ShrubCover", "AH_NoxCover")
+used_plots <- unique(weight_data$unique_id)
+covariates <- c("unique_id","wgtcat","EcologicalSiteId","DateEstablished", "coords.x1", "coords.x2", "Year")
+
+cdf_data <- terradat_spdf@data %>%
+  select(c(covariates,indicators))%>%
+  dplyr::filter(unique_id %in% used_plots)
+
+# taking a look at NAS
+cdf_na <- cdf_data[!complete.cases(cdf_data),] # there appear to be several plots with no indicators data sampled in 1970...date visited is incorrect - may need to replace with date established
+
+summary_list <- list(
+  mean = ~mean(.x,na.rm=TRUE),
+  std_dev = ~sd(.x,na.rm=TRUE),
+  min = ~min(.x,na.rm=TRUE),
+  max = ~max(.x, na.rm = TRUE))
+
+summary <- cdf_data %>%
+  pivot_longer(cols = indicators, names_to = "Indicator", values_to = "Value")%>%
+  group_by(Indicator)%>%
+  summarise(across(Value, summary_list), n= n())
+
+summary_year <- cdf_data %>%
+  pivot_longer(cols = indicators, names_to = "Indicator", values_to = "Value")%>%
+  group_by(Indicator,Year)%>%
+  summarise(across(Value, summary_list),n =n())
+
+# Visualise
+plot <- ggplot(data = summary_year, aes(x=Year, y=Value_mean, fill = Indicator))+
+  geom_col(position = "dodge")+
+  geom_errorbar(aes(ymin=(Value_mean-Value_std_dev),ymax =Value_mean+Value_std_dev), position = "dodge", alpha = 0.5)+
+  facet_wrap(.~Indicator, scales = "free")
+
+
+cdf_data <- merge(x = cdf_data,
+                  y = analysis[[3]],
+                  by = "unique_id",
+                  all.x = TRUE,
+                  all.y = FALSE)
+# prep for cdf
+sites <- data.frame(siteID = cdf_data$unique_id,
+                    Use = TRUE)
+# here we use individual years as subpopulations
+# could also use chunks of years
+subpop <- data.frame(siteID = cdf_data$unique_id,
+                     Year = cdf_data$Year.y)
+# may need to add in strata here
+
+design <- data.frame(siteID = cdf_data$unique_id,
+                     wgt = cdf_data$WGT,
+                     xcoord = cdf_data$coords.x1,
+                     ycoord = cdf_data$coords.x2)
+
+data.cont <- cdf_data[,c(1,7:20)]
+
+popsize <- c("2014" = sum(cdf_data$WGT), "2015" = sum(cdf_data$WGT), "2016" = sum(cdf_data$WGT), "2017" = sum(cdf_data$WGT), "2018" = sum(cdf_data$WGT), "2019" = sum(cdf_data$WGT))
+```
+
+# Cumulative Dsitribution Functions
+```{r}
+CDF_Estimates <- spsurvey::cont.analysis(sites = sites,
+                        subpop = subpop,
+                        design = design,
+                        data.cont = data.cont,
+                        popsize = list(Year = as.list(popsize)))
+
+cont.cdfplot("CDF_Estimates.pdf", CDF_Estimates$CDF)
+
+CDF_Tests <- cont.cdftest(sites, subpop, design, data.cont,
+   popsize=list(Year = as.list(popsize)))
+
+CDF_Tests$Significant <- CDF_Tests$p_Value<=0.05
+```
+
+# Looking at the means
+```{r}
+estimate_summary <- CDF_Estimates[["Pct"]]
+
+# lets plots these
+means <- estimate_summary[estimate_summary$Statistic=="Mean",]
+
+mean_plot <- ggplot(data = means, aes(x=Subpopulation, y=Estimate, fill = Indicator))+
+  geom_col(position = "dodge")+
+  geom_errorbar(aes(ymin=LCB95Pct,ymax = UCB95Pct, position = "dodge", alpha = 0.5))+
+  facet_wrap(.~Indicator, scales = "free")
+
+mean_plot 
+```
+
+#
+```{r}
+
+```
+

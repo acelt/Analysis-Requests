@@ -1,0 +1,120 @@
+---
+title: "NV Data Access"
+output: html_document
+---
+### Objectives
+- Collect AIM and LMF data (pre-2018) within an allotment polygon 
+- Present data in NV determinations and guides
+
+# Setup, filepaths and defaults
+```{r}
+# load packages
+.libPaths("C:\\Users\\alaurencetraynor\\Documents\\2019\\R\\R-3.5.3\\library\\")
+library(tidyverse)
+library(RODBC)
+library(sp)
+library(rgdal)
+
+# Directory
+dir <- "C:\\Users\\alaurencetraynor\\Documents\\2019\\FO Projects\\ELY\\"
+# (old) LMF sde
+lmf_sde <-" \\blm.doi.net\\dfs\\loc\\EGIS\\OC\\Projects\\Aquadat\\New\\ConnectionFiles\\Old\\ilmocpub.sde"
+# (old) AIM sde
+terradat_sde <-  "\\blm.doi.net\\dfs\\loc\\EGIS\\OC\\Projects\\Aquadat\\New\\ConnectionFiles\\Old\\ilmocpub.sde"
+
+# Projection
+proj <- sp::CRS("+proj=aea")
+```
+
+## Reporting Units
+```{r}
+# grazing allotments
+
+```
+
+## Connect to sde
+```{r}
+con1 <- RODBC::odbcConnect("")
+```
+
+
+## Clip data to polygon
+
+## From Spatial Join in Arc
+```{r}
+aim <- readOGR(dsn = "C:\\Users\\alaurencetraynor\\Documents\\2019\\FO Projects\\ELY\\IIRH_AIM.shp", layer ="IIRH_AIM")@data
+lmf <- readOGR(dsn = "C:\\Users\\alaurencetraynor\\Documents\\2019\\FO Projects\\ELY\\lmf_allot_join.shp", layer ="lmf_allot_join")@data
+```
+
+## Reformat data 
+Match plot data to NV Standards and Guidlines doc
+```{r}
+
+aim_select <- aim %>%
+  mutate(Grass = (NonInvPe_1 + NonInvAnnG + InvAnnGras),
+         Forb = (NonInvPere + NonInvAnnF + InvAnnForb + InvPerenFo),
+         Shrub = (NonInvShru + InvShrubCo),
+         Rock = NA,
+         Litter = NA,
+         Biocrust = NA,
+         MUS = NA)%>%
+  unite("Location",c(Latitude,Longitude), sep = ",")%>%
+  dplyr::select(ALLOT_NAME,
+                PlotID,
+                Location,
+                Ecological,
+                MUS,
+                Rock,
+                BareSoilCo,
+                Litter,
+                Biocrust,
+                TotalFolia,
+                Shrub,
+                Grass,
+                Forb,
+                NonInvTree,
+                InvAnnGras,
+                InvAnnForb,
+                NonInvPere,
+                NonInvPe_1,
+                WoodyHgt_A,
+                Herbaceous,
+                HydroFunct,
+                BioticInte,
+                SoilSiteSt)
+  
+lmf_select <- lmf %>%
+  mutate(Grass = (NINVAGC+NINVPGC+INVAGC+INVPGC),
+         Forb = (NINVAFC+NINVPFC+INVAFC+INVPFC),
+         Shrub = (NINVSC+INVSC),
+         Rock = NA,
+         Litter = NA,
+         Biocrust = NA,
+         MUS = NA)%>%
+  unite("Location",c(LATDD,LONDD), sep = ",")%>%
+  dplyr::select(ALLOT_NAME,
+                PLOTKEY,
+                Location,
+                ECOSITEID,
+                MUS,
+                Rock,
+                BSOILCOVER,
+                Litter,
+                Biocrust,
+                TFOLCOVER,
+                Shrub,
+                Grass,
+                Forb,
+                NINVTREE,
+                INVAGC,
+                INVAFC,
+                NINVPFC,
+                NINVPGC,
+                HTWOODY,
+                HTHERB
+                )
+
+write.csv(lmf_select, "C:\\Users\\alaurencetraynor\\Documents\\2019\\FO Projects\\ELY\\lmf_join.csv")
+write.csv(aim_select, "C:\\Users\\alaurencetraynor\\Documents\\2019\\FO Projects\\ELY\\aim_join.csv")
+```
+

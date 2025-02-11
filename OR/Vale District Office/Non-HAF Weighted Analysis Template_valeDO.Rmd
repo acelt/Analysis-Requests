@@ -1,0 +1,585 @@
+---
+title: "Non-HAF Weighed Anlaysis Template"
+author: "Alex Traynor"
+date: "8/1/2023"
+output:
+  html_document:
+    df_print: paged
+    output: cosmo
+  pdf_document: default
+  word_document: default
+---
+
+## Setup
+```{r setup, message=FALSE}
+
+.libPaths("C:/R-4.2.1/library")
+
+#devtools::install_git(url = "https://github.com/nstauffer/aim.analysis/", ref = "master")
+
+### Package Setup
+# Set local library path and load required packages
+library(aim.analysis)
+library(sp)
+library(dplyr)
+library(stringr)
+library(sf)
+library(rgdal)
+library(tidyverse)
+library(scales)
+library(plotly)
+library(arcgisbinding)
+arc.check_product() 
+```
+
+### San Luis Watershed
+### Set variables and input parameters
+
+```{r input variables, message=FALSE}
+#Alber's Equal Area is useful for calculating areas
+projection <- sp::CRS("+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs")
+#Analysis date
+date <- Sys.Date()
+# Confidence level in percent
+confidence <- 80
+output_path <- "C:\\Users\\alaurencetraynor\\Documents\\OR\\ValeDO\\outputs"
+# Filename for benchmark tool from analysis requester
+benchmarks_filename <- "Monitoring Objectives_CowLakesAllotments.xlsx"
+# Core filename for all outputs/name of reporting unit
+output_filename <- "CLAA"
+# The variable in AIM sample designs that contains the unique identifier for each point
+#aim_idvar <- "PlotID"
+# The variable in AIM sample designs that contains the fate for each point
+#aim_fatevar = "EvalStatus"
+# The variable in TerrADat that contains the unique identifier for each point matching AIM designs'
+tdat_idvar <- "PrimaryKey"
+# The fates in sample designs which correspond to sampled/observed
+observed_fates = c("TS", "Target Sampled", "Sampled", "Eval")
+# The fates in sample designs which correspond to unneeded
+# (e.g. unused oversample or points designated for future sampling)
+invalid_fates = c("NN", NA, "Non Needed", "", "Not Sampled")
+#sdd points
+#design_points_name <- "CO_rejections_alamosa_trinchera_strata"
+#terradat clipped points
+sampled_points_name <- "Benchmarked_points_wgtcats"
+# The variable that contains the areas in HECTARES in wgtcats
+wgtcat_area_var = "area_hectares"
+# Reporting unit polygon/layer
+wgtcats_name <- "CLAA_strata_UNION_Dissolve"
+# Geodatabase containing all spatial files
+analysis_gdb <- "ValeDO.gdb"
+# The unique ID for poststratification polygons
+wgtcats_var <- "wgtcat"
+### The filepath to the folder where we have all the spatial data
+path_spatial <- "C:\\Users\\alaurencetraynor\\Documents\\OR\\ValeDO"
+### The filepath to the folder where we have the Excel stuff
+path_tabular <- path_spatial
+#my favourite function
+`%notin%` <- Negate(`%in%`)
+# benchmark group var in design points
+benchmark_var <- "LevelIVEco"
+# These are the fields in sampled points which contain the condition categories
+benchmark_fields <- c("Standard1_","Standard11","Standard_1", "Standard_2")
+```
+
+## Import Spatial and Tabular Data
+### Read in weight categories
+```{r read strata, message=FALSE, warning=FALSE}
+#### Strata polygons
+wgtcat_df <-sf::st_read(dsn = paste(path_spatial, analysis_gdb, sep = "/"),
+                        layer = wgtcats_name,
+                        stringsAsFactors = FALSE)
+## Standardize projection
+wgtcat_df <- sf::st_transform(wgtcat_df,
+                              crs = projection)
+
+## Make spatial 
+wgtcat_spdf <- methods::as(wgtcat_df, "Spatial")
+wgtcat_spdf@data[["wgtcat"]] <- wgtcat_spdf@data[[wgtcats_var]]
+sf::st_geometry(wgtcat_df) <- NULL
+
+wgtcat_df[["wgtcat"]] <- wgtcat_df[[wgtcats_var]]
+```
+### Read design points
+# dont need this
+```{r read design points, message=FALSE, warning=FALSE, eval=FALSE}
+#### Read in design points
+# Make sure points and polygons do not include Z/M dimensions...
+design_points <- sf::st_read(dsn = paste(path_spatial, analysis_gdb, sep = "/"),
+                             layer = design_points_name,
+                             stringsAsFactors = FALSE)
+## Standardize projection
+design_points <- sf::st_transform(design_points,
+                                  crs = projection)
+## Make spatial 
+design_points <- methods::as(design_points, "Spatial")
+
+# Standardise columns
+design_points@data[["unique_id"]] <- design_points@data[[aim_idvar]]
+design_points@data[["fate"]] <- design_points@data[[aim_fatevar]]
+design_points@data[["wgtcat"]] <- design_points@data[[wgtcats_var]]
+design_points@data[["Benchmark.Group"]] <- NA # these are just rejections so dont have benchmark group
+
+```
+### Read benchmarks
+
+```{r read benchmarks, message=FALSE}
+#### Benchmarks
+# Ive already applied these in ArcPro but they may come in handy for figures and what not
+# make sure all columns (including required proportions) are filled out - otherwise apply_benchamrks() will give errors
+benchmarks <- read_benchmarks(filename = benchmarks_filename,
+                              filepath = path_tabular)
+
+benchmarks$Reporting.Unit <- output_filename
+```
+
+### Read Sampled points
+```{r sampled points, message=FALSE, warning=FALSE}
+#### Read in Terradat points
+# Make sure points and polygons do not include Z/M dimensions...
+sampled_points <- sf::st_read(dsn = paste(path_spatial, analysis_gdb, sep = "/"),
+                              layer = sampled_points_name,
+                              stringsAsFactors = FALSE)
+## Standardize projection
+sampled_points <- sf::st_transform(sampled_points,
+                                   crs = projection)
+## Make spatial 
+sampled_points <- methods::as(sampled_points, "Spatial")
+
+sampled_points@data[["fate"]] <- "TS"
+
+# Standardise columns
+sampled_points@data[["unique_id"]] <- sampled_points@data[[tdat_idvar]]
+sampled_points@data[["wgtcat"]] <- sampled_points@data[[wgtcats_var]]
+sampled_points@data[["wgtcat"]] <- as.character(sampled_points@data[["wgtcat"]])
+sampled_points@data$Reporting.Unit <- output_filename
+
+```
+### Filter sampled points
+```{r filter sampled points, message=FALSE}
+# theres a few rows with missing benchmarks for the pernnial:annual ratio - need to manually correct these,
+# theres a few where the Annual grass value is 0 and so they are both meeting
+# I just edited these in Arc
+# for(field in benchmark_fields){
+#   sampled_points <- sampled_points[!is.na(sampled_points@data[[field]]),]
+# }
+
+### Combine sampled points with rejections
+# add benchmark fields to rejections
+# for(col in benchmark_fields){
+#   design_points[[col]] <- NA
+# }
+# 
+ all_points <- sampled_points[, c("unique_id", "fate", "wgtcat", benchmark_fields)]
+```
+
+## Weighting
+```{r point weighting, message=FALSE, warning=FALSE}
+###### Analyze ######
+weight_info <- weight.gen(pts = all_points,# remove targeted plots
+                          pts.fatefield = "fate",
+                          pts.groupfield = "wgtcat",
+                          frame.spdf = wgtcat_spdf,
+                          frame.groupfield = "wgtcat",
+                          target.values = c("Target Sampled", "TARGET SAMPLED", "TS"),
+                          unknown.values = c("Unknown", "UNKNOWN", "UNK"),
+                          nontarget.values = c("NT"),
+                          inaccessible.values = c("IA"),
+                          unneeded.values = invalid_fates)
+
+point_weights <-  weight_info[["point.weights"]]
+
+all_points <-  aim.analysis::add_coords(all_points,
+                                        xynames = c("x", "y"))
+```
+
+### Organise Indicators
+```{r}
+# first we need to update benchmark fields from points feature class so that they match the indicators in the monitoring objective spreadsheet
+all_points@data <- all_points@data %>% 
+  rename("Standard1_BareSoilCover" = "Standard1_",
+         "Standard1_TotalFoliarCover" = "Standard11",
+         "Standard1_SoilStability" = "Standard_1",
+         "Standard1_PerennialAnnualGrassRatio" = "Standard_2")
+
+benchmark_fields = c("Standard1_BareSoilCover", "Standard1_TotalFoliarCover","Standard1_SoilStability", "Standard1_PerennialAnnualGrassRatio")
+# make indicators long instead of wide
+benchmarked_points <- all_points@data %>% 
+  pivot_longer(cols = benchmark_fields, names_to = 'Indicator', values_to = "Condition.Category")
+
+# remove the unsampled plots
+benchmarked_points <- benchmarked_points[!is.na(benchmarked_points$Condition.Category),]
+
+#Add reporting unit
+all_points[["Reporting.Unit"]] <- output_filename
+weight_info[["point.weights"]][["Reporting.Unit"]] <- output_filename
+# need to add reporting unit name to analyse
+point_weights$Reporting.Unit <- output_filename
+```
+
+### Category Definitions
+```{r prep for analyze, message=FALSE}
+# a definitions list for analyze_cat_multi()
+# this is just a list of all the possible condition categories
+cat_defs <-  benchmarks[,c("Benchmark.Group", "Objective.name", "Condition.Category")]
+
+colnames(cat_defs) <- c("Benchmark.Group","Indicator", "Condition.Category")
+cat_defs <- unique(cat_defs)
+```
+
+## Analyse
+```{r analyze, message=FALSE}
+analysis <- analyze_cat_multi(data = benchmarked_points,
+                        weights = point_weights,
+                        id_var = "unique_id",
+                        cat_var = "Condition.Category",
+                        wgt_var = "WGT",
+                        split_vars = "Indicator",
+                        definitions = cat_defs,
+                        conf = confidence,
+                        verbose = FALSE)
+```
+
+### Confidence Intervals
+```{r confidence intervals, message=FALSE}
+# Calculate CIs for acres
+total_acres = (analysis$total_observation_weight/analysis$weighted_observation_proportion)[1]
+
+analysis <- analysis %>% 
+  mutate(lower_bound_acres = weighted_observation_proportion_lower_bound_80pct*total_acres,
+         upper_bound_acres = weighted_observation_proportion_upper_bound_80pct*total_acres)
+
+analysis$Reporting.Unit <- output_filename
+
+names(analysis) <- c("Rating",
+                     "Number of plots",
+                     "Unweighted proportion of sampled area",
+                     "Estimated Area",
+                     "Weighted proportion of sampled area",
+                     paste0(c("Lower confidence bound of percent area (", "Upper confidence bound of percent area ("), confidence, "%, Goodman multinomial) "),
+                     "Indicator",
+                     paste0(c("Lower confidence bound of acres (", "Upper confidence bound of acres ("), confidence, "%, Goodman multinomial)"),
+                     "Reporting Unit")
+
+```
+
+### Formatting Outputs
+```{r formatting outputs, message=FALSE}
+wgtcat_summary <- weight_info[["frame.summary"]]
+names(wgtcat_summary) <- c("wgtcat",
+                           "total_count",
+                           "count_Target Sampled",
+                           "count_NT",
+                           "count_IA",
+                           "count_NA",
+                           "count_UNK",
+                           "area_ha",
+                           "observed_proportion",
+                           "observed_area",
+                           "weight")
+
+fates <- c("NT","IA","NA","UNK")
+
+for (fate in fates) {
+  wgtcat_summary[[paste0("count_", fate)]][is.na(wgtcat_summary[[paste0("count_", fate)]])] <- 0
+}
+
+wgtcat_summary[["in_inference"]] <- (wgtcat_summary[["weight"]])>0
+
+wgtcat_summary$area_units <- "hectares"
+
+wgtcat_summary$unobserved_area <- wgtcat_summary$area_ha - wgtcat_summary$observed_area
+
+# Add in where they're from
+all_points <- sp::merge(x = all_points,
+                        y = point_weights[,c("unique_id","WGT")],
+                        all.x = TRUE,
+                        by = "unique_id")
+
+# reformat benchmark_points to wide format
+wgtcat_spdf <- merge(x = wgtcat_spdf,
+                     y = wgtcat_summary,
+                     by = "wgtcat",
+                     all.x = TRUE,
+                     all.y = TRUE)
+
+# Rounding numbers for clarity
+wgtcat_spdf@data[,is.numeric(wgtcat_spdf@data)] <- round(is.numeric(wgtcat_spdf@data), 2)
+
+# reformat wgtcats
+wgtcat_spdf$in_inference[is.na(wgtcat_spdf$in_inference)] <- FALSE
+```
+## Writing Outputs
+```{r writing outputs, message=FALSE, warning=FALSE}
+write.csv(point_weights,
+          file = paste0(output_path, "/",
+                        output_filename,
+                        "_pointweights_",
+                        date, ".csv"),
+          row.names = FALSE)
+write.csv(wgtcat_spdf@data,
+          file = paste0(output_path, "/",
+                        output_filename,
+                        "_wgtcatsummary_",
+                        date, ".csv"),
+          row.names = FALSE)
+write.csv(analysis,
+          file = paste0(output_path, "/",
+                        output_filename,
+                        "_analysis_",
+                        date, ".csv"),
+          row.names = FALSE)
+rgdal::writeOGR(all_points,
+                dsn = output_path,
+                layer = paste0(output_filename,
+                               "_points_",
+                               date),
+                driver = "ESRI Shapefile",
+                overwrite_layer = TRUE)
+
+rgdal::writeOGR(wgtcat_spdf,
+                dsn = output_path,
+                layer = paste0(output_filename,
+                               "_wgtcats_",
+                               date),
+                driver = "ESRI Shapefile",
+                overwrite_layer = TRUE)
+
+# lets also write these to gdb to avoid horrible truncated field names...
+arc.write(data = all_points,
+          path = paste0(output_path,"/",
+                        analysis_gdb,"/",output_filename,
+                               "_points"),
+          overwrite = TRUE)
+
+arc.write(data = wgtcat_spdf,
+          path = paste0(output_path,"/",
+                        analysis_gdb,"/",output_filename,
+                               "_wgtcats"),
+          overwrite = TRUE)
+```
+## Results
+### Benchmarks
+```{r, message=FALSE}
+benchmarks_table <- benchmarks %>% DT::datatable(extensions = 'Buttons', filter = "top" , 
+                            options = list(scrollX = TRUE ,
+                            dom = 'Bfrtip',
+                            buttons =
+                            list(list(
+                            extend = 'collection',
+                            buttons = c('csv', 'excel'),
+                            text = 'Download Table'))) , 
+                 caption = paste("Weighted Analysis Benchmarks for " , 
+                                 toString(output_filename)) , 
+                 rownames = FALSE)
+benchmarks_table
+```
+
+### Point Weights
+```{r, message=FALSE}
+weights_table <- point_weights %>% DT::datatable(extensions = 'Buttons', filter = "top" , 
+                            options = list(scrollX = TRUE ,
+                            dom = 'Bfrtip',
+                            buttons =
+                            list(list(
+                            extend = 'collection',
+                            buttons = c('csv', 'excel'),
+                            text = 'Download Table'))) , 
+                 caption = paste("Point Weights for " , 
+                                 toString(output_filename)) , 
+                 rownames = FALSE)
+weights_table
+```
+### Figures
+
+#### Proportional Estimates Tables
+```{r, fig.width= 12, fig.height=8, message=FALSE}
+# use dt table to present analysis and wgtcat summary
+library(DT)
+
+# round numeric
+analysis <- analysis %>%
+  mutate_if(is.numeric, round, 2)
+
+analysis_table <- analysis %>%
+  DT::datatable(extensions = 'Buttons', filter = "top" , 
+                            options = list(scrollX = TRUE ,
+                            dom = 'Bfrtip',
+                            buttons =
+                            list(list(
+                            extend = 'collection',
+                            buttons = c('csv', 'excel'),
+                            text = 'Download Table'))) , 
+                 caption = paste("Weighted Analysis Results in " , 
+                                 toString(output_filename)) , 
+                 rownames = FALSE)
+
+analysis_table
+
+```
+
+#### Weight Category Summaries
+```{r, fig.width= 12, fig.height=8, message=FALSE, warning=FALSE}
+wgtcat_table <- wgtcat_summary %>%
+  DT::datatable(extensions = 'Buttons', filter = "top" , 
+                            options = list(scrollX = TRUE ,
+                            dom = 'Bfrtip',
+                            buttons =
+                            list(list(
+                            extend = 'collection',
+                            buttons = c('csv', 'excel'),
+                            text = 'Download Table'))) , 
+                 caption = paste("Weight Category Summary in  " , 
+                                 toString(output_filename)) , 
+                 rownames = FALSE)
+wgtcat_table
+```
+
+#### Plotting weighted analysis results
+```{r, fig.width=12, fig.height=8, message=FALSE}
+# Fancy palette from Nelson
+library(scales)
+palette = c(#"#f5bb57ff",
+                                            # "#f8674cff",
+                                            # "#4a8b9fff",
+                                             "#685b7fff",
+                                            # "#c95294ff",
+                                            #"#f5a9c6ff",
+                                            #"#75c6c5ff",
+                                            "#fd6794ff")
+
+analysis$Rating <- as.factor(analysis$Rating)
+
+levels(analysis$Rating)
+
+g <- ggplot(data = analysis,
+                aes(y = `Estimated Area`,
+                             x = Rating, fill = Rating)) +
+  geom_col(alpha = 0.6, position = "dodge") +
+  geom_errorbar(aes(ymin = `Lower confidence bound of acres (80%, Goodman multinomial)`,
+                                      ymax = `Upper confidence bound of acres (80%, Goodman multinomial)`),
+                         width = 0.5)+
+  facet_wrap(.~Indicator, scales = "free")+
+  coord_flip()+
+  theme_bw()+
+  labs(x = "")+
+  scale_fill_manual(values = palette)+
+  scale_y_continuous(label = comma)+
+  theme(panel.spacing.y = unit(2,"lines"))
+
+ggplotly(g)
+
+g
+
+ggsave(plot = g, device = "jpeg", dpi = 400, width =20, height = 10, filename = paste0("analysis_", output_filename, ".jpeg"), path = output_path)
+```
+### Maps
+```{r}
+library(tmap)
+
+# add a basemap and outline of OMDPNM
+# sma
+blm_basemap_url <- "https://gis.blm.gov/arcgis/rest/services/lands/BLM_Natl_SMA_Cached_BLM_Only/MapServer/2"
+blm_basemap <- arc.open(blm_basemap_url)
+
+# filter to NM
+blm_sma <- arc.select(blm_basemap,
+                      where_clause = "ADMIN_UNIT_TYPE = 'Bureau of Land Management OR'")
+blm_sma <- arc.data2sf(blm_sma)
+
+# transform to AEA
+blm_sma <- st_transform(blm_sma, projection)
+
+# drop z vlaues
+blm_sma <- st_zm(blm_sma, drop = TRUE)
+
+# bounding box for map
+bb <-  st_bbox(wgtcat_spdf)
+
+# make some bbox magic
+bbox_new <- bb # current bounding box
+
+xrange <- bbox_new$xmax - bbox_new$xmin # range of x values
+yrange <- bbox_new$ymax - bbox_new$ymin # range of y values
+
+# bbox_new[1] <- bbox_new[1] - (0.25 * xrange) # xmin - left
+bbox_new[3] <- bbox_new[3] + (0.25 * xrange) # xmax - right
+# bbox_new[2] <- bbox_new[2] - (0.25 * yrange) # ymin - bottom
+bbox_new[4] <- bbox_new[4] + (0.2 * yrange) # ymax - top
+
+#### Pulling in all together
+# map to show groups
+
+# checking out palettes
+#tmaptools::palette_explorer()
+# indicator <-  colnames(all_data_spdf)[20
+
+# add a dissolved poly for the outline
+wgtcat_spdf_dissolve <- wgtcat_spdf %>% 
+  st_as_sf() %>% 
+  st_buffer(0.5) %>% 
+  st_union() %>% 
+  st_sf()
+# Adding this to turn off spherical geometry which is causing issues in tmap
+sf_use_s2(FALSE)
+
+# basemap
+make_map <- function(indicator){
+  
+  basemap <- tm_shape(wgtcat_spdf, bbox = bbox_new) +
+    tm_borders()+
+    # tm_shape(blm_sma)+ # actually i kinda dont like the sma
+    # tm_fill(col = "#fbea65") +
+    tm_shape(wgtcat_spdf) +
+    tm_fill(col = "in_inference")+
+    tm_shape(wgtcat_spdf_dissolve)+
+    tm_borders(col = "grey40",
+               lwd = 0.6)+
+    tm_legend()+
+    tm_scale_bar(position =  c("RIGHT", "BOTTOM"))
+  
+  basemap <- basemap +
+    tm_shape(all_points)+
+    tm_bubbles(col = indicator,
+               palette = palette,
+               size = 0.3,
+               title.col = "",
+               style = "cat",
+               legend.col.is.portrait = TRUE)+
+    tm_layout(legend.position = c("RIGHT", "TOP"),
+              title = paste0(indicator),
+              title.size = 1,
+              title.position = c("RIGHT", "TOP"))
+  basemap
+  
+  return(basemap)
+  
+}
+cat_inds <- colnames(all_points@data)[4:7]
+
+# wrap this in a loop for each indicator
+map_list <- lapply(X = cat_inds,
+       FUN = make_map)
+
+tmap_mode("view")
+## tmap mode set to interactive viewer
+
+map_list[[1]]
+map_list[[2]]
+map_list[[3]]
+map_list[[4]]
+
+## save an image ("plot" mode)
+for(i in 1:4){
+  tmap_save(map_list[[i]], filename = paste0("WeightedAnalysisMap_", i, ".png"))
+}
+
+
+## save as stand-alone HTML file ("view" mode)
+for(i in 1:4){
+  tmap_save(map_list[[i]], filename = paste0("WeightedAnalysisMap_", i, ".html"))
+}
+
+```
+
+
