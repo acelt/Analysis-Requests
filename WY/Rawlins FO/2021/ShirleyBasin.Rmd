@@ -1,0 +1,670 @@
+---
+title: "Shirley Basin Weighted Analysis"
+author: "Alex Traynor"
+date: "5/13/2021"
+output:
+  html_document:
+    df_print: paged
+    output: cosmo
+  pdf_document: default
+---
+## Description
+
+* Request initiated by Cheryl Newberry from Rawlins FO on 4/30/2021. Proportional area estimates requested for end of May in the Shirley Basin watershed.
+Benchmarks were provided by Cheryl and are consistent with the 'Great Divide' weighted analysis performed in 2018 and lower platte analysis in 2020.
+* Benchmark groups are based on crew observations of plant community types on the ground and are reflected in the SDD in the 'Actual Stratum' field.
+* Cheryl requested LMF points not be used for analysis as LMF crews do not identify these benchmark groups similarly
+* Analysis is focused on sage-grouse habitat and so only plots designated as Wyoming Sage, Saltbush, and Mountain Sage communtities will be used.
+* The analysis area also includes 6 paired plots located using a targeted design for the Pedro fire. These are located on Bureau of Reclamation land. These will be used in a point counting analysis alongside the weighted estimates.
+
+## Setup
+```{r setup, message=FALSE}
+
+.libPaths("C:/R-4.1.0/library")
+
+#devtools::install_git(url = "https://github.com/nstauffer/aim.analysis/", ref = "master")
+
+### Package Setup
+# Set local library path and load required packages
+library(aim.analysis)
+library(sp)
+library(dplyr)
+library(stringr)
+library(sf)
+library(rgdal)
+library(tidyverse)
+```
+
+### Set variables and input parameters
+
+```{r input variables, message=FALSE}
+#Alber's Equal Area is useful for calculating areas
+projection <- sp::CRS("+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs")
+#Analysis date
+date <- Sys.Date()
+# Confidence level in percent
+confidence <- 80
+output_path <- "C:\\Users\\alaurencetraynor\\Documents\\2021\\Analysis\\WY\\Rawlins Analysis 2021\\outputs"
+# Filename for benchmark tool from analysis requester
+benchmarks_filename <- "AIMTerrestrialBenchmarkTool v3.1 RFO 2021.xlsm"
+# Core filename for all outputs/ name of reporting unit
+output_filename <- "shirley_basin"
+# The variable in AIM sample designs that contains the unique identifier for each point
+aim_idvar <- "PLOT_NM"
+# The variable in AIM sample designs that contains the fate for each point
+aim_fatevar = "FINAL_DESIG"
+# The variable in TerrADat that contains the unique identifier for each point matching AIM designs'
+tdat_idvar <- "PlotID"
+# The fates in sample designs which correspond to sampled/observed
+observed_fates = c("TS", "Target Sampled", "Sampled")
+# The fates in sample designs which correspond to unneeded
+# (e.g. unused oversample or points designated for future sampling)
+invalid_fates = c("NN", NA, "Non Needed", "", "Not Sampled")
+#sdd points
+design_points_name <- "design_points_SpatialJoin"
+#terradat clipped points
+sampled_points_name <- "ilmocAIMPub_Clip_SpatialJoin"
+# The variable that contains the areas in HECTARES in wgtcats
+wgtcat_area_var = "area_hectares"
+# Reporting unit polygon/layer
+wgtcats_name <- "TerrestrialStratification_aea_clip"
+# Geodatabase containing all spatial files
+analysis_gdb <- "Rawlins Analysis 2021.gdb"
+# The unique ID for poststratification polygons
+# in this case only one design was used so this is just the stratum name
+wgtcats_var <- "DMNNT_STRTM"
+### The filepath to the folder where we have all the spatial data
+path_spatial <- "C:\\Users\\alaurencetraynor\\Documents\\2021\\Analysis\\WY\\Rawlins Analysis 2021"
+### The filepath to the folder where we have the Excel stuff
+path_tabular <- "C:\\Users\\alaurencetraynor\\Documents\\2021\\Analysis\\WY\\Rawlins Analysis 2021"
+#my favourite function
+`%notin%` <- Negate(`%in%`)
+#benchmark group var in design points
+benchmark_var <- "ACTL_STRTM_NM"
+#remove the burned paired plots from the pedro fire
+unused_plots <- c("PEDRO_1B","PEDRO_2B","PEDRO_3B", "PHMA-037")
+# targeted points we'll remove this before weighting but after benchmarking
+targeted_plots <- c("PEDRO_1A","PEDRO_2A","PEDRO_3A")
+```
+
+## Import Spatial and Tabular Data
+### Read in weight categories
+```{r read strata, message=FALSE, warning=FALSE}
+#### Strata polygons
+wgtcat_df <-sf::st_read(dsn = paste(path_spatial, analysis_gdb, sep = "/"),
+                        layer = wgtcats_name,
+                        stringsAsFactors = FALSE)
+## Standardize projection
+wgtcat_df <- sf::st_transform(wgtcat_df,
+                              crs = projection)
+
+## Make spatial 
+wgtcat_spdf <- methods::as(wgtcat_df, "Spatial")
+wgtcat_spdf@data[["wgtcat"]] <- wgtcat_spdf@data[[wgtcats_var]]
+sf::st_geometry(wgtcat_df) <- NULL
+
+wgtcat_df[["wgtcat"]] <- wgtcat_df[[wgtcats_var]]
+```
+### Read design points
+```{r read design points, message=FALSE, warning=FALSE}
+#### Read in design points
+# Make sure points and polygons do not include Z/M dimensions...
+design_points <- sf::st_read(dsn = paste(path_spatial, analysis_gdb, sep = "/"),
+                             layer = design_points_name,
+                             stringsAsFactors = FALSE)
+## Standardize projection
+design_points <- sf::st_transform(design_points,
+                                  crs = projection)
+## Make spatial 
+design_points <- methods::as(design_points, "Spatial")
+
+# Standardise columns
+design_points@data[["unique_id"]] <- design_points@data[[aim_idvar]]
+design_points@data[["fate"]] <- design_points@data[[aim_fatevar]]
+design_points@data[["wgtcat"]] <- design_points@data[[wgtcats_var]]
+design_points@data[["Benchmark.Group"]] <- design_points@data[[benchmark_var]]
+
+# filter points to only those in  WT/MTN sagebrush and saltbush actual stratum - not interested in others
+# I did not inlcude plots which had a mixture i.e. mountain/black sage and saltbush/greasewood
+
+# remove NAS first and refactor
+design_points <- design_points[!is.na(design_points$ACTL_STRTM_NM),]
+
+design_points <- design_points[design_points@data[["Benchmark.Group"]] == "Wyoming Sage" | design_points@data[["Benchmark.Group"]] == "Mountain Sage" | design_points@data[["Benchmark.Group"]] == "Saltbush",]
+
+# this will remove the lingering NAs
+design_points@data[["Benchmark.Group"]] <-  factor(design_points@data[["Benchmark.Group"]])
+```
+### Organise targeted points
+```{r targeted points, message=FALSE}
+# we also need a LUT table for the pedro fire points to get the correct benchmark group
+# they are also targeted points so need to be removed from the weighting - also only applying benchmarks to 1A, 2A and 3A as these are the unburned plots
+# from a email from cheryl we have: the unburned plots for the Pedros are 1A, 2A and 3A and all three are Wyoming  Sage.  
+unique_id <-  c("PEDRO_1A", "PEDRO_2A", "PEDRO_3A")
+Benchmark.Group <- c("Wyoming Sage","Wyoming Sage","Wyoming Sage")
+targeted_points <- design_points@data[1:3,]
+targeted_points$unique_id <- unique_id
+targeted_points$Benchmark.Group <- Benchmark.Group
+
+benchmark_group_lut <- rbind(design_points@data,targeted_points)[,c("unique_id", "Benchmark.Group")]
+```
+
+### Read benchmarks
+
+```{r read benchmarks, message=FALSE}
+#### Benchmarks
+# make sure all columns (including required proportions) are filled out - otherwise apply_benchamrks() will give errors
+benchmarks <- read_benchmarks(filename = benchmarks_filename,
+                              filepath = path_tabular)
+
+# Benchmark groups have suffix "sagebrush" which does not match actual stratum field 
+benchmarks$Benchmark.Group <- gsub("Sagebrush", "Sage", benchmarks$Benchmark.Group)
+
+benchmarks$Reporting.Unit <- output_filename
+```
+
+### Read Sampled points
+```{r sampled points, message=FALSE, warning=FALSE}
+#### Read in Terradat points
+# Make sure points and polygons do not include Z/M dimensions...
+sampled_points <- sf::st_read(dsn = paste(path_spatial, analysis_gdb, sep = "/"),
+                              layer = sampled_points_name,
+                              stringsAsFactors = FALSE)
+## Standardize projection
+sampled_points <- sf::st_transform(sampled_points,
+                                   crs = projection)
+## Make spatial 
+sampled_points <- methods::as(sampled_points, "Spatial")
+
+sampled_points@data[["fate"]] <- "TS"
+
+# Standardise columns
+sampled_points@data[["unique_id"]] <- sampled_points@data[[tdat_idvar]]
+sampled_points@data[["wgtcat"]] <- sampled_points@data[[wgtcats_var]]
+sampled_points@data[["wgtcat"]] <- as.character(sampled_points@data[["wgtcat"]])
+sampled_points@data$Reporting.Unit <- output_filename
+
+sampled_points <- sampled_points[sampled_points$unique_id %notin% unused_plots,]
+```
+
+## Apply Benchmarks
+```{r apply benchmarks, message=FALSE}
+### Add benchmark values
+
+# Apply benchmarks
+# this function is giving an error when trying to combine double and character variables in pivot longer
+# we should filter the sampled points from terradat to only the variable we have in the benchmarks/only numeric variables
+
+sampled_points_benchmarked <- apply_benchmarks(data = sampled_points,
+                                        idvars = c("unique_id","Reporting.Unit"),
+                                        benchmark_group_lut = benchmark_group_lut,
+                                        benchmarks = benchmarks,
+                                        verbose = TRUE,
+                                        tdat_version = "2")
+
+# this has duplicates in it
+sampled_points_benchmarked <- unique(sampled_points_benchmarked)
+sampled_points_benchmarked <- sampled_points_benchmarked[!is.na(sampled_points_benchmarked$indicator),]
+```
+
+### Point QC
+```{r point checks, message=FALSE}
+# Checking against the ratings confirms if all the rated plots are represented (important)
+# and if all the sampled_plots are rated (not important, but informative)
+if (!all(sampled_points_benchmarked[["unique_id"]] %in% sampled_points$unique_id)) {
+  sampled_points_benchmarked$unique_id[sampled_points_benchmarked[["unique_id"]] %notin% sampled_points$unique_id]
+  warning("NOT ALL RATED AIM PLOTS ARE PRESENT IN sampled_points!")
+} else (print("All rated AIM plots are present in sampled_points"))
+
+if (!all(sampled_points$unique_id %in% sampled_points_benchmarked[["unique_id"]])){
+  warning("NOT ALL SAMPLED AIM PLOTS ARE RATED!")
+} else(print("All sampled AIM plots have been rated"))
+
+# this is because we are only rating sagebrush and saltbush sites
+```
+## Filter sampled points
+```{r filter sampled points, message=FALSE}
+# filter sampled plots by those that were rated:
+# sampled_points <- sampled_points[sampled_points$unique_id %in% sampled_points_benchmarked[["Plot_ID"]], ] 
+
+# we also want to filter out the targeted plots here and plots not in sagebrush
+# there arent any rejected points so we can just filter using the benchmarked points
+sampled_points <- sampled_points[sampled_points$unique_id %in% sampled_points_benchmarked$unique_id,]
+
+### Replace all sampled points with their TerrADat counterparts
+all_points <- rbind(design_points[!(design_points$fate %in% observed_fates), c("unique_id", "fate", "wgtcat")], 
+                    sampled_points[, c("unique_id", "fate", "wgtcat")])
+
+```
+
+### Weighting
+```{r point weighting, message=FALSE, warning=FALSE}
+###### Analyze ######
+weight_info <- weight.gen(pts = all_points[all_points$unique_id %notin% targeted_plots,],# remove targeted plots
+                          pts.fatefield = "fate",
+                          pts.groupfield = "wgtcat",
+                          frame.spdf = wgtcat_spdf,
+                          frame.groupfield = "wgtcat",
+                          target.values = c("Target Sampled", "TARGET SAMPLED", "TS"),
+                          unknown.values = c("Unknown", "UNKNOWN", "UNK"),
+                          nontarget.values = c("NT"),
+                          inaccessible.values = c("IA"),
+                          unneeded.values = invalid_fates)
+
+point_weights <-  weight_info[["point.weights"]]
+
+all_points <-  aim.analysis::add_coords(all_points,
+                                        xynames = c("x", "y"))
+
+benchmarked_points <- merge(x = all_points@data[all_points@data$unique_id %notin% targeted_plots,],
+                            y = sampled_points_benchmarked,
+                            all.x = TRUE,
+                            all.y = FALSE)
+
+# remove the unsamplEd plots
+
+benchmarked_points <- benchmarked_points[!is.na(benchmarked_points$indicator),]
+all_points[["Reporting.Unit"]] <- output_filename
+weight_info[["point.weights"]][["Reporting.Unit"]] <- output_filename
+```
+## Category Definitions
+```{r prep for analyze, message=FALSE}
+# a definitions list for analyze_cat_multi()
+# this is just a list of all the possible condition categorys
+cat_defs <-  benchmarks[,c("Benchmark.Group", "Indicator", "Condition.Category")]
+
+ind_lut <- indicator.lookup()
+cat_defs <-  merge(x = cat_defs,
+                   y = ind_lut,
+                   by.x = "Indicator",
+                   by.y = "indicator.name",
+                   all.x = TRUE,
+                   all.y = FALSE)
+
+colnames(cat_defs) <- c("indicator.alias", "Benchmark.Group","Condition.Category", "indicator")
+cat_defs <- unique(cat_defs)
+```
+
+### Analyse
+
+```{r analyze, message=FALSE}
+# need to add reporting unit name to analyse
+point_weights$Reporting.Unit <- output_filename
+
+analysis <- analyze(benchmarked_points,
+  point_weights,
+  id_var = "unique_id",
+  indicator_var = "indicator",
+  value_var = "Condition.Category",
+  weight_var = "WGT",
+  x_var = "x",
+  y_var = "y",
+  reporting_var = "Reporting.Unit",
+  split_var = NULL,
+  conf = 80)
+
+### Formatting Outputs
+analysis <- analysis[, c("Subpopulation",
+                         "Indicator",
+                         "Category",
+                         "NResp",
+                         "Estimate.P",
+                         "Estimate.U")]
+
+analysis <- analysis[analysis$Category!="Total",]
+# there is a strange row here
+analysis <- analysis[analysis$Category != "Uknown/Irrelevant",]
+
+# Fill in missing categories
+analysis <- merge(x= analysis,
+                  y= cat_defs,
+                  by.x = c("Indicator", "Category"),
+                  by.y = c("indicator", "Condition.Category"),
+                  all.y = TRUE)
+
+# add in zeros
+analysis$NResp[is.na(analysis$NResp)] <-  0
+analysis$Estimate.P[is.na(analysis$Estimate.P)] <-  0
+analysis$Estimate.U[is.na(analysis$Estimate.U)] <-  0
+
+analysis$Subpopulation <- output_filename
+
+# remove the duplicates
+analysis <-  analysis[analysis$Benchmark.Group == unique(analysis$Benchmark.Group)[1],]
+
+analysis <- analysis[, c("Subpopulation",
+                         "Indicator",
+                         "Category",
+                         "NResp",
+                         "Estimate.P",
+                         "Estimate.U")]
+```
+
+### Confidence Intervals
+```{r confidence intervals, message=FALSE}
+# adjusted counts = sum of all plots within each indicator  * estimated proportion
+# adjusted count for a category = total observations * sum of weights of observations in the category / sum of all weights.
+
+adjusted_counts <- lapply(X = split(analysis, analysis$Indicator), function(X){
+  total_observations <- sum(X$NResp)
+  X$weighted_observations <- (X$Estimate.P/100) * total_observations
+  cis <- goodman_cis(counts = X$weighted_observations)
+  return(cis)
+  })
+
+adjusted_counts <- do.call("rbind", adjusted_counts)
+
+adjusted_counts$Category <- analysis$Category
+adjusted_counts$Indicator <- analysis$Indicator
+
+analysis <- merge(x = analysis,
+                  y = adjusted_counts[, c("lower_bound", "upper_bound","Category","Indicator")],
+                  by = c("Category","Indicator"))
+
+analysis[["lower_bound"]] <- analysis[["lower_bound"]] * 100
+analysis[["upper_bound"]] <- analysis[["upper_bound"]] * 100
+
+# Calculate the hectares using the Goodman binomial confidence intervals from percentage
+total_hectares <- analysis[["Estimate.U"]]/(analysis[["Estimate.P"]]/100)
+  
+analysis[[paste0("LCB", confidence, "Pct.U.Goodman")]] <- analysis[["lower_bound"]] / 100 * total_hectares
+analysis[[paste0("UCB", confidence, "Pct.U.Goodman")]] <- analysis[["upper_bound"]] / 100 * total_hectares
+
+names(analysis) <- c("Rating",
+                     "Indicator",
+                     "Reporting Unit",
+                     "Number of plots",
+                     "Estimated percent of sampled area",
+                     "Estimated hectares",
+                     paste0(c("Lower confidence bound of percent area (", "Upper confidence bound of percent area ("), confidence, "%, Goodman multinomial) "),
+                     paste0(c("Lower confidence bound of hectares (", "Upper confidence bound of hectares ("), confidence, "%, Goodman multinomial) "))
+
+```
+
+## Formatting Outputs
+```{r formatting outputs, message=FALSE}
+wgtcat_summary <- weight_info[["frame.summary"]]
+names(wgtcat_summary) <- c("wgtcat",
+                           "total_count",
+                           "count_Target Sampled",
+                           "count_NT",
+                           "count_IA",
+                           "count_NA",
+                           "count_UNK",
+                           "area_ha",
+                           "observed_proportion",
+                           "observed_area",
+                           "weight")
+
+fates <- c("NT","IA","NA","UNK")
+
+for (fate in fates) {
+  wgtcat_summary[[paste0("count_", fate)]][is.na(wgtcat_summary[[paste0("count_", fate)]])] <- 0
+}
+
+wgtcat_summary[["in_inference"]] <- (wgtcat_summary[["weight"]])>0
+
+wgtcat_summary$area_units <- "hectares"
+
+wgtcat_summary$unobserved_area <- wgtcat_summary$area_ha - wgtcat_summary$observed_area
+
+# Add in where they're from
+all_points <- sp::merge(x = all_points,
+                        y = point_weights[,c("unique_id","WGT")],
+                        all.x = TRUE,
+                        by = "unique_id")
+
+# reformat benchmark_points to wide format
+benchmarked_points_wide <- sampled_points_benchmarked %>% select(-c(Reporting.Unit)) %>%
+  pivot_wider(names_from = "indicator", values_from = "Condition.Category")
+
+all_points <- sp::merge(x = all_points,
+                        y = benchmarked_points_wide,
+                        by = "unique_id",
+                        all.x = TRUE)
+
+wgtcat_spdf <- merge(x = wgtcat_spdf,
+                     y = wgtcat_summary,
+                     by = "wgtcat")
+
+# Rounding numbers for clarity
+wgtcat_spdf@data[,is.numeric(wgtcat_spdf@data)] <- round(is.numeric(wgtcat_spdf@data), 2)
+
+# ADD PRETTY IND NAMES
+analysis_final <- merge(x = analysis,
+                       y = ind_lut,
+                       by.x = "Indicator",
+                       by.y = "indicator.tdat",
+                       all.y = FALSE)
+
+analysis_final$Indicator <- analysis_final$indicator.name
+
+analysis_final <- analysis_final[,1:10]
+```
+## Writing Outputs
+```{r writing outputs, message=FALSE, warning=FALSE}
+write.csv(point_weights,
+          file = paste0(output_path, "/",
+                        output_filename,
+                        "_pointweights_",
+                        date, ".csv"),
+          row.names = FALSE)
+write.csv(wgtcat_summary,
+          file = paste0(output_path, "/",
+                        output_filename,
+                        "_wgtcatsummary_",
+                        date, ".csv"),
+          row.names = FALSE)
+write.csv(analysis_final,
+          file = paste0(output_path, "/",
+                        output_filename,
+                        "_analysis_",
+                        date, ".csv"),
+          row.names = FALSE)
+rgdal::writeOGR(all_points,
+                dsn = output_path,
+                layer = paste0(output_filename,
+                               "_points_",
+                               date),
+                driver = "ESRI Shapefile",
+                overwrite_layer = TRUE)
+
+rgdal::writeOGR(wgtcat_spdf,
+                dsn = output_path,
+                layer = paste0(output_filename,
+                               "_wgtcats_",
+                               date),
+                driver = "ESRI Shapefile",
+                overwrite_layer = TRUE)
+```
+## Results
+### Benchmarks
+```{r, message=FALSE}
+benchmarks_table <- benchmarks %>% DT::datatable(extensions = 'Buttons', filter = "top" , 
+                            options = list(scrollX = TRUE ,
+                            dom = 'Bfrtip',
+                            buttons =
+                            list(list(
+                            extend = 'collection',
+                            buttons = c('csv', 'excel'),
+                            text = 'Download Table'))) , 
+                 caption = paste("Weighted Analysis Benchmarks for " , 
+                                 toString(output_filename)) , 
+                 rownames = FALSE)
+benchmarks_table
+```
+
+### Point Weights
+```{r, message=FALSE}
+weights_table <- point_weights %>% DT::datatable(extensions = 'Buttons', filter = "top" , 
+                            options = list(scrollX = TRUE ,
+                            dom = 'Bfrtip',
+                            buttons =
+                            list(list(
+                            extend = 'collection',
+                            buttons = c('csv', 'excel'),
+                            text = 'Download Table'))) , 
+                 caption = paste("Point Weights for " , 
+                                 toString(output_filename)) , 
+                 rownames = FALSE)
+weights_table
+```
+
+### Figures
+#### Indicator Histograms
+```{r, fig.width= 12, fig.height=8, message=FALSE, warning=FALSE}
+library(ggplot2)
+library(plotly)
+# theme_excel_new
+
+# Fancy palette from Nelson
+
+palette = c("#f5bb57ff",
+                                            "#f8674cff",
+                                            "#4a8b9fff",
+                                            "#685b7fff",
+                                            "#c95294ff",
+                                            "#f5a9c6ff",
+                                            "#75c6c5ff",
+                                            "#fd6794ff")
+
+# Histograms
+# grab the benchmark groups too
+hist_indicators <- c("unique_id", "Benchmark.Group",unique(analysis$Indicator))
+
+sampled_points_join <- merge(x = sampled_points@data,
+                             y = design_points@data,
+                             by = "unique_id")
+
+# subset to only thr indicators wre interested in
+hist_data <- sampled_points_join[,colnames(sampled_points_join) %in% hist_indicators]
+
+# gather data
+hist_data <-  pivot_longer(hist_data, cols = 2:9, names_to = "Indicator", values_to = "Value")
+
+# add pretty names
+hist_data <- merge(x = hist_data,
+                       y = ind_lut,
+                       by.x = "Indicator",
+                       by.y = "indicator.tdat",
+                       all.y = FALSE)
+
+hist_data$Indicator <- hist_data$indicator.name
+
+hist_data <- hist_data[,1:4]
+
+# plot by indicator and fill by group
+# creating a list of individual plots
+hist_plots <- lapply(X = split(hist_data, hist_data$Indicator), function(X){
+  ggplot(data = X,
+         aes(x = Value, fill = Benchmark.Group))+
+    geom_histogram(position = "dodge", binwidth = 5)+
+    labs(x = X$Indicator[1])+
+    theme_minimal()+
+    scale_fill_manual(values = palette[c(1,4)])+
+    coord_cartesian(xlim= c(0,100))
+})
+library(lemon)
+# the same using facet
+p <- ggplot(data = hist_data,
+         aes(x = Value, fill = Benchmark.Group))+
+    geom_histogram(position = "dodge", binwidth = 5)+
+    labs(x = paste(hist_data$Indicator[1]))+
+    theme_minimal(base_size = 12)+
+    scale_fill_manual(values = palette[c(1,4)])+
+    coord_cartesian(xlim= c(0,100))+
+  facet_rep_wrap(.~Indicator, repeat.tick.labels = TRUE)+
+  scale_x_continuous(breaks = c(seq(from = 0, by = 10, to = 100)))
+
+ggplotly(p)
+
+ggsave(plot = p, device = "jpeg", dpi = 400, width = 17, filename = paste0("histogram_", output_filename, ".jpeg"), path = output_path)
+```
+
+#### Proportional Estimates Tables
+```{r, fig.width= 12, fig.height=8, message=FALSE}
+# use dt table to present analysis and wgtcat summary
+library(DT)
+
+# round numeric
+analysis <- analysis %>%
+  mutate_if(is.numeric, round, 2)
+
+analysis_table <- analysis %>%
+  DT::datatable(extensions = 'Buttons', filter = "top" , 
+                            options = list(scrollX = TRUE ,
+                            dom = 'Bfrtip',
+                            buttons =
+                            list(list(
+                            extend = 'collection',
+                            buttons = c('csv', 'excel'),
+                            text = 'Download Table'))) , 
+                 caption = paste("Weighted Analysis Results in " , 
+                                 toString(output_filename)) , 
+                 rownames = FALSE)
+
+analysis_table
+
+```
+
+#### Weight Category Summaries
+```{r, fig.width= 12, fig.height=8, message=FALSE, warning=FALSE}
+wgtcat_table <- wgtcat_summary %>%
+  DT::datatable(extensions = 'Buttons', filter = "top" , 
+                            options = list(scrollX = TRUE ,
+                            dom = 'Bfrtip',
+                            buttons =
+                            list(list(
+                            extend = 'collection',
+                            buttons = c('csv', 'excel'),
+                            text = 'Download Table'))) , 
+                 caption = paste("Weight Category Summary in  " , 
+                                 toString(output_filename)) , 
+                 rownames = FALSE)
+wgtcat_table
+```
+
+#### Plotting weighted analysis results
+```{r, fig.width=12, fig.height=8, message=FALSE}
+# reorder factors
+library(scales)
+
+analysis_final$Rating <- as.factor(analysis_final$Rating)
+
+levels(analysis_final$Rating)
+
+analysis_final$Rating <- factor(analysis_final$Rating,levels(factor(analysis_final$Rating))[c(2,3,4,1,5)])
+
+g <- ggplot(data = analysis_final,
+                aes(y = `Estimated hectares`,
+                             x = Rating, fill = Rating)) +
+  geom_col(alpha = 0.6, position = "dodge") +
+  geom_errorbar(aes(ymin = `Lower confidence bound of hectares (80%, Goodman multinomial) `,
+                                      ymax = `Upper confidence bound of hectares (80%, Goodman multinomial) `),
+                         width = 0.5)+
+  facet_wrap(.~Indicator, scales = "free")+
+  coord_flip()+
+  theme_minimal()+
+  labs(x = "")+
+  scale_fill_manual(values = palette)+
+  scale_y_continuous(label = comma)+
+  theme(panel.spacing.y = unit(2,"lines"))
+
+ggplotly(g)
+
+ggsave(plot = g, device = "jpeg", dpi = 400, width = 17, filename = paste0("analysis_", output_filename, ".jpeg"), path = output_path)
+```
+## Landcart Analysis
+```{r landcart raster analysis, echo = FALSE}
+# import into R
+
+# reclassify to benchmarks
+
+# classify based on land cover type? NLCD?
+
+# count pixels / calculate proportion in each benchmark category
+
+
+```
+
+
